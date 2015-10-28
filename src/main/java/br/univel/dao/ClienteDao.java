@@ -1,6 +1,6 @@
 package br.univel.dao;
 
-public class ClienteDAO {
+public class ClienteDao {
 	
 	
 	

@@ -27,5 +27,8 @@ public class ProdutoContoller extends Produto {
 	}
 
 	
+	public void editar(){
+		
+	}
 	
 }

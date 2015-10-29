@@ -61,8 +61,7 @@ public class ProdutoDao {
 
 			produto.setDescricao(rs.getString("descricao"));
 
-			
-			consulta.add(produto);			
+			consulta.add(produto);
 		}
 		return consulta;
 
@@ -97,4 +96,30 @@ public class ProdutoDao {
 
 	}
 
+	public Produto deletar(int id){
+		
+		con = Conexao.getConnection();
+		
+	
+		try {
+			PreparedStatement stmt;
+			stmt = con.prepareStatement("DELETE FROM PRODUTO WHERE ID = ?");
+			
+			stmt.setInt(1, id);
+			int rs = stmt.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Produto apagado com sucesso!!!");
+			
+		
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "ERRO: Problemas ao apagar produto!!!");
+			e.printStackTrace();
+		}
+		
+				
+		return null;
+		
+		
+		
+				
+	}
 }

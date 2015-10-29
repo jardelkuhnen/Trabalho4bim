@@ -6,21 +6,28 @@ import br.univel.enun.Uf;
 public class Cliente {
 
 	private int id;
+	private String nome;
 	private String endereco;
 	private String cidade;
 	private Uf estado;
-	private String Email;
+	private String email;
 	private Genero genero;
 
-	public Cliente(int id, String endereco, String cidade, Uf estado,
-			String email, Genero genero) {
-		super();
+	public Cliente() {
 		this.id = id;
 		this.endereco = endereco;
 		this.cidade = cidade;
 		this.estado = estado;
-		Email = email;
+		this.email = email;
 		this.genero = genero;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public int getId() {

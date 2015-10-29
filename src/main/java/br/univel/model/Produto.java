@@ -2,6 +2,8 @@ package br.univel.model;
 
 import java.math.BigDecimal;
 
+import br.univel.enun.Unidade;
+
 public class Produto {
 
 	private int id;
@@ -13,7 +15,6 @@ public class Produto {
 	private BigDecimal margemLucro;
 
 	public Produto() {
-		super();
 		this.id = id;
 		this.codBarras = codBarras;
 		this.categoria = categoria;

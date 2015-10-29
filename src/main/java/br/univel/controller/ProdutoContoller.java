@@ -2,7 +2,7 @@ package br.univel.controller;
 
 import java.math.BigDecimal;
 
-import br.univel.model.Unidade;
+import br.univel.enun.Unidade;
 import br.univel.model.Produto;
 
 
@@ -13,7 +13,7 @@ public class ProdutoContoller {
 
 		ProdutoContoller pp = new ProdutoContoller();
 		
-		
+				
 		
 		
 	}

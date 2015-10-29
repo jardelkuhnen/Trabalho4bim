@@ -1,5 +1,8 @@
 package br.univel.model;
 
+import br.univel.enun.Genero;
+import br.univel.enun.Uf;
+
 public class Cliente {
 
 	private int id;

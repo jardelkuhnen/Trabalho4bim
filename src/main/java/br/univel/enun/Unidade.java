@@ -1,4 +1,4 @@
-package br.univel.model;
+package br.univel.enun;
 
 public enum Unidade {
 

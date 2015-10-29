@@ -46,31 +46,27 @@ public class ProdutoDao {
 
 	}
 
-	// public List<Produto> listarProdutos() throws SQLException {
-	//
-	// String sql = "Select * from Produto";
-	// List<Produto> consulta = new ArrayList<Produto>();
-	//
-	// con = Conexao.getConnection();
-	//
-	// PreparedStatement pp = con.prepareStatement(sql);
-	// ResultSet rs = pp.executeQuery();
-	//
-	// while (rs.next()) {
-	// Produto produto = new Produto();
-	//
-	// produto.setId(rs.getInt("id"));
-	// produto.setCodBarras(rs.getInt("codBarras"));
-	// produto.setCategoria(rs.getString("categoria"));
-	// produto.setDescricao(rs.getString("descricao"));
-	// produto.setUnidade(rs.getString("unidade"));
-	// produto.setCusto(rs.getBigDecimal("lucro"));
-	// produto.setMargemLucro(rs.getBigDecimal("margemLucro"));
-	//
-	// }
-	// return null;
-	//
-	// }
+	public List<Produto> listarProdutos() throws SQLException {
+
+		String sql = "Select descricao from Produto";
+		List<Produto> consulta = new ArrayList<Produto>();
+
+		con = Conexao.getConnection();
+
+		PreparedStatement pp = con.prepareStatement(sql);
+		ResultSet rs = pp.executeQuery();
+
+		while (rs.next()) {
+			Produto produto = new Produto();
+
+			produto.setDescricao(rs.getString("descricao"));
+
+			
+			consulta.add(produto);			
+		}
+		return consulta;
+
+	}
 
 	public void editar(int id, int codBarras, String categoria,
 			String descricao, Unidade unidade, BigDecimal lucro,

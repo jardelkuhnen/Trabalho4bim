@@ -38,8 +38,14 @@ public class ProdutoContoller extends Produto {
 		p.setCusto(custo);
 		p.setMargemLucro(margemLucro);
 
-		
-		new ProdutoDao().editar(id, codBarras, categoria, descricao, unidade, custo, margemLucro);
+		new ProdutoDao().editar(id, codBarras, categoria, descricao, unidade,
+				custo, margemLucro);
+
+	}
+
+	public void deletar(int id) {
+
+		Produto pp = new ProdutoDao().deletar(id);
 		
 	}
 

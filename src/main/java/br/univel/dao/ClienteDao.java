@@ -6,8 +6,6 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import br.univel.enun.Genero;
-import br.univel.enun.Uf;
 import br.univel.model.Cliente;
 
 public class ClienteDao {

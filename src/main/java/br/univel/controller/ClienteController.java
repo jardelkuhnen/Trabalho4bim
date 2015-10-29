@@ -25,5 +25,15 @@ public class ClienteController extends Cliente {
 		new ClienteDao().inserir(cc);
 		
 	}
+	
+	
+	public void editar(int id, String nome, String endereco, String cidade,
+			Uf estado, String email, Genero genero){
+		
+		
+
+		Cliente c = new Cliente();
+		//Continua...
+	}
 
 }

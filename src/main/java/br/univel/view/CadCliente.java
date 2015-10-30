@@ -240,11 +240,14 @@ public class CadCliente extends JFrame {
 
 					ClienteController cc = new ClienteController();
 
-//					 cc.salvar(txtId.getText().trim(),
-//					 txtNome.getText().trim(),
-//					 txtEndereco.getText().trim(), txtCidade.getText()
-//					 .trim(),
-//					 txtEmail.getText().trim());
+					Uf estado = (Uf) cbEstado.getSelectedItem();
+
+					cc.salvar(Integer.parseInt(txtId.getText().trim()), txtNome
+							.getText().trim(), txtEndereco.getText().trim(),
+							txtCidade.getText().trim(), estado, txtEmail
+									.getText().trim());
+
+					limparCampos();
 
 				}
 
@@ -264,6 +267,15 @@ public class CadCliente extends JFrame {
 		cadCliente.add(btnSalvar, gbc_btnSalvar);
 	}
 
+	void limparCampos() {
+		txtId.setText("");
+		txtNome.setText("");
+		txtTelefone.setText("");
+		txtEndereco.setText("");
+		txtCidade.setText("");
+
+	}
+
 	boolean validaCampos() {
 		boolean valida;
 		if (txtId.getText().equals("")) {
@@ -274,8 +286,5 @@ public class CadCliente extends JFrame {
 		return valida;
 
 	}
-	
-	
 
-	
 }

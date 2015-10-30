@@ -1,6 +1,5 @@
 package br.univel.dao;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,19 +10,19 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import br.univel.enun.Uf;
-import br.univel.enun.Unidade;
 import br.univel.model.Cliente;
-import br.univel.model.Produto;
 
 public class ClienteDao {
 
 	Connection con;
 
+	// insere todos os atributos de cliente na tavela cliente do banco, caso
+	// haja erro é apresentado uma mensagem de erro
 	public void inserir(Cliente c) {
 
 		con = Conexao.getConnection();
 
-		String sql = "INSERT INTO PRODUTO (ID, NOME, CIDADE, ESTADO, EMAIL, GENERO) VALUES (?,?,?,?,?,?)";
+		String sql = "INSERT INTO CLIENTE (ID, NOME, CIDADE, ESTADO, EMAIL) VALUES (?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt;
@@ -33,7 +32,6 @@ public class ClienteDao {
 			stmt.setString(3, c.getCidade());
 			stmt.setString(4, c.getEstado().toString());
 			stmt.setString(5, c.getEmail());
-			stmt.setString(6, c.getGenero().toString());
 
 			stmt.execute();
 			stmt.close();
@@ -46,8 +44,7 @@ public class ClienteDao {
 		}
 
 	}
-	
-	
+
 	public List<Cliente> listarClientes() throws SQLException {
 
 		String sql = "Select nome from Cliente";
@@ -68,10 +65,9 @@ public class ClienteDao {
 		return consulta;
 
 	}
-	
-	public void editar(int id, String nome, String endereco,
-			String cidade, Uf estado, String email) {
-		Cliente cliente = new Cliente();
+
+	public void editar(int id, String nome, String endereco, String cidade,
+			Uf estado, String email) {
 		con = Conexao.getConnection();
 
 		String sql = "UPDATE CLIENTE SET NOME = ?, ENDERECO = ?,"
@@ -94,6 +90,28 @@ public class ClienteDao {
 			JOptionPane.showMessageDialog(null, "Erro ao editar cliente !!!");
 			e.printStackTrace();
 		}
+
+	}
+
+	public Cliente deletar(int id) {
+
+		con = Conexao.getConnection();
+
+		try {
+			PreparedStatement stmt;
+			stmt = con.prepareStatement("DELETE FROM CLIENTE WHERE ID = ?");
+
+			stmt.setInt(1, id);
+			JOptionPane.showMessageDialog(null,
+					"Cliente apagado com sucesso!!!");
+
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,
+					"ERRO: Problemas ao apagar cliente!!!");
+			e.printStackTrace();
+		}
+
+		return null;
 
 	}
 

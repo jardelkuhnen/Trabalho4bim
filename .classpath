@@ -32,5 +32,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/LINX017678/Downloads/h2-2015-10-11/h2/bin/h2-1.4.190.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

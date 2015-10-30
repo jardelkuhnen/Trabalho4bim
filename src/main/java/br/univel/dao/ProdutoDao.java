@@ -70,7 +70,6 @@ public class ProdutoDao {
 	public void editar(int id, int codBarras, String categoria,
 			String descricao, Unidade unidade, BigDecimal lucro,
 			BigDecimal margemLucro) {
-		Produto produto = new Produto();
 		con = Conexao.getConnection();
 
 		String sql = "UPDATE PRODUTO SET ID = ?, codBarras = ?, CATEGORIA = ?, DESCRICAO = ?, UNIDADE = ?, LUCRO = ?, MARGEMLUCRO = ? where id = ?";
@@ -96,30 +95,25 @@ public class ProdutoDao {
 
 	}
 
-	public Produto deletar(int id){
-		
+	public Produto deletar(int id) {
+
 		con = Conexao.getConnection();
-		
-	
+
 		try {
 			PreparedStatement stmt;
 			stmt = con.prepareStatement("DELETE FROM PRODUTO WHERE ID = ?");
-			
+
 			stmt.setInt(1, id);
-			int rs = stmt.executeUpdate();
-			JOptionPane.showMessageDialog(null, "Produto apagado com sucesso!!!");
-			
-		
+			JOptionPane.showMessageDialog(null,
+					"Produto apagado com sucesso!!!");
+
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "ERRO: Problemas ao apagar produto!!!");
+			JOptionPane.showMessageDialog(null,
+					"ERRO: Problemas ao apagar produto!!!");
 			e.printStackTrace();
 		}
-		
-				
+
 		return null;
-		
-		
-		
-				
+
 	}
 }

@@ -21,10 +21,15 @@ import java.awt.Font;
 import javax.swing.JButton;
 
 import br.univel.controller.ClienteController;
+import br.univel.dao.ClienteDao;
+import br.univel.enun.Uf;
+import br.univel.model.Cliente;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
@@ -38,6 +43,7 @@ public class CadCliente extends JFrame {
 	private JTextField txtEndereco;
 	private JTextField txtCidade;
 	private JTextField txtEmail;
+	private JComboBox cbEstado;
 
 	/**
 	 * Launch the application.
@@ -191,7 +197,11 @@ public class CadCliente extends JFrame {
 		gbc_lblEstado.gridy = 8;
 		cadCliente.add(lblEstado, gbc_lblEstado);
 
-		final JComboBox cbEstado = new JComboBox();
+		cbEstado = new JComboBox(Uf.values());
+		cbEstado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		GridBagConstraints gbc_cbEstado = new GridBagConstraints();
 		gbc_cbEstado.gridwidth = 4;
 		gbc_cbEstado.insets = new Insets(0, 0, 5, 5);
@@ -230,11 +240,11 @@ public class CadCliente extends JFrame {
 
 					ClienteController cc = new ClienteController();
 
-					// cc.salvar(txtId.getText().trim(),
-					// txtNome.getText().trim(),
-					// txtEndereco.getText().trim(), txtCidade.getText()
-					// .trim(),cbEstado.toString().trim(),
-					// txtEmail.getText().trim());
+//					 cc.salvar(txtId.getText().trim(),
+//					 txtNome.getText().trim(),
+//					 txtEndereco.getText().trim(), txtCidade.getText()
+//					 .trim(),
+//					 txtEmail.getText().trim());
 
 				}
 
@@ -264,5 +274,8 @@ public class CadCliente extends JFrame {
 		return valida;
 
 	}
+	
+	
 
+	
 }

@@ -11,7 +11,6 @@ public class Cliente {
 	private String cidade;
 	private Uf estado;
 	private String email;
-	private Genero genero;
 
 	public Cliente() {
 		this.id = id;
@@ -19,7 +18,6 @@ public class Cliente {
 		this.cidade = cidade;
 		this.estado = estado;
 		this.email = email;
-		this.genero = genero;
 	}
 
 	public String getNome() {
@@ -63,19 +61,11 @@ public class Cliente {
 	}
 
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 
 	public void setEmail(String email) {
-		Email = email;
-	}
-
-	public Genero getGenero() {
-		return genero;
-	}
-
-	public void setGenero(Genero genero) {
-		this.genero = genero;
+		email = email;
 	}
 
 }

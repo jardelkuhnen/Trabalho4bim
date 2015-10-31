@@ -9,3 +9,15 @@ estado char(2),
 email varchar(100));
 -----------------------------
 
+Criar tabela produto:
+
+CREATE TABLE Produto
+(id int,
+codBarras int,
+descricao varchar(100),
+genero varchar(30),
+unidade varchar(30),
+custo bigint,
+margemLucro bigint);
+-----------------------------
+

@@ -87,6 +87,21 @@ public class Principal extends JFrame {
 			}
 		});
 		mnCadastros.add(mntmProduto);
+		
+		JMenu mnVenda = new JMenu("Lan\u00E7amentos");
+		menuBar.add(mnVenda);
+		
+		JMenuItem mntmVenda = new JMenuItem("Venda");
+		mntmVenda.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Venda TVenda = new Venda();
+				TVenda.setVisible(true);
+				TVenda.setLocationRelativeTo(null);
+				
+			}
+		});
+		mnVenda.add(mntmVenda);
 
 		JMenu mnRelatrios = new JMenu("Relat\u00F3rios");
 		menuBar.add(mnRelatrios);

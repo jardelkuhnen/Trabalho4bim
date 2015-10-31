@@ -39,8 +39,8 @@ public class ClienteController extends Cliente {
 	}
 
 	public void deletar(int id) {
-
-		Cliente p = new ClienteDao().deletar(id);
+		ClienteDao cd = new ClienteDao();
+		cd.deletar(id);
 	}
 
 }

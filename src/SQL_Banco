@@ -1,0 +1,11 @@
+Criar tabela cliente:
+
+CREATE TABLE Cliente
+(id int,
+nome varchar(100),
+endereco varchar(100),
+cidade varchar(100),
+estado char(2),
+email varchar(100));
+-----------------------------
+

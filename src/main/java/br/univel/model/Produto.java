@@ -2,27 +2,18 @@ package br.univel.model;
 
 import java.math.BigDecimal;
 
+import br.univel.enun.Genero;
 import br.univel.enun.Unidade;
 
 public class Produto {
 
 	private int id;
 	private int codBarras;
-	private String categoria;
 	private String descricao;
+	private Genero genero;
 	private Unidade unidade;
 	private BigDecimal custo;
 	private BigDecimal margemLucro;
-
-	public Produto() {
-		this.id = id;
-		this.codBarras = codBarras;
-		this.categoria = categoria;
-		this.descricao = descricao;
-		unidade = unidade;
-		this.custo = custo;
-		this.margemLucro = margemLucro;
-	}
 
 	public int getId() {
 		return id;
@@ -40,12 +31,12 @@ public class Produto {
 		this.codBarras = codBarras;
 	}
 
-	public String getCategoria() {
-		return categoria;
+	public Genero getGenero() {
+		return genero;
 	}
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
+	public void setGenero(Genero genero) {
+		this.genero = genero;
 	}
 
 	public String getDescricao() {

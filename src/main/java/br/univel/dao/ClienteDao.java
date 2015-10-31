@@ -22,16 +22,17 @@ public class ClienteDao {
 
 		con = Conexao.getConnection();
 
-		String sql = "INSERT INTO CLIENTE (ID, NOME, CIDADE, ESTADO, EMAIL) VALUES (?,?,?,?,?)";
+		String sql = "INSERT INTO CLIENTE (ID, NOME,ENDERECO, CIDADE, ESTADO, EMAIL) VALUES (?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt;
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, c.getId());
 			stmt.setString(2, c.getNome());
-			stmt.setString(3, c.getCidade());
-			stmt.setString(4, c.getEstado().toString());
-			stmt.setString(5, c.getEmail());
+			stmt.setString(3, c.getEndereco());
+			stmt.setString(4, c.getCidade());
+			stmt.setString(5, c.getEstado().toString());
+			stmt.setString(6, c.getEmail());
 
 			stmt.execute();
 			stmt.close();
@@ -40,6 +41,7 @@ public class ClienteDao {
 					"Cliente cadastrado com sucesso!!!");
 
 		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "ERRO: Problemas ao salvar cliente!!!");
 			e.printStackTrace();
 		}
 
@@ -100,7 +102,7 @@ public class ClienteDao {
 		try {
 			PreparedStatement stmt;
 			stmt = con.prepareStatement("DELETE FROM CLIENTE WHERE ID = ?");
-
+			int rs = stmt.executeUpdate();
 			stmt.setInt(1, id);
 			JOptionPane.showMessageDialog(null,
 					"Cliente apagado com sucesso!!!");

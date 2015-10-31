@@ -21,15 +21,10 @@ import java.awt.Font;
 import javax.swing.JButton;
 
 import br.univel.controller.ClienteController;
-import br.univel.dao.ClienteDao;
 import br.univel.enun.Uf;
-import br.univel.model.Cliente;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.sql.SQLException;
-import java.util.Iterator;
-import java.util.List;
 
 import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
@@ -80,20 +75,19 @@ public class CadCliente extends JFrame {
 		cadCliente.setBackground(UIManager.getColor("Button.light"));
 		contentPane.add(cadCliente, BorderLayout.CENTER);
 		GridBagLayout gbl_cadCliente = new GridBagLayout();
-		gbl_cadCliente.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 86 };
+		gbl_cadCliente.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 86 };
 		gbl_cadCliente.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 				0, 0, 0 };
 		gbl_cadCliente.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0,
-				0.0, 0.0, Double.MIN_VALUE };
+				0.0, 0.0, 0.0, Double.MIN_VALUE };
 		gbl_cadCliente.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		cadCliente.setLayout(gbl_cadCliente);
 
 		JLabel lblCadasroDeCliente = new JLabel("Cadasro de Cliente");
-		lblCadasroDeCliente.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC,
-				16));
+		lblCadasroDeCliente.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		GridBagConstraints gbc_lblCadasroDeCliente = new GridBagConstraints();
-		gbc_lblCadasroDeCliente.gridwidth = 11;
+		gbc_lblCadasroDeCliente.gridwidth = 12;
 		gbc_lblCadasroDeCliente.insets = new Insets(0, 0, 5, 0);
 		gbc_lblCadasroDeCliente.gridx = 0;
 		gbc_lblCadasroDeCliente.gridy = 1;
@@ -109,7 +103,7 @@ public class CadCliente extends JFrame {
 
 		txtId = new JTextField();
 		GridBagConstraints gbc_txtId = new GridBagConstraints();
-		gbc_txtId.gridwidth = 3;
+		gbc_txtId.gridwidth = 4;
 		gbc_txtId.insets = new Insets(0, 0, 5, 5);
 		gbc_txtId.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtId.gridx = 2;
@@ -128,7 +122,7 @@ public class CadCliente extends JFrame {
 		txtNome = new JTextField();
 		txtNome.setColumns(10);
 		GridBagConstraints gbc_txtNome = new GridBagConstraints();
-		gbc_txtNome.gridwidth = 7;
+		gbc_txtNome.gridwidth = 8;
 		gbc_txtNome.insets = new Insets(0, 0, 5, 5);
 		gbc_txtNome.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtNome.gridx = 2;
@@ -164,7 +158,7 @@ public class CadCliente extends JFrame {
 		txtEndereco = new JTextField();
 		txtEndereco.setColumns(10);
 		GridBagConstraints gbc_txtEndereco = new GridBagConstraints();
-		gbc_txtEndereco.gridwidth = 7;
+		gbc_txtEndereco.gridwidth = 8;
 		gbc_txtEndereco.insets = new Insets(0, 0, 5, 5);
 		gbc_txtEndereco.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtEndereco.gridx = 2;
@@ -182,7 +176,7 @@ public class CadCliente extends JFrame {
 		txtCidade = new JTextField();
 		txtCidade.setColumns(10);
 		GridBagConstraints gbc_txtCidade = new GridBagConstraints();
-		gbc_txtCidade.gridwidth = 6;
+		gbc_txtCidade.gridwidth = 7;
 		gbc_txtCidade.insets = new Insets(0, 0, 5, 5);
 		gbc_txtCidade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtCidade.gridx = 2;
@@ -203,7 +197,7 @@ public class CadCliente extends JFrame {
 			}
 		});
 		GridBagConstraints gbc_cbEstado = new GridBagConstraints();
-		gbc_cbEstado.gridwidth = 4;
+		gbc_cbEstado.gridwidth = 3;
 		gbc_cbEstado.insets = new Insets(0, 0, 5, 5);
 		gbc_cbEstado.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbEstado.gridx = 2;
@@ -221,7 +215,7 @@ public class CadCliente extends JFrame {
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
 		GridBagConstraints gbc_txtEmail = new GridBagConstraints();
-		gbc_txtEmail.gridwidth = 7;
+		gbc_txtEmail.gridwidth = 8;
 		gbc_txtEmail.insets = new Insets(0, 0, 5, 5);
 		gbc_txtEmail.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtEmail.gridx = 2;
@@ -255,14 +249,64 @@ public class CadCliente extends JFrame {
 		});
 
 		JButton btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if (validaCampos() == true) {
+					JOptionPane.showMessageDialog(null,
+							"Preencha os campos corretamente !!!");
+				} else {
+					ClienteController cc = new ClienteController();
+
+					int resposta = JOptionPane.showConfirmDialog(null,
+							"Deseja excluir esse cliente");
+					if (resposta == JOptionPane.YES_OPTION) {
+						cc.deletar(Integer.parseInt(txtId.getText().trim()));
+
+					}
+				}
+				limparCampos();
+			}
+		});
 		GridBagConstraints gbc_btnExcluir = new GridBagConstraints();
 		gbc_btnExcluir.insets = new Insets(0, 0, 5, 5);
 		gbc_btnExcluir.gridx = 7;
 		gbc_btnExcluir.gridy = 10;
 		cadCliente.add(btnExcluir, gbc_btnExcluir);
+
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				if (validaCampos() == true) {
+					JOptionPane.showMessageDialog(null,
+							"Preencha corretamente os campos!!!.");
+
+				} else {
+
+					ClienteController cc = new ClienteController();
+
+					Uf estado = (Uf) cbEstado.getSelectedItem();
+
+					cc.editar(Integer.parseInt(txtId.getText().trim()), txtNome
+							.getText().trim(), txtEndereco.getText().trim(),
+							txtCidade.getText().trim(), estado, txtEmail
+									.getText().trim());
+
+					limparCampos();
+
+				}
+
+			}
+		});
+		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
+		gbc_btnEditar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnEditar.gridx = 8;
+		gbc_btnEditar.gridy = 10;
+		cadCliente.add(btnEditar, gbc_btnEditar);
 		GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
 		gbc_btnSalvar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnSalvar.gridx = 8;
+		gbc_btnSalvar.gridx = 9;
 		gbc_btnSalvar.gridy = 10;
 		cadCliente.add(btnSalvar, gbc_btnSalvar);
 	}
@@ -273,6 +317,7 @@ public class CadCliente extends JFrame {
 		txtTelefone.setText("");
 		txtEndereco.setText("");
 		txtCidade.setText("");
+		txtEmail.setText("");
 
 	}
 

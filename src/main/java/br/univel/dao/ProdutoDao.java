@@ -10,8 +10,8 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import br.univel.enun.Genero;
 import br.univel.enun.Unidade;
-
 import br.univel.model.Produto;
 
 public class ProdutoDao {
@@ -22,7 +22,7 @@ public class ProdutoDao {
 	public void inserir(Produto produto) {
 
 		con = Conexao.getConnection();
-		String sql = "INSERT INTO PRODUTO (id, codBarras, categoria, descricao,"
+		String sql = "INSERT INTO PRODUTO (id, codBarras, genero, descricao,"
 				+ "unidade, custo, margemLucro) values (?,?,?,?,?,?,?)";
 
 		try {
@@ -30,7 +30,7 @@ public class ProdutoDao {
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, produto.getId());
 			stmt.setInt(2, produto.getCodBarras());
-			stmt.setString(3, produto.getCategoria());
+			stmt.setString(3, produto.getGenero().toString());
 			stmt.setString(4, produto.getDescricao());
 			stmt.setString(5, produto.getUnidade().toString());
 			stmt.setBigDecimal(6, produto.getCusto());
@@ -67,7 +67,7 @@ public class ProdutoDao {
 
 	}
 
-	public void editar(int id, int codBarras, String categoria,
+	public void editar(int id, int codBarras, Genero genero,
 			String descricao, Unidade unidade, BigDecimal lucro,
 			BigDecimal margemLucro) {
 		con = Conexao.getConnection();
@@ -78,7 +78,7 @@ public class ProdutoDao {
 			PreparedStatement stmt = con.prepareStatement(sql);
 			stmt.setInt(8, id);
 			stmt.setInt(1, codBarras);
-			stmt.setString(2, categoria);
+			stmt.setString(2, genero.toString());
 			stmt.setString(3, descricao);
 			stmt.setString(4, unidade.toString());
 			stmt.setBigDecimal(5, lucro);

@@ -95,7 +95,7 @@ public class Principal extends JFrame {
 		mntmVenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Venda TVenda = new Venda();
+				CadVenda TVenda = new CadVenda();
 				TVenda.setVisible(true);
 				TVenda.setLocationRelativeTo(null);
 				

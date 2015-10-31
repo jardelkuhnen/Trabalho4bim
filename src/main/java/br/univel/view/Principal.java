@@ -15,6 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
+import java.awt.Dialog.ModalExclusionType;
+import java.awt.Window.Type;
 
 public class Principal extends JFrame {
 
@@ -27,8 +30,9 @@ public class Principal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Principal frame = new Principal();
-					frame.setVisible(true);
+					Principal principal = new Principal();
+
+					principal.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -57,19 +61,29 @@ public class Principal extends JFrame {
 
 				CadCliente cdCliente = new CadCliente();
 				cdCliente.setVisible(true);
+				cdCliente.setLocationRelativeTo(null);
 			}
 		});
 		mnCadastros.add(mntmCadastros);
 
 		JMenuItem mntmUsurio = new JMenuItem("Usu\u00E1rio");
+		mntmUsurio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				CadUsuario cadUsuario = new CadUsuario();
+				cadUsuario.setVisible(true);
+				cadUsuario.setLocationRelativeTo(null);
+			}
+		});
 		mnCadastros.add(mntmUsurio);
 
 		JMenuItem mntmProduto = new JMenuItem("Produto");
 		mntmProduto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+
 				CadProduto cadProduto = new CadProduto();
 				cadProduto.setVisible(true);
+				cadProduto.setLocationRelativeTo(null);
 			}
 		});
 		mnCadastros.add(mntmProduto);

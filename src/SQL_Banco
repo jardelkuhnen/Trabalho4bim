@@ -21,3 +21,14 @@ custo bigint,
 margemLucro bigint);
 -----------------------------
 
+Criar tabela usuario
+
+CREATE TABLE Usuario
+(idCliente int,
+idUs int,
+senha varchar(100));
+
+-----------------------------
+
+
+

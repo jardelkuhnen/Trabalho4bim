@@ -3,9 +3,16 @@ package br.univel.model;
 public class Usuario {
 
 	private int idCliente;
-	private int idUs;
-	private String nome;
+	protected int idUs;
+	private String senha;
 
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
 	public int getIdCliente() {
 		return idCliente;
@@ -21,14 +28,6 @@ public class Usuario {
 
 	public void setIdUs(int idUs) {
 		this.idUs = idUs;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 }

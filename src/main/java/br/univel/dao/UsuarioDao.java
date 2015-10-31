@@ -20,14 +20,14 @@ public class UsuarioDao {
 	public void inserir(Usuario usuario) {
 
 		con = Conexao.getConnection();
-		String sql = "INSERT INTO USUARIO (idCliente, idUs, nome value(?,?,?)";
+		String sql = "INSERT INTO USUARIO (idCliente, idUs, senha) values(?,?,?)";
 
 		try {
 			PreparedStatement stmt;
 			stmt = con.prepareStatement(sql);
 			 stmt.setInt(1, usuario.getIdCliente());
 			 stmt.setInt(2, usuario.getIdUs());
-			 stmt.setString(3, usuario.getNome().trim());
+			 stmt.setString(3, usuario.getSenha());
 
 			stmt.execute();
 			stmt.close();
@@ -39,17 +39,17 @@ public class UsuarioDao {
 
 	}
 
-	public void editar(int idCliente, int idUs, String nome) {
+	public void editar(int idCliente, int idUs, String senha) {
 		con = Conexao.getConnection();
 
-		String sql = "UPDATE USUARIO SET IDCLIENTE = ?, IDUS = ?, NOME = ?";
+		String sql = "UPDATE USUARIO SET idCliente = ?, IdUs = ?, SENHA = ?";
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
 
 			stmt.setInt(1, idCliente);
 			stmt.setInt(2, idUs);
-			stmt.setString(3, nome);
+			stmt.setString(3, senha);
 
 			stmt.execute();
 			stmt.close();
@@ -68,7 +68,7 @@ public class UsuarioDao {
 
 		try {
 			PreparedStatement stmt;
-			stmt = con.prepareStatement("DELETE FROM USUARIO WHERE IDUS = ?");
+			stmt = con.prepareStatement("DELETE FROM USUARIO WHERE IdUs = ?");
 
 			stmt.setInt(1, idUs);
 			JOptionPane.showMessageDialog(null, "Usuário " + idUs

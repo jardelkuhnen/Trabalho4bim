@@ -59,7 +59,7 @@ public class CadCliente extends JFrame {
 	 */
 	public CadCliente() {
 		setTitle("Cadastro de Clientes");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 336);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -83,7 +83,8 @@ public class CadCliente extends JFrame {
 		cadCliente.setLayout(gbl_cadCliente);
 
 		JLabel lblCadasroDeCliente = new JLabel("Cadasro de Cliente");
-		lblCadasroDeCliente.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		lblCadasroDeCliente.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC,
+				16));
 		GridBagConstraints gbc_lblCadasroDeCliente = new GridBagConstraints();
 		gbc_lblCadasroDeCliente.gridwidth = 12;
 		gbc_lblCadasroDeCliente.insets = new Insets(0, 0, 5, 0);
@@ -256,8 +257,10 @@ public class CadCliente extends JFrame {
 				} else {
 					ClienteController cc = new ClienteController();
 
-					int resposta = JOptionPane.showConfirmDialog(null,
-							"Deseja excluir o cliente de Id: " + txtId.getText()+ " ?");
+					int resposta = JOptionPane.showConfirmDialog(
+							null,
+							"Deseja excluir o cliente de Id: "
+									+ txtId.getText() + " ?");
 					if (resposta == JOptionPane.YES_OPTION) {
 						cc.deletar(Integer.parseInt(txtId.getText().trim()));
 

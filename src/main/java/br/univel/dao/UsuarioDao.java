@@ -1,0 +1,87 @@
+package br.univel.dao;
+
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
+
+import br.univel.enun.Genero;
+import br.univel.enun.Unidade;
+import br.univel.model.Produto;
+import br.univel.model.Usuario;
+
+public class UsuarioDao {
+
+	Connection con;
+
+	// Métod insere banco pegando valores das variáveis da classe usuario
+	public void inserir(Usuario usuario) {
+
+		con = Conexao.getConnection();
+		String sql = "INSERT INTO USUARIO (idCliente, idUs, nome value(?,?,?)";
+
+		try {
+			PreparedStatement stmt;
+			stmt = con.prepareStatement(sql);
+			 stmt.setInt(1, usuario.getIdCliente());
+			 stmt.setInt(2, usuario.getIdUs());
+			 stmt.setString(3, usuario.getNome().trim());
+
+			stmt.execute();
+			stmt.close();
+
+			JOptionPane.showMessageDialog(null, "Usuário salvo com sucesso!!!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void editar(int idCliente, int idUs, String nome) {
+		con = Conexao.getConnection();
+
+		String sql = "UPDATE USUARIO SET IDCLIENTE = ?, IDUS = ?, NOME = ?";
+
+		try {
+			PreparedStatement stmt = con.prepareStatement(sql);
+
+			stmt.setInt(1, idCliente);
+			stmt.setInt(2, idUs);
+			stmt.setString(3, nome);
+
+			stmt.execute();
+			stmt.close();
+			JOptionPane.showMessageDialog(null,
+					"Usuário editado com sucesso !!!");
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erro ao editar usuário !!!");
+			e.printStackTrace();
+		}
+
+	}
+
+	public UsuarioDao deletar(int idUs) {
+
+		con = Conexao.getConnection();
+
+		try {
+			PreparedStatement stmt;
+			stmt = con.prepareStatement("DELETE FROM USUARIO WHERE IDUS = ?");
+
+			stmt.setInt(1, idUs);
+			JOptionPane.showMessageDialog(null, "Usuário " + idUs
+					+ " apagado com sucesso!!!");
+
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,
+					"ERRO: Problemas ao apagar usuário!!!");
+			e.printStackTrace();
+		}
+
+		return null;
+
+	}
+
+}

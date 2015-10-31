@@ -47,8 +47,6 @@ public class CadCliente extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadCliente frame = new CadCliente();
-					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -259,7 +257,7 @@ public class CadCliente extends JFrame {
 					ClienteController cc = new ClienteController();
 
 					int resposta = JOptionPane.showConfirmDialog(null,
-							"Deseja excluir esse cliente");
+							"Deseja excluir o cliente de Id: " + txtId.getText()+ " ?");
 					if (resposta == JOptionPane.YES_OPTION) {
 						cc.deletar(Integer.parseInt(txtId.getText().trim()));
 

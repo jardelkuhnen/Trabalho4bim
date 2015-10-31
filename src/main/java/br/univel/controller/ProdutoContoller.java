@@ -9,9 +9,8 @@ import br.univel.dao.ProdutoDao;
 
 public class ProdutoContoller extends Produto {
 
-	public void salvar(int id, int codBarras, Genero genero,
-			String descricao, Unidade unidade, BigDecimal custo,
-			BigDecimal margemLucro) {
+	public void salvar(int id, int codBarras, Genero genero, String descricao,
+			Unidade unidade, BigDecimal custo, BigDecimal margemLucro) {
 
 		ProdutoContoller pp = new ProdutoContoller();
 
@@ -26,9 +25,8 @@ public class ProdutoContoller extends Produto {
 		new ProdutoDao().inserir(pp);
 	}
 
-	public void editar(int id, int codBarras, Genero genero,
-			String descricao, Unidade unidade, BigDecimal custo,
-			BigDecimal margemLucro) {
+	public void editar(int id, int codBarras, String descricao, Genero genero,
+			Unidade unidade, BigDecimal custo, BigDecimal margemLucro) {
 
 		Produto p = new Produto();
 		p.setId(id);
@@ -47,7 +45,7 @@ public class ProdutoContoller extends Produto {
 	public void deletar(int id) {
 
 		Produto pp = new ProdutoDao().deletar(id);
-		
+
 	}
 
 }

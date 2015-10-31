@@ -51,8 +51,7 @@ public class CadProduto extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CadProduto frame = new CadProduto();
-					frame.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -228,22 +227,6 @@ public class CadProduto extends JFrame {
 		panel.add(txtMargemLucro, gbc_txtMargemLucro);
 		txtMargemLucro.setColumns(10);
 
-		JButton btnEdtar = new JButton("Editar");
-		GridBagConstraints gbc_btnEdtar = new GridBagConstraints();
-		gbc_btnEdtar.anchor = GridBagConstraints.NORTH;
-		gbc_btnEdtar.insets = new Insets(0, 0, 0, 5);
-		gbc_btnEdtar.gridx = 1;
-		gbc_btnEdtar.gridy = 11;
-		panel.add(btnEdtar, gbc_btnEdtar);
-
-		JButton btnExcluir = new JButton("Excluir");
-		GridBagConstraints gbc_btnExcluir = new GridBagConstraints();
-		gbc_btnExcluir.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnExcluir.insets = new Insets(0, 0, 0, 5);
-		gbc_btnExcluir.gridx = 2;
-		gbc_btnExcluir.gridy = 11;
-		panel.add(btnExcluir, gbc_btnExcluir);
-
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -273,6 +256,66 @@ public class CadProduto extends JFrame {
 
 			}
 		});
+				
+						JButton btnExcluir = new JButton("Excluir");
+						btnExcluir.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent arg0) {
+
+								if (validaCampos() == true) {
+									JOptionPane.showMessageDialog(null,
+											"Preencha os campos corretamente !!!");
+								} else {
+									ProdutoContoller pp = new ProdutoContoller();
+
+									int resposta = JOptionPane.showConfirmDialog(null,
+											"Deseja excluir o produto de Id: " + txtId.getText().trim() + " ?");
+									if (resposta == JOptionPane.YES_OPTION) {
+										pp.deletar(Integer.parseInt(txtId.getText().trim()));
+
+									}
+								}
+								limparCampos();
+							
+							}
+						});
+						GridBagConstraints gbc_btnExcluir = new GridBagConstraints();
+						gbc_btnExcluir.anchor = GridBagConstraints.NORTHEAST;
+						gbc_btnExcluir.insets = new Insets(0, 0, 0, 5);
+						gbc_btnExcluir.gridx = 1;
+						gbc_btnExcluir.gridy = 11;
+						panel.add(btnExcluir, gbc_btnExcluir);
+		
+				JButton btnEdtar = new JButton("Editar");
+				btnEdtar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						if (validaCampos() == true) {
+							JOptionPane.showMessageDialog(null,
+									"Preencha corretamente os campos!!!.");
+
+						} else {
+
+							ProdutoContoller pp = new ProdutoContoller();
+
+							Genero genero = (Genero) cbGenero.getSelectedItem();
+							Unidade un = (Unidade) cbUnidade.getSelectedItem();
+							BigDecimal custo = new BigDecimal(txtCusto.getText().trim());
+							BigDecimal mgLucro = new BigDecimal(txtMargemLucro.getText().trim());
+							
+							pp.editar(Integer.parseInt(txtId.getText().trim()), Integer.parseInt(txtCodBarras.getText().trim()),
+									txtDescricao.getText().trim(), genero, un, custo, mgLucro);
+
+							limparCampos();
+
+						}
+						
+					}
+				});
+				GridBagConstraints gbc_btnEdtar = new GridBagConstraints();
+				gbc_btnEdtar.anchor = GridBagConstraints.NORTH;
+				gbc_btnEdtar.insets = new Insets(0, 0, 0, 5);
+				gbc_btnEdtar.gridx = 2;
+				gbc_btnEdtar.gridy = 11;
+				panel.add(btnEdtar, gbc_btnEdtar);
 		GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
 		gbc_btnSalvar.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnSalvar.gridx = 3;

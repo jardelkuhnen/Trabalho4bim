@@ -5,12 +5,12 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-public class Tabela extends AbstractTableModel {
+public class TabelaModel extends AbstractTableModel {
 
 	private List<Produto> lista = new ArrayList<Produto>();
 
 	public int getColumnCount() {
-		return 2;
+		return 1;
 	}
 
 	public int getRowCount() {

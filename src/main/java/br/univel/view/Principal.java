@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
+import javax.swing.JTable;
+
+import br.univel.model.TabelaModel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -22,6 +25,7 @@ import java.awt.Window.Type;
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
+	
 
 	/**
 	 * Launch the application.
@@ -31,7 +35,6 @@ public class Principal extends JFrame {
 			public void run() {
 				try {
 					Principal principal = new Principal();
-
 					principal.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -39,6 +42,8 @@ public class Principal extends JFrame {
 			}
 		});
 	}
+
+	
 
 	/**
 	 * Create the frame.
@@ -87,18 +92,18 @@ public class Principal extends JFrame {
 			}
 		});
 		mnCadastros.add(mntmProduto);
-		
+
 		JMenu mnVenda = new JMenu("Lan\u00E7amentos");
 		menuBar.add(mnVenda);
-		
+
 		JMenuItem mntmVenda = new JMenuItem("Venda");
 		mntmVenda.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				CadVenda TVenda = new CadVenda();
 				TVenda.setVisible(true);
 				TVenda.setLocationRelativeTo(null);
-				
+
 			}
 		});
 		mnVenda.add(mntmVenda);
@@ -119,7 +124,5 @@ public class Principal extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 	}
-	
-	
 
 }

@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import br.univel.enun.Uf;
 import br.univel.model.Cliente;
+import br.univel.model.Produto;
 
 public class ClienteDao {
 
@@ -41,31 +42,33 @@ public class ClienteDao {
 					"Cliente cadastrado com sucesso!!!");
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "ERRO: Problemas ao salvar cliente!!!");
+			JOptionPane.showMessageDialog(null,
+					"ERRO: Problemas ao salvar cliente!!!");
 			e.printStackTrace();
 		}
 
 	}
 
-	public List<Cliente> listarClientes() throws SQLException {
+	public List<Cliente> listarCLiente(List<Cliente> lista) throws SQLException {
 
 		String sql = "Select nome from Cliente";
-		List<Cliente> consulta = new ArrayList<Cliente>();
 
 		con = Conexao.getConnection();
 
-		PreparedStatement pp = con.prepareStatement(sql);
-		ResultSet rs = pp.executeQuery();
+		PreparedStatement stmt = con.prepareStatement(sql);
+
+		ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
-			Cliente cliente = new Cliente();
 
-			cliente.setNome(rs.getString("nome"));
+			Cliente c = new Cliente();
 
-			consulta.add(cliente);
+			c.setNome(rs.getString("nome"));
+
+			lista.add(c);
 		}
-		return consulta;
 
+		return lista;
 	}
 
 	public void editar(int id, String nome, String endereco, String cidade,
@@ -116,8 +119,5 @@ public class ClienteDao {
 		return null;
 
 	}
-	
-	 
-
 
 }

@@ -23,9 +23,11 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JButton;
 
+import br.univel.dao.ClienteDao;
 import br.univel.dao.VendaDao;
 import br.univel.model.Cliente;
 import br.univel.model.Produto;
+import br.univel.model.TabelaModel;
 import br.univel.model.Venda;
 
 import java.awt.event.ActionListener;
@@ -47,8 +49,10 @@ public class CadVenda extends JFrame {
 	private JTextField txtVlrPagamento;
 	private JTextField txtTroco;
 	private JComboBox cbProduto;
+	private JComboBox cbCliente;
+	private TabelaModel model;
 	List<Produto> listaProd = new ArrayList<Produto>();
-	List<Cliente> lsitarCli = new ArrayList<Cliente>();
+	List<Cliente> listaCli = new ArrayList<Cliente>();
 
 	/**
 	 * Launch the application.
@@ -69,6 +73,7 @@ public class CadVenda extends JFrame {
 	 * Create the frame.
 	 */
 	public CadVenda() {
+		configuraManua();
 		setTitle("Venda");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 818, 661);
@@ -126,7 +131,15 @@ public class CadVenda extends JFrame {
 		gbc_lblCliente.gridy = 2;
 		panel.add(lblCliente, gbc_lblCliente);
 
-		JComboBox cbCliente = new JComboBox();
+		try {
+			preencheLista();
+		} catch (SQLException e2) {
+			JOptionPane.showMessageDialog(null,
+					"ERRO: Problemas ao preencher lista de produtos");
+			e2.printStackTrace();
+		}
+
+		cbCliente = new JComboBox(new Vector<Cliente>(listaCli));
 		GridBagConstraints gbc_cbCliente = new GridBagConstraints();
 		gbc_cbCliente.anchor = GridBagConstraints.NORTH;
 		gbc_cbCliente.fill = GridBagConstraints.HORIZONTAL;
@@ -144,13 +157,6 @@ public class CadVenda extends JFrame {
 		gbc_lblNewLabel.gridy = 3;
 		panel.add(lblNewLabel, gbc_lblNewLabel);
 
-		try {
-			preencheListaProd();
-		} catch (SQLException e2) {
-			JOptionPane.showMessageDialog(null,
-					"ERRO: Problemas ao preencher lista de produtos");
-			e2.printStackTrace();
-		}
 		cbProduto = new JComboBox(new Vector<Produto>(listaProd));
 		GridBagConstraints gbc_cbProduto = new GridBagConstraints();
 		gbc_cbProduto.anchor = GridBagConstraints.NORTH;
@@ -261,11 +267,20 @@ public class CadVenda extends JFrame {
 		panel.add(btnSalvar, gbc_btnSalvar);
 	}
 
-	void preencheListaProd() throws SQLException {
+	void preencheLista() throws SQLException {
 
-		VendaDao dao = new VendaDao();
+		VendaDao vdao = new VendaDao();
+		ClienteDao cdao = new ClienteDao();
 
-		dao.listarProdutos(listaProd);
+		vdao.listarProdutos(listaProd);
+		cdao.listarCLiente(listaCli);
+
+	}
+
+	void configuraManua() {
+
+		model = new TabelaModel();
+		tblCompra.setModel(model);
 	}
 
 }

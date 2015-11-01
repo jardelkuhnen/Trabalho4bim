@@ -16,19 +16,27 @@ import java.awt.Font;
 import java.awt.Insets;
 
 import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JButton;
 
 import br.univel.dao.VendaDao;
+import br.univel.model.Cliente;
 import br.univel.model.Produto;
+import br.univel.model.Venda;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CadVenda extends JFrame {
 
@@ -39,7 +47,8 @@ public class CadVenda extends JFrame {
 	private JTextField txtVlrPagamento;
 	private JTextField txtTroco;
 	private JComboBox cbProduto;
-	List<Produto> lista = new ArrayList<Produto>();
+	List<Produto> listaProd = new ArrayList<Produto>();
+	List<Cliente> lsitarCli = new ArrayList<Cliente>();
 
 	/**
 	 * Launch the application.
@@ -62,7 +71,7 @@ public class CadVenda extends JFrame {
 	public CadVenda() {
 		setTitle("Venda");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 818, 596);
+		setBounds(100, 100, 818, 661);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -71,13 +80,14 @@ public class CadVenda extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 78, 5, 219, 61, 180, 31, 89, 89, 0 };
-		gbl_panel.rowHeights = new int[] { 20, 20, 20, 23, 318, 20, 20, 20, 23,
+		gbl_panel.columnWidths = new int[] { 68, 30, 214, 61, 179, 37, 84, 89,
 				0 };
+		gbl_panel.rowHeights = new int[] { 20, 20, 20, 20, 23, 313, 20, 20, 20,
+				23, 0 };
 		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, Double.MIN_VALUE };
+				0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		JLabel lblvendas = new JLabel("***Vendas***");
@@ -108,22 +118,47 @@ public class CadVenda extends JFrame {
 		panel.add(txtNNota, gbc_txtNNota);
 		txtNNota.setColumns(10);
 
+		JLabel lblCliente = new JLabel("Cliente");
+		GridBagConstraints gbc_lblCliente = new GridBagConstraints();
+		gbc_lblCliente.anchor = GridBagConstraints.EAST;
+		gbc_lblCliente.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCliente.gridx = 0;
+		gbc_lblCliente.gridy = 2;
+		panel.add(lblCliente, gbc_lblCliente);
+
+		JComboBox cbCliente = new JComboBox();
+		GridBagConstraints gbc_cbCliente = new GridBagConstraints();
+		gbc_cbCliente.anchor = GridBagConstraints.NORTH;
+		gbc_cbCliente.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbCliente.insets = new Insets(0, 0, 5, 5);
+		gbc_cbCliente.gridwidth = 2;
+		gbc_cbCliente.gridx = 1;
+		gbc_cbCliente.gridy = 2;
+		panel.add(cbCliente, gbc_cbCliente);
+
 		JLabel lblNewLabel = new JLabel("Produto");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 2;
+		gbc_lblNewLabel.gridy = 3;
 		panel.add(lblNewLabel, gbc_lblNewLabel);
 
-		cbProduto = new JComboBox();
+		try {
+			preencheListaProd();
+		} catch (SQLException e2) {
+			JOptionPane.showMessageDialog(null,
+					"ERRO: Problemas ao preencher lista de produtos");
+			e2.printStackTrace();
+		}
+		cbProduto = new JComboBox(new Vector<Produto>(listaProd));
 		GridBagConstraints gbc_cbProduto = new GridBagConstraints();
 		gbc_cbProduto.anchor = GridBagConstraints.NORTH;
 		gbc_cbProduto.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbProduto.insets = new Insets(0, 0, 5, 5);
 		gbc_cbProduto.gridwidth = 4;
 		gbc_cbProduto.gridx = 1;
-		gbc_cbProduto.gridy = 2;
+		gbc_cbProduto.gridy = 3;
 		panel.add(cbProduto, gbc_cbProduto);
 
 		JButton btnAdicionar = new JButton("Adicionar");
@@ -136,7 +171,7 @@ public class CadVenda extends JFrame {
 		gbc_btnAdicionar.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnAdicionar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAdicionar.gridx = 4;
-		gbc_btnAdicionar.gridy = 3;
+		gbc_btnAdicionar.gridy = 4;
 		panel.add(btnAdicionar, gbc_btnAdicionar);
 
 		tblCompra = new JTable();
@@ -145,7 +180,7 @@ public class CadVenda extends JFrame {
 		gbc_tblCompra.insets = new Insets(0, 0, 5, 0);
 		gbc_tblCompra.gridwidth = 8;
 		gbc_tblCompra.gridx = 0;
-		gbc_tblCompra.gridy = 4;
+		gbc_tblCompra.gridy = 5;
 		panel.add(tblCompra, gbc_tblCompra);
 
 		JLabel lblValorTotal = new JLabel("Valor Total");
@@ -154,7 +189,7 @@ public class CadVenda extends JFrame {
 		gbc_lblValorTotal.insets = new Insets(0, 0, 5, 5);
 		gbc_lblValorTotal.gridwidth = 2;
 		gbc_lblValorTotal.gridx = 0;
-		gbc_lblValorTotal.gridy = 5;
+		gbc_lblValorTotal.gridy = 6;
 		panel.add(lblValorTotal, gbc_lblValorTotal);
 
 		txtVlrTotal = new JTextField();
@@ -163,7 +198,7 @@ public class CadVenda extends JFrame {
 		gbc_txtVlrTotal.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtVlrTotal.insets = new Insets(0, 0, 5, 5);
 		gbc_txtVlrTotal.gridx = 2;
-		gbc_txtVlrTotal.gridy = 5;
+		gbc_txtVlrTotal.gridy = 6;
 		panel.add(txtVlrTotal, gbc_txtVlrTotal);
 		txtVlrTotal.setColumns(10);
 
@@ -173,7 +208,7 @@ public class CadVenda extends JFrame {
 		gbc_lblValorPagamento.insets = new Insets(0, 0, 5, 5);
 		gbc_lblValorPagamento.gridwidth = 2;
 		gbc_lblValorPagamento.gridx = 0;
-		gbc_lblValorPagamento.gridy = 6;
+		gbc_lblValorPagamento.gridy = 7;
 		panel.add(lblValorPagamento, gbc_lblValorPagamento);
 
 		txtVlrPagamento = new JTextField();
@@ -182,7 +217,7 @@ public class CadVenda extends JFrame {
 		gbc_txtVlrPagamento.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtVlrPagamento.insets = new Insets(0, 0, 5, 5);
 		gbc_txtVlrPagamento.gridx = 2;
-		gbc_txtVlrPagamento.gridy = 6;
+		gbc_txtVlrPagamento.gridy = 7;
 		panel.add(txtVlrPagamento, gbc_txtVlrPagamento);
 		txtVlrPagamento.setColumns(10);
 
@@ -190,9 +225,8 @@ public class CadVenda extends JFrame {
 		GridBagConstraints gbc_lblTroco = new GridBagConstraints();
 		gbc_lblTroco.anchor = GridBagConstraints.EAST;
 		gbc_lblTroco.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTroco.gridwidth = 2;
-		gbc_lblTroco.gridx = 0;
-		gbc_lblTroco.gridy = 7;
+		gbc_lblTroco.gridx = 1;
+		gbc_lblTroco.gridy = 8;
 		panel.add(lblTroco, gbc_lblTroco);
 
 		txtTroco = new JTextField();
@@ -201,9 +235,15 @@ public class CadVenda extends JFrame {
 		gbc_txtTroco.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtTroco.insets = new Insets(0, 0, 5, 5);
 		gbc_txtTroco.gridx = 2;
-		gbc_txtTroco.gridy = 7;
+		gbc_txtTroco.gridy = 8;
 		panel.add(txtTroco, gbc_txtTroco);
 		txtTroco.setColumns(10);
+
+		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 
 		JButton btnCancelar = new JButton("Cancelar");
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
@@ -211,20 +251,21 @@ public class CadVenda extends JFrame {
 		gbc_btnCancelar.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCancelar.gridx = 6;
-		gbc_btnCancelar.gridy = 8;
+		gbc_btnCancelar.gridy = 9;
 		panel.add(btnCancelar, gbc_btnCancelar);
-
-		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
 		gbc_btnSalvar.anchor = GridBagConstraints.NORTH;
 		gbc_btnSalvar.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnSalvar.gridx = 7;
-		gbc_btnSalvar.gridy = 8;
+		gbc_btnSalvar.gridy = 9;
 		panel.add(btnSalvar, gbc_btnSalvar);
+	}
+
+	void preencheListaProd() throws SQLException {
+
+		VendaDao dao = new VendaDao();
+
+		dao.listarProdutos(listaProd);
 	}
 
 }

@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ComboBoxModel;
+
 import br.univel.model.Produto;
 import br.univel.model.Venda;
 
@@ -14,11 +16,10 @@ public class VendaDao {
 
 	Connection con;
 
-	public List<Produto> listarProdutos() throws SQLException {
+	public List<Produto> listarProdutos(List<Produto> lista)
+			throws SQLException {
 
-		String sql = "Select nome, custo from Produto";
-
-		List<Produto> consulta = new ArrayList<Produto>();
+		String sql = "Select descricao from Produto";
 
 		con = Conexao.getConnection();
 
@@ -31,12 +32,11 @@ public class VendaDao {
 			Produto p = new Produto();
 
 			p.setDescricao(rs.getString("descricao"));
-			p.setCusto(rs.getBigDecimal("custo"));
 
-			consulta.add(p);
+			lista.add(p);
 		}
 
-		return consulta;
-
+		return lista;
 	}
+
 }

@@ -47,7 +47,7 @@ public class Principal extends JFrame {
 		setMaximizedBounds(new Rectangle(0, 0, 0, 0));
 		setTitle("Mobili");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 454, 288);
+		setBounds(100, 100, 963, 702);
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -119,5 +119,7 @@ public class Principal extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 	}
+	
+	
 
 }

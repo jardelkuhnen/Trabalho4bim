@@ -8,4 +8,12 @@ import br.univel.model.Produto;
 
 public class VendaController {
 
+	public void adicionarProduto(String nNota, Produto p) {
+
+		ProdutoContoller pp = new ProdutoContoller();
+
+//		pp.setDescricao(p);
+
+	}
+
 }

@@ -3,6 +3,7 @@ package br.univel.dao;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
@@ -25,9 +26,9 @@ public class UsuarioDao {
 		try {
 			PreparedStatement stmt;
 			stmt = con.prepareStatement(sql);
-			 stmt.setInt(1, usuario.getIdCliente());
-			 stmt.setInt(2, usuario.getIdUs());
-			 stmt.setString(3, usuario.getSenha());
+			stmt.setInt(1, usuario.getIdCliente());
+			stmt.setInt(2, usuario.getIdUs());
+			stmt.setString(3, usuario.getSenha());
 
 			stmt.execute();
 			stmt.close();
@@ -81,6 +82,33 @@ public class UsuarioDao {
 		}
 
 		return null;
+
+	}
+
+	public String logar(String nome, String senha) {
+
+		PreparedStatement stmt;
+		con = Conexao.getConnection();
+		String sql = "select * from usuario where nome=? and senha=?";
+		try {
+
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, nome);
+			stmt.setString(2, senha);
+			ResultSet result = stmt.executeQuery();
+
+			boolean a = result.next();
+
+			if (a) {
+
+			} else {
+				return "Usuário não cadastrado";
+			}
+
+		} catch (Exception e) {
+
+		}
+		return "";
 
 	}
 

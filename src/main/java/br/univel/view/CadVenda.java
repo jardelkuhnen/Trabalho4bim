@@ -11,6 +11,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JLabel;
 
+import java.awt.Component;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import java.awt.Insets;
@@ -23,6 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JButton;
 
+import br.univel.controller.VendaController;
 import br.univel.dao.ClienteDao;
 import br.univel.dao.VendaDao;
 import br.univel.model.Cliente;
@@ -50,7 +52,6 @@ public class CadVenda extends JFrame {
 	private JTextField txtTroco;
 	private JComboBox cbProduto;
 	private JComboBox cbCliente;
-	private TabelaModel model;
 	List<Produto> listaProd = new ArrayList<Produto>();
 	List<Cliente> listaCli = new ArrayList<Cliente>();
 
@@ -73,10 +74,9 @@ public class CadVenda extends JFrame {
 	 * Create the frame.
 	 */
 	public CadVenda() {
-		configuraManua();
 		setTitle("Venda");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 818, 661);
+		setBounds(100, 100, 818, 408);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -85,9 +85,9 @@ public class CadVenda extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 68, 30, 214, 61, 179, 37, 84, 89,
+		gbl_panel.columnWidths = new int[] { 63, 40, 204, 53, 169, 65, 75, 89,
 				0 };
-		gbl_panel.rowHeights = new int[] { 20, 20, 20, 20, 23, 313, 20, 20, 20,
+		gbl_panel.rowHeights = new int[] { 19, 20, 20, 20, 23, 102, 20, 20, 20,
 				23, 0 };
 		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, Double.MIN_VALUE };
@@ -98,7 +98,8 @@ public class CadVenda extends JFrame {
 		JLabel lblvendas = new JLabel("***Vendas***");
 		lblvendas.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		GridBagConstraints gbc_lblvendas = new GridBagConstraints();
-		gbc_lblvendas.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblvendas.anchor = GridBagConstraints.WEST;
+		gbc_lblvendas.fill = GridBagConstraints.VERTICAL;
 		gbc_lblvendas.insets = new Insets(0, 0, 5, 5);
 		gbc_lblvendas.gridx = 4;
 		gbc_lblvendas.gridy = 0;
@@ -106,12 +107,18 @@ public class CadVenda extends JFrame {
 
 		JLabel lblNmeroNota = new JLabel("N\u00FAmero Nota");
 		GridBagConstraints gbc_lblNmeroNota = new GridBagConstraints();
-		gbc_lblNmeroNota.anchor = GridBagConstraints.EAST;
+		gbc_lblNmeroNota.anchor = GridBagConstraints.WEST;
 		gbc_lblNmeroNota.insets = new Insets(0, 0, 5, 5);
 		gbc_lblNmeroNota.gridx = 0;
 		gbc_lblNmeroNota.gridy = 1;
 		panel.add(lblNmeroNota, gbc_lblNmeroNota);
 
+		try {
+			preencheLista();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		txtNNota = new JTextField();
 		GridBagConstraints gbc_txtNNota = new GridBagConstraints();
 		gbc_txtNNota.anchor = GridBagConstraints.NORTH;
@@ -131,14 +138,6 @@ public class CadVenda extends JFrame {
 		gbc_lblCliente.gridy = 2;
 		panel.add(lblCliente, gbc_lblCliente);
 
-		try {
-			preencheLista();
-		} catch (SQLException e2) {
-			JOptionPane.showMessageDialog(null,
-					"ERRO: Problemas ao preencher lista de produtos");
-			e2.printStackTrace();
-		}
-
 		cbCliente = new JComboBox(new Vector<Cliente>(listaCli));
 		GridBagConstraints gbc_cbCliente = new GridBagConstraints();
 		gbc_cbCliente.anchor = GridBagConstraints.NORTH;
@@ -157,6 +156,15 @@ public class CadVenda extends JFrame {
 		gbc_lblNewLabel.gridy = 3;
 		panel.add(lblNewLabel, gbc_lblNewLabel);
 
+		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				adicionarProduto();
+
+			}
+		});
+
 		cbProduto = new JComboBox(new Vector<Produto>(listaProd));
 		GridBagConstraints gbc_cbProduto = new GridBagConstraints();
 		gbc_cbProduto.anchor = GridBagConstraints.NORTH;
@@ -166,13 +174,6 @@ public class CadVenda extends JFrame {
 		gbc_cbProduto.gridx = 1;
 		gbc_cbProduto.gridy = 3;
 		panel.add(cbProduto, gbc_cbProduto);
-
-		JButton btnAdicionar = new JButton("Adicionar");
-		btnAdicionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
 		GridBagConstraints gbc_btnAdicionar = new GridBagConstraints();
 		gbc_btnAdicionar.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnAdicionar.insets = new Insets(0, 0, 5, 5);
@@ -252,9 +253,13 @@ public class CadVenda extends JFrame {
 		});
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+			}
+		});
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
-		gbc_btnCancelar.anchor = GridBagConstraints.NORTH;
-		gbc_btnCancelar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnCancelar.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCancelar.gridx = 6;
 		gbc_btnCancelar.gridy = 9;
@@ -265,6 +270,24 @@ public class CadVenda extends JFrame {
 		gbc_btnSalvar.gridx = 7;
 		gbc_btnSalvar.gridy = 9;
 		panel.add(btnSalvar, gbc_btnSalvar);
+
+		try {
+			preencheLista();
+		} catch (SQLException e2) {
+			JOptionPane.showMessageDialog(null,
+					"ERRO: Problemas ao preencher lista de produtos");
+			e2.printStackTrace();
+		}
+	}
+
+	protected void adicionarProduto() {
+
+		VendaController vd = new VendaController();
+		String nNota = txtNNota.getText().trim();
+		Produto p = (Produto) cbProduto.getSelectedItem();
+
+		vd.adicionarProduto(nNota, p);
+
 	}
 
 	void preencheLista() throws SQLException {
@@ -275,12 +298,6 @@ public class CadVenda extends JFrame {
 		vdao.listarProdutos(listaProd);
 		cdao.listarCLiente(listaCli);
 
-	}
-
-	void configuraManua() {
-
-		model = new TabelaModel();
-		tblCompra.setModel(model);
 	}
 
 }

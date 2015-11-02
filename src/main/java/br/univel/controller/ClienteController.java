@@ -43,4 +43,6 @@ public class ClienteController extends Cliente {
 		cd.deletar(id);
 	}
 
+	
+
 }

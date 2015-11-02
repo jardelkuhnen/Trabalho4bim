@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ComboBoxModel;
+import javax.swing.JOptionPane;
 
 import br.univel.model.Produto;
 import br.univel.model.Venda;
@@ -37,6 +38,29 @@ public class VendaDao {
 		}
 
 		return lista;
+	}
+
+	public void inserirP(Venda v) {
+		con = Conexao.getConnection();
+
+		String sql = "insert into Venda (nNota, cliente, produto, qtd) values(?,?,?,?)";
+
+		try {
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, v.getnNota());
+			stmt.setString(2, v.getCliente());
+			stmt.setString(3, v.getProduto());
+			stmt.setInt(4, v.getQtd());
+
+			stmt.execute();
+			stmt.close();
+
+			JOptionPane
+					.showMessageDialog(null, "Venda Gravada com sucesso !!!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 
 }

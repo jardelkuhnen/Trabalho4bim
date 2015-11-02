@@ -6,11 +6,29 @@ import java.util.Date;
 public class Venda {
 
 	private int nNota;
+	private String cliente;
 	private String produto;
+	private int qtd;
 	private BigDecimal vlrTotal;
 	private BigDecimal vlrPagamento;
 	private BigDecimal vlrTroco;
 	private Date dataHora;
+
+	public String getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(String cliente) {
+		this.cliente = cliente;
+	}
+
+	public int getQtd() {
+		return qtd;
+	}
+
+	public void setQtd(int qtd) {
+		this.qtd = qtd;
+	}
 
 	public int getnNota() {
 		return nNota;

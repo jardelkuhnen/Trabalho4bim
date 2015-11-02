@@ -30,5 +30,13 @@ senha varchar(100));
 
 -----------------------------
 
+create table Venda(
+nNota int not null,
+cliente varchar(100),
+produto varchar(100),
+qtd int);
+
+-----------------------------
+
 
 

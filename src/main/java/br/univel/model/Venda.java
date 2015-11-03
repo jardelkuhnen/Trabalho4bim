@@ -12,7 +12,7 @@ public class Venda {
 	private BigDecimal vlrTotal;
 	private BigDecimal vlrPagamento;
 	private BigDecimal vlrTroco;
-	private Date dataHora;
+	private String dataHora;
 
 	public String getCliente() {
 		return cliente;
@@ -70,12 +70,13 @@ public class Venda {
 		this.vlrTroco = vlrTroco;
 	}
 
-	public Date getDataHora() {
+	public String getDataHora() {
 		return dataHora;
 	}
 
-	public void setDataHora(Date dataHora) {
+	public void setDataHora(String dataHora) {
 		this.dataHora = dataHora;
 	}
 
+	
 }

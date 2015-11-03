@@ -9,7 +9,7 @@ import br.univel.model.Venda;
 
 public class VendaController extends Venda{
 
-	public void adicionarProduto(int nNota, String cliente, String descricao, int qtd) {
+	public void gravarVenda(int nNota, String cliente, String descricao, int qtd, String dataHora) {
 
 		
 		VendaController vd = new VendaController();
@@ -18,6 +18,7 @@ public class VendaController extends Venda{
 		vd.setCliente(cliente);
 		vd.setProduto(descricao);
 		vd.setQtd(qtd);
+		vd.setDataHora(dataHora);
 		
 		
 		new VendaDao().inserirP(vd);

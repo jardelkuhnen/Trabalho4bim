@@ -1,9 +1,15 @@
 package br.univel.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
+
+import br.univel.dao.Conexao;
 
 public class TabelaModel extends AbstractTableModel {
 

@@ -2,27 +2,27 @@ package br.univel.view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.GridBagLayout;
-
-import javax.swing.JLabel;
-
-import java.awt.Component;
-import java.awt.GridBagConstraints;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
-import javax.swing.ComboBoxModel;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import br.univel.controller.VendaController;
 import br.univel.dao.ClienteDao;
@@ -30,18 +30,6 @@ import br.univel.dao.VendaDao;
 import br.univel.model.Cliente;
 import br.univel.model.Produto;
 import br.univel.model.TabelaModel;
-import br.univel.model.Venda;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class CadVenda extends JFrame {
 
@@ -56,6 +44,8 @@ public class CadVenda extends JFrame {
 	List<Cliente> listaCli = new ArrayList<Cliente>();
 	private JTextField txtQuantidade;
 	private JLabel lblVlrTotal;
+	private JTable tblVenda;
+	private TabelaModel model = new TabelaModel();
 
 	/**
 	 * Launch the application.
@@ -78,7 +68,7 @@ public class CadVenda extends JFrame {
 	public CadVenda() {
 		setTitle("Venda");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 583, 334);
+		setBounds(100, 100, 582, 499);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -95,22 +85,23 @@ public class CadVenda extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 81, 86, 57, 119, 75, 77, 0 };
-		gbl_panel.rowHeights = new int[] { 20, 40, 20, 20, 20, 20, 20, 20, 20,
-				23, 0 };
+		gbl_panel.columnWidths = new int[] { 85, 82, 167, 31, 77, 72, 0 };
+		gbl_panel.rowHeights = new int[] { 18, 0, 20, 22, 22, 20, 20, 17, 17,
+				13, 161, 23, 0 };
 		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		JLabel lblvendas = new JLabel("***Vendas***");
 		lblvendas.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		GridBagConstraints gbc_lblvendas = new GridBagConstraints();
-		gbc_lblvendas.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblvendas.insets = new Insets(0, 0, 5, 5);
-		gbc_lblvendas.gridx = 3;
-		gbc_lblvendas.gridy = 0;
+		gbc_lblvendas.gridwidth = 7;
+		gbc_lblvendas.fill = GridBagConstraints.VERTICAL;
+		gbc_lblvendas.insets = new Insets(0, 0, 5, 0);
+		gbc_lblvendas.gridx = 0;
+		gbc_lblvendas.gridy = 1;
 		panel.add(lblvendas, gbc_lblvendas);
 
 		JLabel lblNmeroNota = new JLabel("N\u00FAmero Nota");
@@ -125,7 +116,7 @@ public class CadVenda extends JFrame {
 		gbc_txtNNota.anchor = GridBagConstraints.NORTH;
 		gbc_txtNNota.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtNNota.insets = new Insets(0, 0, 5, 5);
-		gbc_txtNNota.gridwidth = 3;
+		gbc_txtNNota.gridwidth = 2;
 		gbc_txtNNota.gridx = 1;
 		gbc_txtNNota.gridy = 2;
 		panel.add(txtNNota, gbc_txtNNota);
@@ -139,21 +130,12 @@ public class CadVenda extends JFrame {
 		gbc_lblCliente.gridy = 3;
 		panel.add(lblCliente, gbc_lblCliente);
 
-		JButton btnAdicionar = new JButton("Adicionar");
-		btnAdicionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				Produto p = (Produto) cbProduto.getSelectedItem();
-
-			}
-		});
-
 		cbCliente = new JComboBox(new Vector<Cliente>(listaCli));
 		GridBagConstraints gbc_cbCliente = new GridBagConstraints();
 		gbc_cbCliente.anchor = GridBagConstraints.NORTH;
 		gbc_cbCliente.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbCliente.insets = new Insets(0, 0, 5, 5);
-		gbc_cbCliente.gridwidth = 3;
+		gbc_cbCliente.gridwidth = 2;
 		gbc_cbCliente.gridx = 1;
 		gbc_cbCliente.gridy = 3;
 		panel.add(cbCliente, gbc_cbCliente);
@@ -171,7 +153,7 @@ public class CadVenda extends JFrame {
 		gbc_cbProduto.anchor = GridBagConstraints.NORTH;
 		gbc_cbProduto.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbProduto.insets = new Insets(0, 0, 5, 0);
-		gbc_cbProduto.gridwidth = 5;
+		gbc_cbProduto.gridwidth = 3;
 		gbc_cbProduto.gridx = 1;
 		gbc_cbProduto.gridy = 4;
 		panel.add(cbProduto, gbc_cbProduto);
@@ -186,21 +168,14 @@ public class CadVenda extends JFrame {
 
 		txtQuantidade = new JTextField();
 		GridBagConstraints gbc_txtQuantidade = new GridBagConstraints();
-		gbc_txtQuantidade.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtQuantidade.gridwidth = 2;
 		gbc_txtQuantidade.anchor = GridBagConstraints.NORTH;
+		gbc_txtQuantidade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtQuantidade.insets = new Insets(0, 0, 5, 5);
 		gbc_txtQuantidade.gridx = 1;
 		gbc_txtQuantidade.gridy = 5;
 		panel.add(txtQuantidade, gbc_txtQuantidade);
 		txtQuantidade.setColumns(10);
-		GridBagConstraints gbc_btnAdicionar = new GridBagConstraints();
-		gbc_btnAdicionar.anchor = GridBagConstraints.EAST;
-		gbc_btnAdicionar.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAdicionar.gridheight = 2;
-		gbc_btnAdicionar.gridwidth = 2;
-		gbc_btnAdicionar.gridx = 4;
-		gbc_btnAdicionar.gridy = 5;
-		panel.add(btnAdicionar, gbc_btnAdicionar);
 
 		JLabel lblValorTotal = new JLabel("Valor Total");
 		GridBagConstraints gbc_lblValorTotal = new GridBagConstraints();
@@ -212,18 +187,18 @@ public class CadVenda extends JFrame {
 
 		txtVlrTotal = new JTextField();
 		GridBagConstraints gbc_txtVlrTotal = new GridBagConstraints();
+		gbc_txtVlrTotal.gridwidth = 2;
 		gbc_txtVlrTotal.anchor = GridBagConstraints.NORTH;
 		gbc_txtVlrTotal.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtVlrTotal.insets = new Insets(0, 0, 5, 5);
-		gbc_txtVlrTotal.gridwidth = 3;
 		gbc_txtVlrTotal.gridx = 1;
 		gbc_txtVlrTotal.gridy = 6;
 		panel.add(txtVlrTotal, gbc_txtVlrTotal);
 		txtVlrTotal.setColumns(10);
 
-		JLabel lblValorPagamento = new JLabel("Valor Pagamento");
+		JLabel lblValorPagamento = new JLabel("Vlr. Pagamento");
 		GridBagConstraints gbc_lblValorPagamento = new GridBagConstraints();
-		gbc_lblValorPagamento.anchor = GridBagConstraints.WEST;
+		gbc_lblValorPagamento.anchor = GridBagConstraints.EAST;
 		gbc_lblValorPagamento.insets = new Insets(0, 0, 5, 5);
 		gbc_lblValorPagamento.gridx = 0;
 		gbc_lblValorPagamento.gridy = 7;
@@ -231,10 +206,10 @@ public class CadVenda extends JFrame {
 
 		txtVlrPagamento = new JTextField();
 		GridBagConstraints gbc_txtVlrPagamento = new GridBagConstraints();
+		gbc_txtVlrPagamento.gridwidth = 2;
 		gbc_txtVlrPagamento.anchor = GridBagConstraints.NORTH;
 		gbc_txtVlrPagamento.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtVlrPagamento.insets = new Insets(0, 0, 5, 5);
-		gbc_txtVlrPagamento.gridwidth = 3;
 		gbc_txtVlrPagamento.gridx = 1;
 		gbc_txtVlrPagamento.gridy = 7;
 		panel.add(txtVlrPagamento, gbc_txtVlrPagamento);
@@ -248,6 +223,17 @@ public class CadVenda extends JFrame {
 		gbc_lblTroco.gridy = 8;
 		panel.add(lblTroco, gbc_lblTroco);
 
+		txtTroco = new JTextField();
+		GridBagConstraints gbc_txtTroco = new GridBagConstraints();
+		gbc_txtTroco.gridwidth = 2;
+		gbc_txtTroco.anchor = GridBagConstraints.NORTH;
+		gbc_txtTroco.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtTroco.insets = new Insets(0, 0, 5, 5);
+		gbc_txtTroco.gridx = 1;
+		gbc_txtTroco.gridy = 8;
+		panel.add(txtTroco, gbc_txtTroco);
+		txtTroco.setColumns(10);
+
 		JButton btnGravar = new JButton("Gravar");
 		btnGravar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -257,34 +243,49 @@ public class CadVenda extends JFrame {
 			}
 		});
 
-		txtTroco = new JTextField();
-		GridBagConstraints gbc_txtTroco = new GridBagConstraints();
-		gbc_txtTroco.anchor = GridBagConstraints.NORTH;
-		gbc_txtTroco.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtTroco.insets = new Insets(0, 0, 5, 5);
-		gbc_txtTroco.gridwidth = 3;
-		gbc_txtTroco.gridx = 1;
-		gbc_txtTroco.gridy = 8;
-		panel.add(txtTroco, gbc_txtTroco);
-		txtTroco.setColumns(10);
-
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 			}
 		});
+
+		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				Produto p = (Produto) cbProduto.getSelectedItem();
+
+			}
+		});
+		GridBagConstraints gbc_btnAdicionar = new GridBagConstraints();
+		gbc_btnAdicionar.anchor = GridBagConstraints.EAST;
+		gbc_btnAdicionar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAdicionar.gridx = 4;
+		gbc_btnAdicionar.gridy = 8;
+		panel.add(btnAdicionar, gbc_btnAdicionar);
+
+		tblVenda = new JTable();
+		tblVenda.setModel(model);
+		GridBagConstraints gbc_tblVenda = new GridBagConstraints();
+		gbc_tblVenda.gridheight = 2;
+		gbc_tblVenda.fill = GridBagConstraints.BOTH;
+		gbc_tblVenda.insets = new Insets(0, 0, 5, 0);
+		gbc_tblVenda.gridwidth = 7;
+		gbc_tblVenda.gridx = 0;
+		gbc_tblVenda.gridy = 9;
+		panel.add(tblVenda, gbc_tblVenda);
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
 		gbc_btnCancelar.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCancelar.gridx = 4;
-		gbc_btnCancelar.gridy = 9;
+		gbc_btnCancelar.gridy = 11;
 		panel.add(btnCancelar, gbc_btnCancelar);
 		GridBagConstraints gbc_btnGravar = new GridBagConstraints();
-		gbc_btnGravar.anchor = GridBagConstraints.NORTH;
 		gbc_btnGravar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnGravar.anchor = GridBagConstraints.NORTH;
 		gbc_btnGravar.gridx = 5;
-		gbc_btnGravar.gridy = 9;
+		gbc_btnGravar.gridy = 11;
 		panel.add(btnGravar, gbc_btnGravar);
 
 	}

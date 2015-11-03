@@ -17,7 +17,7 @@ public class Conexao {
 
 	public static Connection getConnection() {
 
-		System.out.println("Iniciando coneção ao banco de dados!!!");
+		System.out.println("Iniciando conexão ao banco de dados!!!");
 
 		try {
 			Class.forName(DRIVER_CLASS);

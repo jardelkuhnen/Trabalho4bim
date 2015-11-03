@@ -68,4 +68,13 @@ public class Cliente {
 		email = email;
 	}
 
+	@Override
+	public String toString() {
+		return "Cliente [nome=" + nome + "]";
+	}
+	
+	
+
+	
+	
 }

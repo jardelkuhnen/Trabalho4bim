@@ -103,7 +103,7 @@ public class Login extends JFrame {
 					limpaCampos();
 					Principal p = new Principal();
 					p.setVisible(true);
-
+					
 				}
 			}
 		});

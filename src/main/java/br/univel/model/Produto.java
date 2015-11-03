@@ -71,4 +71,9 @@ public class Produto {
 		this.margemLucro = margemLucro;
 	}
 
+	@Override
+	public String toString() {
+		return "Produto [descricao=" + descricao + "]";
+	}
+
 }

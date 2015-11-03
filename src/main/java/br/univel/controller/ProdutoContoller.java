@@ -8,7 +8,8 @@ import br.univel.model.Produto;
 import br.univel.dao.ProdutoDao;
 
 public class ProdutoContoller extends Produto {
-
+	// Classe controller, que irá controlar todas as movimentaçoes do produto,
+	// tanto cadastros novos, exclusao e edição
 	public void salvar(int id, int codBarras, Genero genero, String descricao,
 			Unidade unidade, BigDecimal custo, BigDecimal margemLucro) {
 

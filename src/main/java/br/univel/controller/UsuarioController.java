@@ -4,7 +4,8 @@ import br.univel.dao.UsuarioDao;
 import br.univel.model.Usuario;
 
 public class UsuarioController extends Usuario {
-
+	// Classe controller, que irá controlar todas as movimentaçoes do usuario,
+	// tanto cadastros novos, exclusao e edição
 	public void salvar(int idCliente, int idUs, String senha) {
 
 		UsuarioController us = new UsuarioController();
@@ -31,14 +32,11 @@ public class UsuarioController extends Usuario {
 	public void deletar(int idUs) {
 		UsuarioDao us = new UsuarioDao().deletar(idUs);
 	}
-	
-	
 
-	public String logar(String nome , String senha){
-		
+	public String logar(String nome, String senha) {
+
 		UsuarioDao dao = new UsuarioDao();
-		
-		
+
 		return dao.logar(nome, senha);
 	}
 

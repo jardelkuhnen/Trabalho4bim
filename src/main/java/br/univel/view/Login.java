@@ -43,9 +43,11 @@ public class Login extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			private Login fLogin;
+
 			public void run() {
 				try {
-					Login fLogin = new Login();
+					fLogin = new Login();
 					fLogin.setVisible(true);
 					fLogin.setLocationRelativeTo(null);
 				} catch (Exception e) {
@@ -60,7 +62,7 @@ public class Login extends JFrame {
 	 */
 	public Login() {
 		setTitle("Login");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 443, 264);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -103,7 +105,6 @@ public class Login extends JFrame {
 					limpaCampos();
 					Principal p = new Principal();
 					p.setVisible(true);
-					
 				}
 			}
 		});

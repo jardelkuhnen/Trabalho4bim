@@ -1,4 +1,3 @@
-Criar tabela cliente:
 
 CREATE TABLE Cliente
 (id int,
@@ -7,9 +6,7 @@ endereco varchar(100),
 cidade varchar(100),
 estado char(2),
 email varchar(100));
------------------------------
 
-Criar tabela produto:
 
 CREATE TABLE Produto
 (id int,
@@ -19,16 +16,13 @@ genero varchar(30),
 unidade varchar(30),
 custo bigint,
 margemLucro bigint);
------------------------------
 
-Criar tabela usuario
 
 CREATE TABLE Usuario
 (idCliente int,
 idUs int,
 senha varchar(100));
 
------------------------------
 
 create table Venda(
 nNota int not null,
@@ -37,7 +31,6 @@ produto varchar(100),
 qtd int,
 dataHora varchar(50));
 
------------------------------
 
 
 

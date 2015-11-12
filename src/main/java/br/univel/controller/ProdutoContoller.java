@@ -29,17 +29,16 @@ public class ProdutoContoller extends Produto {
 	public void editar(int id, int codBarras, String descricao, GeneroProd genero,
 			Unidade unidade, BigDecimal custo, BigDecimal margemLucro) {
 
-		Produto p = new Produto();
-		p.setId(id);
-		p.setCodBarras(codBarras);
-		p.setDescricao(descricao);
-		p.setGenero(genero);
-		p.setUnidade(unidade);
-		p.setCusto(custo);
-		p.setMargemLucro(margemLucro);
+		ProdutoContoller pp = new ProdutoContoller();
+		pp.setId(id);
+		pp.setCodBarras(codBarras);
+		pp.setDescricao(descricao);
+		pp.setGenero(genero);
+		pp.setUnidade(unidade);
+		pp.setCusto(custo);
+		pp.setMargemLucro(margemLucro);
 
-		new ProdutoDao().editar(id, codBarras, genero, descricao, unidade,
-				custo, margemLucro);
+		new ProdutoDao().editar(pp);
 
 	}
 

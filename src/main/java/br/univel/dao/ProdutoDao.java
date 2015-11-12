@@ -31,8 +31,8 @@ public class ProdutoDao {
 			stmt.setInt(1, produto.getId());
 			stmt.setInt(2, produto.getCodBarras());
 			stmt.setString(3, produto.getGenero().toString());
-			stmt.setString(4, produto.getDescricao());
-			stmt.setString(5, produto.getUnidade().toString());
+			stmt.setString(4, produto.getDescricao().toUpperCase());
+			stmt.setString(5, produto.getUnidade().toString().toUpperCase());
 			stmt.setBigDecimal(6, produto.getCusto());
 			stmt.setBigDecimal(7, produto.getMargemLucro());
 
@@ -67,22 +67,20 @@ public class ProdutoDao {
 
 	}
 
-	public void editar(int id, int codBarras, GeneroProd genero,
-			String descricao, Unidade unidade, BigDecimal lucro,
-			BigDecimal margemLucro) {
+	public void editar(Produto p) {
 		con = Conexao.getConnection();
 
-		String sql = "UPDATE PRODUTO SET ID = ?, codBarras = ?, CATEGORIA = ?, DESCRICAO = ?, UNIDADE = ?, LUCRO = ?, MARGEMLUCRO = ? where id = ?";
+		String sql = "UPDATE PRODUTO SET ID = ?, codBarras = ?, CATEGORIA = ?, DESCRICAO = ?, UNIDADE = ?, CUSTO = ?, MARGEMLUCRO = ? where id = ?";
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(8, id);
-			stmt.setInt(1, codBarras);
-			stmt.setString(2, genero.toString());
-			stmt.setString(3, descricao);
-			stmt.setString(4, unidade.toString());
-			stmt.setBigDecimal(5, lucro);
-			stmt.setBigDecimal(6, margemLucro);
+			stmt.setInt(8, p.getId());
+			stmt.setInt(1, p.getCodBarras());
+			stmt.setString(2, p.getGenero().toString());
+			stmt.setString(3, p.getDescricao().toUpperCase());
+			stmt.setString(4, p.getUnidade().toString());
+			stmt.setBigDecimal(5, p.getCusto());
+			stmt.setBigDecimal(6, p.getMargemLucro());
 
 			stmt.execute();
 			stmt.close();

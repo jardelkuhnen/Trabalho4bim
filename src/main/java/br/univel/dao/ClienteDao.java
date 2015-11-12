@@ -24,17 +24,18 @@ public class ClienteDao {
 
 		con = Conexao.getConnection();
 
-		String sql = "INSERT INTO CLIENTE (ID, NOME,ENDERECO, CIDADE, ESTADO, GENERO, EMAIL) VALUES (?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO CLIENTE (ID, NOME, ENDERECO, CIDADE, ESTADO, GENERO, EMAIL) VALUES (?,?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt;
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, c.getId());
-			stmt.setString(2, c.getNome());
-			stmt.setString(3, c.getEndereco());
-			stmt.setString(4, c.getCidade());
+			stmt.setString(2, c.getNome().toUpperCase());
+			stmt.setString(3, c.getEndereco().toUpperCase());
+			stmt.setString(4, c.getCidade().toUpperCase());
 			stmt.setString(5, c.getEstado().toString());
-			stmt.setString(6, c.getEmail());
+			stmt.setString(6, c.getGenero().toString());
+			stmt.setString(7, c.getEmail().toUpperCase());
 
 			stmt.execute();
 			stmt.close();
@@ -72,8 +73,7 @@ public class ClienteDao {
 		return lista;
 	}
 
-	public void editar(int id, String nome, String endereco, String cidade,
-			Uf estado, GeneroCli genero, String email) {
+	public void editar(Cliente c) {
 		con = Conexao.getConnection();
 
 		String sql = "UPDATE CLIENTE SET NOME = ?, ENDERECO = ?,"
@@ -81,13 +81,13 @@ public class ClienteDao {
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(6, id);
-			stmt.setString(1, nome);
-			stmt.setString(2, endereco);
-			stmt.setString(3, cidade);
-			stmt.setString(4, estado.toString());
-			stmt.setString(5, genero.toString());
-			stmt.setString(6, email);
+			stmt.setInt(6, c.getId());
+			stmt.setString(1, c.getNome().toUpperCase());
+			stmt.setString(2, c.getEndereco().toUpperCase());
+			stmt.setString(3, c.getCidade().toUpperCase());
+			stmt.setString(4, c.getEstado().toString());
+			stmt.setString(5, c.getGenero().toString());
+			stmt.setString(6, c.getEmail().toUpperCase());
 
 			stmt.execute();
 			stmt.close();

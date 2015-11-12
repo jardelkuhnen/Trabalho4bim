@@ -19,13 +19,13 @@ public class UsuarioController extends Usuario {
 
 	public void editar(int idCliente, int idUs, String senha) {
 
-		Usuario u = new Usuario();
+		UsuarioController u = new UsuarioController();
 
 		u.setIdCliente(idCliente);
 		u.setIdUs(idUs);
 		u.setSenha(senha);
 
-		new UsuarioDao().editar(idCliente, idUs, senha);
+		new UsuarioDao().editar(u);
 
 	}
 

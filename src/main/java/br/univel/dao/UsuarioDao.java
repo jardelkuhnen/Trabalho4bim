@@ -28,7 +28,7 @@ public class UsuarioDao {
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, usuario.getIdCliente());
 			stmt.setInt(2, usuario.getIdUs());
-			stmt.setString(3, usuario.getSenha());
+			stmt.setString(3, usuario.getSenha().toUpperCase());
 
 			stmt.execute();
 			stmt.close();
@@ -40,7 +40,7 @@ public class UsuarioDao {
 
 	}
 
-	public void editar(int idCliente, int idUs, String senha) {
+	public void editar(Usuario u) {
 		con = Conexao.getConnection();
 
 		String sql = "UPDATE USUARIO SET idCliente = ?, IdUs = ?, SENHA = ?";
@@ -48,9 +48,9 @@ public class UsuarioDao {
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
 
-			stmt.setInt(1, idCliente);
-			stmt.setInt(2, idUs);
-			stmt.setString(3, senha);
+			stmt.setInt(1, u.getIdCliente());
+			stmt.setInt(2, u.getIdUs());
+			stmt.setString(3, u.getSenha().toUpperCase());
 
 			stmt.execute();
 			stmt.close();

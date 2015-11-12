@@ -29,16 +29,16 @@ public class ClienteController extends Cliente {
 	public void editar(int id, String nome, String endereco, String cidade,
 			Uf estado, GeneroCli genero, String email) {
 
-		Cliente c = new Cliente();
-		c.setId(id);
-		c.setNome(nome);
-		c.setEndereco(endereco);
-		c.setCidade(cidade);
-		c.setEstado(estado);
-		c.setGenero(genero);
-		c.setEmail(email);
+		ClienteController cc = new ClienteController();
+		cc.setId(id);
+		cc.setNome(nome);
+		cc.setEndereco(endereco);
+		cc.setCidade(cidade);
+		cc.setEstado(estado);
+		cc.setGenero(genero);
+		cc.setEmail(email);
 
-		new ClienteDao().editar(id, nome, endereco, cidade, estado, genero, email);
+		new ClienteDao().editar(cc);
 
 	}
 

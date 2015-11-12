@@ -1,13 +1,13 @@
 package br.univel.enun;
 
-public enum Genero {
+public enum GeneroProd {
 
 	Moveis("Móveis"), Eletrodomésticos("Eletrodomésticos"), Eletrônicos(
 			"Eletrônicos");
 
 	private String genero;
 
-	Genero(String genero) {
+	GeneroProd(String genero) {
 		this.genero = genero;
 	}
 

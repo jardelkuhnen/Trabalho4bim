@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import br.univel.enun.GeneroCli;
 import br.univel.enun.Uf;
 import br.univel.model.Cliente;
 import br.univel.model.Produto;
@@ -23,7 +24,7 @@ public class ClienteDao {
 
 		con = Conexao.getConnection();
 
-		String sql = "INSERT INTO CLIENTE (ID, NOME,ENDERECO, CIDADE, ESTADO, EMAIL) VALUES (?,?,?,?,?,?)";
+		String sql = "INSERT INTO CLIENTE (ID, NOME,ENDERECO, CIDADE, ESTADO, GENERO, EMAIL) VALUES (?,?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt;
@@ -72,11 +73,11 @@ public class ClienteDao {
 	}
 
 	public void editar(int id, String nome, String endereco, String cidade,
-			Uf estado, String email) {
+			Uf estado, GeneroCli genero, String email) {
 		con = Conexao.getConnection();
 
 		String sql = "UPDATE CLIENTE SET NOME = ?, ENDERECO = ?,"
-				+ "CIDADE = ?, ESTADO = ?, EMAIL = ? WHERE ID = ?";
+				+ "CIDADE = ?, ESTADO = ?, GENERO = ?, EMAIL = ? WHERE ID = ?";
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
@@ -85,7 +86,8 @@ public class ClienteDao {
 			stmt.setString(2, endereco);
 			stmt.setString(3, cidade);
 			stmt.setString(4, estado.toString());
-			stmt.setString(5, email);
+			stmt.setString(5, genero.toString());
+			stmt.setString(6, email);
 
 			stmt.execute();
 			stmt.close();

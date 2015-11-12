@@ -2,7 +2,7 @@ package br.univel.model;
 
 import java.math.BigDecimal;
 
-import br.univel.enun.Genero;
+import br.univel.enun.GeneroProd;
 import br.univel.enun.Unidade;
 
 public class Produto {
@@ -10,7 +10,7 @@ public class Produto {
 	private int id;
 	private int codBarras;
 	private String descricao;
-	private Genero genero;
+	private GeneroProd genero;
 	private Unidade unidade;
 	private BigDecimal custo;
 	private BigDecimal margemLucro;
@@ -31,11 +31,11 @@ public class Produto {
 		this.codBarras = codBarras;
 	}
 
-	public Genero getGenero() {
+	public GeneroProd getGenero() {
 		return genero;
 	}
 
-	public void setGenero(Genero genero) {
+	public void setGenero(GeneroProd genero) {
 		this.genero = genero;
 	}
 

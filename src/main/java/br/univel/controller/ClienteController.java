@@ -1,7 +1,8 @@
 package br.univel.controller;
 
 import br.univel.dao.ClienteDao;
-import br.univel.enun.Genero;
+import br.univel.enun.GeneroCli;
+import br.univel.enun.GeneroProd;
 import br.univel.enun.Uf;
 import br.univel.model.Cliente;
 
@@ -9,7 +10,7 @@ public class ClienteController extends Cliente {
 	// Classe controller, que irá controlar todas as movimentaçoes do cliente,
 	// tanto cadastros novos, exclusao e edição
 	public void salvar(int id, String nome, String endereco, String cidade,
-			Uf estado, String email) {
+			Uf estado, GeneroCli genero, String email) {
 
 		ClienteController cc = new ClienteController();
 
@@ -18,6 +19,7 @@ public class ClienteController extends Cliente {
 		cc.setEndereco(endereco);
 		cc.setCidade(cidade);
 		cc.setEstado(estado);
+		cc.setGenero(genero);
 		cc.setEmail(email);
 
 		new ClienteDao().inserir(cc);
@@ -25,7 +27,7 @@ public class ClienteController extends Cliente {
 	}
 
 	public void editar(int id, String nome, String endereco, String cidade,
-			Uf estado, String email) {
+			Uf estado, GeneroCli genero, String email) {
 
 		Cliente c = new Cliente();
 		c.setId(id);
@@ -33,9 +35,10 @@ public class ClienteController extends Cliente {
 		c.setEndereco(endereco);
 		c.setCidade(cidade);
 		c.setEstado(estado);
+		c.setGenero(genero);
 		c.setEmail(email);
 
-		new ClienteDao().editar(id, nome, endereco, cidade, estado, email);
+		new ClienteDao().editar(id, nome, endereco, cidade, estado, genero, email);
 
 	}
 

@@ -26,7 +26,7 @@ import br.univel.controller.ClienteController;
 import br.univel.controller.ProdutoContoller;
 import br.univel.controller.UsuarioController;
 import br.univel.dao.Conexao;
-import br.univel.enun.Genero;
+import br.univel.enun.GeneroProd;
 import br.univel.enun.Unidade;
 import br.univel.model.Cliente;
 

@@ -21,6 +21,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 
 import br.univel.controller.ClienteController;
+import br.univel.enun.GeneroCli;
 import br.univel.enun.Uf;
 
 import java.awt.event.ActionListener;
@@ -39,6 +40,7 @@ public class CadCliente extends JFrame {
 	private JTextField txtCidade;
 	private JTextField txtEmail;
 	private JComboBox cbEstado;
+	private JComboBox cbGenero;
 
 	/**
 	 * Launch the application.
@@ -60,7 +62,7 @@ public class CadCliente extends JFrame {
 	public CadCliente() {
 		setTitle("Cadastro de Clientes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 450, 336);
+		setBounds(100, 100, 450, 386);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -73,40 +75,40 @@ public class CadCliente extends JFrame {
 		cadCliente.setBackground(UIManager.getColor("Button.light"));
 		contentPane.add(cadCliente, BorderLayout.CENTER);
 		GridBagLayout gbl_cadCliente = new GridBagLayout();
-		gbl_cadCliente.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 86 };
-		gbl_cadCliente.rowHeights = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-				0, 0, 0 };
-		gbl_cadCliente.columnWeights = new double[] { 0.0, 0.0, 1.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_cadCliente.columnWidths = new int[] { 45, 88, 29, 65, 71, 65, 0 };
+		gbl_cadCliente.rowHeights = new int[] { 20, 35, 20, 20, 20, 20, 20, 22,
+				22, 20, 23, 0 };
+		gbl_cadCliente.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, Double.MIN_VALUE };
 		gbl_cadCliente.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		cadCliente.setLayout(gbl_cadCliente);
 
 		JLabel lblCadasroDeCliente = new JLabel("Cadasro de Cliente");
 		lblCadasroDeCliente.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC,
 				16));
 		GridBagConstraints gbc_lblCadasroDeCliente = new GridBagConstraints();
-		gbc_lblCadasroDeCliente.gridwidth = 12;
-		gbc_lblCadasroDeCliente.insets = new Insets(0, 0, 5, 0);
-		gbc_lblCadasroDeCliente.gridx = 0;
-		gbc_lblCadasroDeCliente.gridy = 1;
+		gbc_lblCadasroDeCliente.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblCadasroDeCliente.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCadasroDeCliente.gridwidth = 3;
+		gbc_lblCadasroDeCliente.gridx = 2;
+		gbc_lblCadasroDeCliente.gridy = 0;
 		cadCliente.add(lblCadasroDeCliente, gbc_lblCadasroDeCliente);
 
 		JLabel lblId = new JLabel("Id");
 		GridBagConstraints gbc_lblId = new GridBagConstraints();
 		gbc_lblId.anchor = GridBagConstraints.EAST;
 		gbc_lblId.insets = new Insets(0, 0, 5, 5);
-		gbc_lblId.gridx = 1;
-		gbc_lblId.gridy = 3;
+		gbc_lblId.gridx = 0;
+		gbc_lblId.gridy = 2;
 		cadCliente.add(lblId, gbc_lblId);
 
 		txtId = new JTextField();
 		GridBagConstraints gbc_txtId = new GridBagConstraints();
-		gbc_txtId.gridwidth = 4;
+		gbc_txtId.anchor = GridBagConstraints.NORTHEAST;
 		gbc_txtId.insets = new Insets(0, 0, 5, 5);
-		gbc_txtId.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtId.gridx = 2;
-		gbc_txtId.gridy = 3;
+		gbc_txtId.gridx = 1;
+		gbc_txtId.gridy = 2;
 		cadCliente.add(txtId, gbc_txtId);
 		txtId.setColumns(10);
 
@@ -114,115 +116,50 @@ public class CadCliente extends JFrame {
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.anchor = GridBagConstraints.EAST;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 1;
-		gbc_lblNewLabel.gridy = 4;
+		gbc_lblNewLabel.gridx = 0;
+		gbc_lblNewLabel.gridy = 3;
 		cadCliente.add(lblNewLabel, gbc_lblNewLabel);
 
 		txtNome = new JTextField();
 		txtNome.setColumns(10);
 		GridBagConstraints gbc_txtNome = new GridBagConstraints();
-		gbc_txtNome.gridwidth = 8;
-		gbc_txtNome.insets = new Insets(0, 0, 5, 5);
+		gbc_txtNome.anchor = GridBagConstraints.NORTH;
 		gbc_txtNome.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtNome.gridx = 2;
-		gbc_txtNome.gridy = 4;
+		gbc_txtNome.insets = new Insets(0, 0, 5, 0);
+		gbc_txtNome.gridwidth = 5;
+		gbc_txtNome.gridx = 1;
+		gbc_txtNome.gridy = 3;
 		cadCliente.add(txtNome, gbc_txtNome);
 
 		JLabel lblTelefone = new JLabel("Telefone");
 		GridBagConstraints gbc_lblTelefone = new GridBagConstraints();
 		gbc_lblTelefone.anchor = GridBagConstraints.EAST;
 		gbc_lblTelefone.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTelefone.gridx = 1;
-		gbc_lblTelefone.gridy = 5;
+		gbc_lblTelefone.gridx = 0;
+		gbc_lblTelefone.gridy = 4;
 		cadCliente.add(lblTelefone, gbc_lblTelefone);
 
 		txtTelefone = new JTextField();
 		txtTelefone.setColumns(10);
 		GridBagConstraints gbc_txtTelefone = new GridBagConstraints();
-		gbc_txtTelefone.gridwidth = 5;
-		gbc_txtTelefone.insets = new Insets(0, 0, 5, 5);
+		gbc_txtTelefone.anchor = GridBagConstraints.NORTH;
 		gbc_txtTelefone.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtTelefone.gridx = 2;
-		gbc_txtTelefone.gridy = 5;
+		gbc_txtTelefone.insets = new Insets(0, 0, 5, 5);
+		gbc_txtTelefone.gridwidth = 2;
+		gbc_txtTelefone.gridx = 1;
+		gbc_txtTelefone.gridy = 4;
 		cadCliente.add(txtTelefone, gbc_txtTelefone);
 
 		JLabel lblEndereco = new JLabel("Endere\u00E7o");
 		GridBagConstraints gbc_lblEndereco = new GridBagConstraints();
-		gbc_lblEndereco.anchor = GridBagConstraints.EAST;
+		gbc_lblEndereco.anchor = GridBagConstraints.WEST;
 		gbc_lblEndereco.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEndereco.gridx = 1;
-		gbc_lblEndereco.gridy = 6;
+		gbc_lblEndereco.gridx = 0;
+		gbc_lblEndereco.gridy = 5;
 		cadCliente.add(lblEndereco, gbc_lblEndereco);
 
-		txtEndereco = new JTextField();
-		txtEndereco.setColumns(10);
-		GridBagConstraints gbc_txtEndereco = new GridBagConstraints();
-		gbc_txtEndereco.gridwidth = 8;
-		gbc_txtEndereco.insets = new Insets(0, 0, 5, 5);
-		gbc_txtEndereco.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtEndereco.gridx = 2;
-		gbc_txtEndereco.gridy = 6;
-		cadCliente.add(txtEndereco, gbc_txtEndereco);
-
-		JLabel lblCidade = new JLabel("Cidade");
-		GridBagConstraints gbc_lblCidade = new GridBagConstraints();
-		gbc_lblCidade.anchor = GridBagConstraints.EAST;
-		gbc_lblCidade.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCidade.gridx = 1;
-		gbc_lblCidade.gridy = 7;
-		cadCliente.add(lblCidade, gbc_lblCidade);
-
-		txtCidade = new JTextField();
-		txtCidade.setColumns(10);
-		GridBagConstraints gbc_txtCidade = new GridBagConstraints();
-		gbc_txtCidade.gridwidth = 7;
-		gbc_txtCidade.insets = new Insets(0, 0, 5, 5);
-		gbc_txtCidade.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtCidade.gridx = 2;
-		gbc_txtCidade.gridy = 7;
-		cadCliente.add(txtCidade, gbc_txtCidade);
-
-		JLabel lblEstado = new JLabel("Estado");
-		GridBagConstraints gbc_lblEstado = new GridBagConstraints();
-		gbc_lblEstado.anchor = GridBagConstraints.EAST;
-		gbc_lblEstado.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEstado.gridx = 1;
-		gbc_lblEstado.gridy = 8;
-		cadCliente.add(lblEstado, gbc_lblEstado);
-
-		cbEstado = new JComboBox(Uf.values());
-		cbEstado.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		GridBagConstraints gbc_cbEstado = new GridBagConstraints();
-		gbc_cbEstado.gridwidth = 3;
-		gbc_cbEstado.insets = new Insets(0, 0, 5, 5);
-		gbc_cbEstado.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cbEstado.gridx = 2;
-		gbc_cbEstado.gridy = 8;
-		cadCliente.add(cbEstado, gbc_cbEstado);
-
-		JLabel lblEmail = new JLabel("Email");
-		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
-		gbc_lblEmail.anchor = GridBagConstraints.EAST;
-		gbc_lblEmail.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEmail.gridx = 1;
-		gbc_lblEmail.gridy = 9;
-		cadCliente.add(lblEmail, gbc_lblEmail);
-
-		txtEmail = new JTextField();
-		txtEmail.setColumns(10);
-		GridBagConstraints gbc_txtEmail = new GridBagConstraints();
-		gbc_txtEmail.gridwidth = 8;
-		gbc_txtEmail.insets = new Insets(0, 0, 5, 5);
-		gbc_txtEmail.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtEmail.gridx = 2;
-		gbc_txtEmail.gridy = 9;
-		cadCliente.add(txtEmail, gbc_txtEmail);
-
-		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.addActionListener(new ActionListener() {
+		JButton btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (validaCampos() == true) {
@@ -234,10 +171,10 @@ public class CadCliente extends JFrame {
 					ClienteController cc = new ClienteController();
 
 					Uf estado = (Uf) cbEstado.getSelectedItem();
-
-					cc.salvar(Integer.parseInt(txtId.getText().trim()), txtNome
+					GeneroCli genCli = (GeneroCli) cbEstado.getSelectedItem();
+					cc.editar(Integer.parseInt(txtId.getText().trim()), txtNome
 							.getText().trim(), txtEndereco.getText().trim(),
-							txtCidade.getText().trim(), estado, txtEmail
+							txtCidade.getText().trim(), estado, genCli, txtEmail
 									.getText().trim());
 
 					limparCampos();
@@ -246,6 +183,89 @@ public class CadCliente extends JFrame {
 
 			}
 		});
+
+		txtEndereco = new JTextField();
+		txtEndereco.setColumns(10);
+		GridBagConstraints gbc_txtEndereco = new GridBagConstraints();
+		gbc_txtEndereco.anchor = GridBagConstraints.NORTH;
+		gbc_txtEndereco.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtEndereco.insets = new Insets(0, 0, 5, 0);
+		gbc_txtEndereco.gridwidth = 5;
+		gbc_txtEndereco.gridx = 1;
+		gbc_txtEndereco.gridy = 5;
+		cadCliente.add(txtEndereco, gbc_txtEndereco);
+
+		JLabel lblCidade = new JLabel("Cidade");
+		GridBagConstraints gbc_lblCidade = new GridBagConstraints();
+		gbc_lblCidade.anchor = GridBagConstraints.EAST;
+		gbc_lblCidade.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCidade.gridx = 0;
+		gbc_lblCidade.gridy = 6;
+		cadCliente.add(lblCidade, gbc_lblCidade);
+
+		txtCidade = new JTextField();
+		txtCidade.setColumns(10);
+		GridBagConstraints gbc_txtCidade = new GridBagConstraints();
+		gbc_txtCidade.anchor = GridBagConstraints.NORTH;
+		gbc_txtCidade.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtCidade.insets = new Insets(0, 0, 5, 5);
+		gbc_txtCidade.gridwidth = 4;
+		gbc_txtCidade.gridx = 1;
+		gbc_txtCidade.gridy = 6;
+		cadCliente.add(txtCidade, gbc_txtCidade);
+
+		JLabel lblEstado = new JLabel("Estado");
+		GridBagConstraints gbc_lblEstado = new GridBagConstraints();
+		gbc_lblEstado.anchor = GridBagConstraints.EAST;
+		gbc_lblEstado.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEstado.gridx = 0;
+		gbc_lblEstado.gridy = 7;
+		cadCliente.add(lblEstado, gbc_lblEstado);
+
+		cbEstado = new JComboBox(Uf.values());
+		GridBagConstraints gbc_cbEstado = new GridBagConstraints();
+		gbc_cbEstado.anchor = GridBagConstraints.NORTHWEST;
+		gbc_cbEstado.insets = new Insets(0, 0, 5, 5);
+		gbc_cbEstado.gridx = 1;
+		gbc_cbEstado.gridy = 7;
+		cadCliente.add(cbEstado, gbc_cbEstado);
+
+		JLabel lblGnero = new JLabel("G\u00EAnero");
+		GridBagConstraints gbc_lblGnero = new GridBagConstraints();
+		gbc_lblGnero.anchor = GridBagConstraints.EAST;
+		gbc_lblGnero.insets = new Insets(0, 0, 5, 5);
+		gbc_lblGnero.gridx = 0;
+		gbc_lblGnero.gridy = 8;
+		cadCliente.add(lblGnero, gbc_lblGnero);
+
+		cbGenero = new JComboBox(GeneroCli.values());
+		GridBagConstraints gbc_cbGenero = new GridBagConstraints();
+		gbc_cbGenero.gridwidth = 3;
+		gbc_cbGenero.anchor = GridBagConstraints.NORTH;
+		gbc_cbGenero.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbGenero.insets = new Insets(0, 0, 5, 5);
+		gbc_cbGenero.gridx = 1;
+		gbc_cbGenero.gridy = 8;
+		cadCliente.add(cbGenero, gbc_cbGenero);
+
+		JLabel lblEmail = new JLabel("Email");
+		GridBagConstraints gbc_lblEmail = new GridBagConstraints();
+		gbc_lblEmail.anchor = GridBagConstraints.EAST;
+		gbc_lblEmail.insets = new Insets(0, 0, 5, 5);
+		gbc_lblEmail.gridx = 0;
+		gbc_lblEmail.gridy = 9;
+		cadCliente.add(lblEmail, gbc_lblEmail);
+
+		txtEmail = new JTextField();
+		txtEmail.setColumns(10);
+		GridBagConstraints gbc_txtEmail = new GridBagConstraints();
+		gbc_txtEmail.anchor = GridBagConstraints.NORTH;
+		gbc_txtEmail.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtEmail.insets = new Insets(0, 0, 5, 0);
+		gbc_txtEmail.gridwidth = 5;
+		gbc_txtEmail.gridx = 1;
+		gbc_txtEmail.gridy = 9;
+		cadCliente.add(txtEmail, gbc_txtEmail);
 
 		JButton btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
@@ -270,13 +290,20 @@ public class CadCliente extends JFrame {
 			}
 		});
 		GridBagConstraints gbc_btnExcluir = new GridBagConstraints();
-		gbc_btnExcluir.insets = new Insets(0, 0, 5, 5);
-		gbc_btnExcluir.gridx = 7;
+		gbc_btnExcluir.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnExcluir.insets = new Insets(0, 0, 0, 5);
+		gbc_btnExcluir.gridx = 3;
 		gbc_btnExcluir.gridy = 10;
 		cadCliente.add(btnExcluir, gbc_btnExcluir);
+		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
+		gbc_btnEditar.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnEditar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnEditar.gridx = 4;
+		gbc_btnEditar.gridy = 10;
+		cadCliente.add(btnEditar, gbc_btnEditar);
 
-		JButton btnEditar = new JButton("Editar");
-		btnEditar.addActionListener(new ActionListener() {
+		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (validaCampos() == true) {
@@ -288,10 +315,10 @@ public class CadCliente extends JFrame {
 					ClienteController cc = new ClienteController();
 
 					Uf estado = (Uf) cbEstado.getSelectedItem();
-
-					cc.editar(Integer.parseInt(txtId.getText().trim()), txtNome
+					GeneroCli genCli = (GeneroCli) cbEstado.getSelectedItem();
+					cc.salvar(Integer.parseInt(txtId.getText().trim()), txtNome
 							.getText().trim(), txtEndereco.getText().trim(),
-							txtCidade.getText().trim(), estado, txtEmail
+							txtCidade.getText().trim(), estado, genCli, txtEmail
 									.getText().trim());
 
 					limparCampos();
@@ -300,14 +327,9 @@ public class CadCliente extends JFrame {
 
 			}
 		});
-		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
-		gbc_btnEditar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnEditar.gridx = 8;
-		gbc_btnEditar.gridy = 10;
-		cadCliente.add(btnEditar, gbc_btnEditar);
 		GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
-		gbc_btnSalvar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnSalvar.gridx = 9;
+		gbc_btnSalvar.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnSalvar.gridx = 5;
 		gbc_btnSalvar.gridy = 10;
 		cadCliente.add(btnSalvar, gbc_btnSalvar);
 	}
@@ -332,5 +354,4 @@ public class CadCliente extends JFrame {
 		return valida;
 
 	}
-
 }

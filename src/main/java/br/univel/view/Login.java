@@ -43,12 +43,12 @@ public class Login extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			private Login fLogin;
 
 			public void run() {
 				try {
-					fLogin = new Login();
+					Login fLogin = new Login();
 					fLogin.setVisible(true);
+					fLogin.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 					fLogin.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -104,7 +104,9 @@ public class Login extends JFrame {
 				} else {
 					limpaCampos();
 					Principal p = new Principal();
+					p.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					p.setVisible(true);
+					setVisible(false);
 				}
 			}
 		});

@@ -2,7 +2,7 @@ package br.univel.controller;
 
 import java.math.BigDecimal;
 
-import br.univel.enun.Genero;
+import br.univel.enun.GeneroProd;
 import br.univel.enun.Unidade;
 import br.univel.model.Produto;
 import br.univel.dao.ProdutoDao;
@@ -10,7 +10,7 @@ import br.univel.dao.ProdutoDao;
 public class ProdutoContoller extends Produto {
 	// Classe controller, que irá controlar todas as movimentaçoes do produto,
 	// tanto cadastros novos, exclusao e edição
-	public void salvar(int id, int codBarras, Genero genero, String descricao,
+	public void salvar(int id, int codBarras, GeneroProd genero, String descricao,
 			Unidade unidade, BigDecimal custo, BigDecimal margemLucro) {
 
 		ProdutoContoller pp = new ProdutoContoller();
@@ -26,7 +26,7 @@ public class ProdutoContoller extends Produto {
 		new ProdutoDao().inserir(pp);
 	}
 
-	public void editar(int id, int codBarras, String descricao, Genero genero,
+	public void editar(int id, int codBarras, String descricao, GeneroProd genero,
 			Unidade unidade, BigDecimal custo, BigDecimal margemLucro) {
 
 		Produto p = new Produto();

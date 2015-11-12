@@ -1,6 +1,7 @@
 package br.univel.model;
 
-import br.univel.enun.Genero;
+import br.univel.enun.GeneroCli;
+import br.univel.enun.GeneroProd;
 import br.univel.enun.Uf;
 
 public class Cliente {
@@ -10,6 +11,7 @@ public class Cliente {
 	private String endereco;
 	private String cidade;
 	private Uf estado;
+	private GeneroCli genero;
 	private String email;
 
 	public Cliente() {
@@ -17,7 +19,16 @@ public class Cliente {
 		this.endereco = endereco;
 		this.cidade = cidade;
 		this.estado = estado;
+		this.genero = genero;
 		this.email = email;
+	}
+
+	public GeneroCli getGenero() {
+		return genero;
+	}
+
+	public void setGenero(GeneroCli genero) {
+		this.genero = genero;
 	}
 
 	public String getNome() {
@@ -72,9 +83,5 @@ public class Cliente {
 	public String toString() {
 		return nome;
 	}
-	
-	
 
-	
-	
 }

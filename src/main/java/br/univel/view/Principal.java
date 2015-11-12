@@ -30,18 +30,22 @@ public class Principal extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Principal principal = new Principal();
-					principal.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
+	
+	// Usar o main do Login
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					Principal principal = new Principal();
+//					principal.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//					principal.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	
 
@@ -49,10 +53,10 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
-		setMaximizedBounds(new Rectangle(0, 0, 0, 0));
+		setPreferredSize(new Dimension(640, 480));
 		setTitle("Mobili");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 963, 702);
+
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);

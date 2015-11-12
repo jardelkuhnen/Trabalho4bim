@@ -25,7 +25,7 @@ import javax.swing.JButton;
 
 import br.univel.controller.ClienteController;
 import br.univel.controller.ProdutoContoller;
-import br.univel.enun.Genero;
+import br.univel.enun.GeneroProd;
 import br.univel.enun.Uf;
 import br.univel.enun.Unidade;
 
@@ -135,7 +135,7 @@ public class CadProduto extends JFrame {
 												gbc_lblNewLabel_1.gridy = 5;
 												panel.add(lblNewLabel_1, gbc_lblNewLabel_1);
 										
-												cbGenero = new JComboBox(Genero.values());
+												cbGenero = new JComboBox(GeneroProd.values());
 												cbGenero.addActionListener(new ActionListener() {
 													public void actionPerformed(ActionEvent arg0) {
 													}
@@ -266,7 +266,7 @@ public class CadProduto extends JFrame {
 							ProdutoContoller pp = new ProdutoContoller();
 
 							Unidade un = (Unidade) cbUnidade.getSelectedItem();
-							Genero cat = (Genero) cbGenero.getSelectedItem();
+							GeneroProd cat = (GeneroProd) cbGenero.getSelectedItem();
 							BigDecimal custo = new BigDecimal(txtCusto.getText().trim());
 							BigDecimal mgValor = new BigDecimal(txtMargemLucro
 									.getText().trim());
@@ -294,7 +294,7 @@ public class CadProduto extends JFrame {
 
 									ProdutoContoller pp = new ProdutoContoller();
 
-									Genero genero = (Genero) cbGenero.getSelectedItem();
+									GeneroProd genero = (GeneroProd) cbGenero.getSelectedItem();
 									Unidade un = (Unidade) cbUnidade.getSelectedItem();
 									BigDecimal custo = new BigDecimal(txtCusto.getText().trim());
 									BigDecimal mgLucro = new BigDecimal(txtMargemLucro

@@ -10,7 +10,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import br.univel.enun.Genero;
+import br.univel.enun.GeneroProd;
 import br.univel.enun.Unidade;
 import br.univel.model.Produto;
 
@@ -67,7 +67,7 @@ public class ProdutoDao {
 
 	}
 
-	public void editar(int id, int codBarras, Genero genero,
+	public void editar(int id, int codBarras, GeneroProd genero,
 			String descricao, Unidade unidade, BigDecimal lucro,
 			BigDecimal margemLucro) {
 		con = Conexao.getConnection();

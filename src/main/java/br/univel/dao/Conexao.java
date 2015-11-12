@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Conexao {
-
+	// Dados da conexão ao banco de dados
 	private static final String URL_H2 = "jdbc:h2:~/Mobili";
 	private static final String DRIVER_CLASS = "org.h2.Driver";
 	private static final String USER = "sa";

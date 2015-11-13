@@ -9,10 +9,19 @@ public class Venda {
 	private String cliente;
 	private String produto;
 	private int qtd;
+	private BigDecimal vlrProduto;
 	private BigDecimal vlrTotal;
 	private BigDecimal vlrPagamento;
 	private BigDecimal vlrTroco;
 	private String dataHora;
+
+	public BigDecimal getVlrProduto() {
+		return vlrProduto;
+	}
+
+	public void setVlrProduto(BigDecimal vlrProduto) {
+		this.vlrProduto = vlrProduto;
+	}
 
 	public String getCliente() {
 		return cliente;
@@ -78,5 +87,4 @@ public class Venda {
 		this.dataHora = dataHora;
 	}
 
-	
 }

@@ -105,7 +105,8 @@ public class CadCliente extends JFrame {
 
 		txtId = new JTextField();
 		GridBagConstraints gbc_txtId = new GridBagConstraints();
-		gbc_txtId.anchor = GridBagConstraints.NORTHEAST;
+		gbc_txtId.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtId.anchor = GridBagConstraints.NORTH;
 		gbc_txtId.insets = new Insets(0, 0, 5, 5);
 		gbc_txtId.gridx = 1;
 		gbc_txtId.gridy = 2;

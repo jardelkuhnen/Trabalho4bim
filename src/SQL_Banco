@@ -5,7 +5,7 @@ nome varchar(100),
 endereco varchar(100),
 cidade varchar(100),
 estado char(2),
-genero varchar(20);
+genero varchar(20),
 email varchar(100));
 
 

@@ -35,7 +35,7 @@ public class ClienteDao {
 			stmt.setString(4, c.getCidade().toUpperCase());
 			stmt.setString(5, c.getEstado().toString());
 			stmt.setString(6, c.getGenero().toString());
-			stmt.setString(7, c.getEmail().toUpperCase());
+			stmt.setString(7, c.getEmail());
 
 			stmt.execute();
 			stmt.close();

@@ -13,21 +13,21 @@ import br.univel.dao.Conexao;
 
 public class TabelaModel extends AbstractTableModel {
 
-	private List<Produto> lista = new ArrayList<Produto>();
+	private List<Produto> lista;
 
 	public int getColumnCount() {
-		return 1;
+		return 2;
 	}
 
 	public int getRowCount() {
 		return lista.size();
 	}
 
-	public Object getValueAt(int row, int column) {
+	public Object getValueAt(int row, int col) {
 
-		Produto p = new Produto();
+		Produto p = lista.get(row);
 
-		switch (column) {
+		switch (col) {
 		case 0:
 			return p.getDescricao();
 		case 1:
@@ -43,7 +43,7 @@ public class TabelaModel extends AbstractTableModel {
 
 	public void incluir(Produto p) {
 		lista.add(p);
-		super.fireTableDataChanged();
+		super.fireTableRowsInserted(lista.size() - 1, lista.size() - 1);
 	}
 
 	@Override

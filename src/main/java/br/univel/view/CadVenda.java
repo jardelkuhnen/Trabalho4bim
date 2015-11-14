@@ -1,7 +1,6 @@
 package br.univel.view;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -21,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -33,8 +33,6 @@ import br.univel.model.ProdVenda;
 import br.univel.model.Produto;
 import br.univel.model.TabelaModel;
 import br.univel.model.Venda;
-
-import javax.swing.JScrollPane;
 
 public class CadVenda extends JFrame {
 
@@ -90,12 +88,12 @@ public class CadVenda extends JFrame {
 
 				String produto = cbProduto.getSelectedItem().toString();
 				int qtd = Integer.parseInt(txtQuantidade.getText());
-				String nota = txtNNota.getText().trim();
 
 				ProdVenda p = new ProdVenda(produto, qtd);
 
+				System.out.println(produto + " " + qtd);
 				model.incluir(p);
-				limparCampos();
+				txtQuantidade.setText("");
 
 			}
 		});
@@ -294,12 +292,19 @@ public class CadVenda extends JFrame {
 
 		Cliente c = (Cliente) cbCliente.getSelectedItem();
 		Produto p = (Produto) cbProduto.getSelectedItem();
-		String horaData = horaVenda().toString();
+		String horaData = horaVenda();
 		vd.gravarVenda(Integer.parseInt(txtNNota.getText().trim()),
 				c.toString(), p.toString(),
 				Integer.parseInt(txtQuantidade.getText().trim()), horaData);
 
 		limparCampos();
+
+	}
+
+	protected void configuraManual() {
+
+		model = new TabelaModel();
+		tabela.setModel(model);
 
 	}
 

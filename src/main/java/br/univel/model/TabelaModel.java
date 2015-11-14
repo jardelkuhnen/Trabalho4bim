@@ -1,19 +1,12 @@
 package br.univel.model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import br.univel.dao.Conexao;
-
 public class TabelaModel extends AbstractTableModel {
 
-	private List<Produto> lista;
+	private List<ProdVenda> lista;
 
 	public int getColumnCount() {
 		return 2;
@@ -25,13 +18,13 @@ public class TabelaModel extends AbstractTableModel {
 
 	public Object getValueAt(int row, int col) {
 
-		Produto p = lista.get(row);
+		ProdVenda p = lista.get(row);
 
 		switch (col) {
 		case 0:
 			return p.getDescricao();
 		case 1:
-			p.getCusto();
+			p.getQtd();
 			break;
 
 		default:
@@ -41,9 +34,9 @@ public class TabelaModel extends AbstractTableModel {
 		return null;
 	}
 
-	public void incluir(Produto p) {
+	public void incluir(ProdVenda p) {
 		lista.add(p);
-		super.fireTableRowsInserted(lista.size() - 1, lista.size() - 1);
+		super.fireTableDataChanged();
 	}
 
 	@Override

@@ -14,6 +14,12 @@ public class Produto {
 	private Unidade unidade;
 	private BigDecimal custo;
 	private BigDecimal margemLucro;
+	private int quantidade;
+
+//	public Produto(String produto, int qtd, ) {
+//		this.descricao = produto;
+//		this.quantidade = qtd;
+//	}
 
 	public int getId() {
 		return id;
@@ -29,6 +35,14 @@ public class Produto {
 
 	public void setCodBarras(int codBarras) {
 		this.codBarras = codBarras;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 
 	public GeneroProd getGenero() {

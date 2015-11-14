@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -28,8 +29,10 @@ import br.univel.controller.VendaController;
 import br.univel.dao.ClienteDao;
 import br.univel.dao.VendaDao;
 import br.univel.model.Cliente;
+import br.univel.model.ProdVenda;
 import br.univel.model.Produto;
 import br.univel.model.TabelaModel;
+import br.univel.model.Venda;
 
 import javax.swing.JScrollPane;
 
@@ -44,9 +47,12 @@ public class CadVenda extends JFrame {
 	private JComboBox cbCliente;
 	private JTextField txtQuantidade;
 	private JLabel lblVlrTotal;
-	private TabelaModel model = new TabelaModel();
+	private TabelaModel model;
+	private JTable tabela;
+
 	List<Produto> listaProd = new ArrayList<Produto>();
 	List<Cliente> listaCli = new ArrayList<Cliente>();
+	List<Venda> listaProdVenda = new ArrayList<Venda>();
 
 	public CadVenda() {
 		setTitle("Venda");
@@ -82,7 +88,14 @@ public class CadVenda extends JFrame {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				Produto p = (Produto) cbProduto.getSelectedItem();
+				String produto = cbProduto.getSelectedItem().toString();
+				int qtd = Integer.parseInt(txtQuantidade.getText());
+				String nota = txtNNota.getText().trim();
+
+				ProdVenda p = new ProdVenda(produto, qtd);
+
+				model.incluir(p);
+				limparCampos();
 
 			}
 		});
@@ -205,7 +218,7 @@ public class CadVenda extends JFrame {
 		JButton btnGravar = new JButton("Gravar");
 		btnGravar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				adicionarProduto();
+				adicionarProdutos();
 			}
 		});
 
@@ -275,28 +288,19 @@ public class CadVenda extends JFrame {
 
 	}
 
-	protected void adicionarProduto() {
+	protected void adicionarProdutos() {
 
 		VendaController vd = new VendaController();
 
 		Cliente c = (Cliente) cbCliente.getSelectedItem();
 		Produto p = (Produto) cbProduto.getSelectedItem();
-		String horaData = horaVenda();
-		String valorProd = valorProduto();
+		String horaData = horaVenda().toString();
 		vd.gravarVenda(Integer.parseInt(txtNNota.getText().trim()),
 				c.toString(), p.toString(),
 				Integer.parseInt(txtQuantidade.getText().trim()), horaData);
 
 		limparCampos();
-	}
 
-	private String valorProduto() {
-
-		VendaDao v = new VendaDao();
-		Object prod = cbProduto.getSelectedItem();
-		v.valorProd((Produto) prod);
-
-		return "";
 	}
 
 	private void limparCampos() {
@@ -313,13 +317,14 @@ public class CadVenda extends JFrame {
 		String hora = "h:mm - a";
 		String data1, hora1;
 
-		java.util.Date agora = new java.util.Date();
+		Date agora = new java.util.Date();
 		SimpleDateFormat formata = new SimpleDateFormat(data);
 		data1 = formata.format(agora);
 		formata = new SimpleDateFormat(hora);
 		hora1 = formata.format(agora);
 
-		return data1 + " " + hora1;
+		String compl = data1 + " " + hora1;
+		return compl;
 	}
 
 	void preencheLista() throws SQLException {

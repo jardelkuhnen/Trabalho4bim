@@ -8,10 +8,12 @@ import br.univel.model.Produto;
 import br.univel.dao.ProdutoDao;
 
 public class ProdutoContoller extends Produto {
+
 	// Classe controller, que irá controlar todas as movimentaçoes do produto,
 	// tanto cadastros novos, exclusao e edição
-	public void salvar(int id, int codBarras, GeneroProd genero, String descricao,
-			Unidade unidade, BigDecimal custo, BigDecimal margemLucro) {
+	public void salvar(int id, int codBarras, GeneroProd genero,
+			String descricao, Unidade unidade, BigDecimal custo,
+			BigDecimal margemLucro) {
 
 		ProdutoContoller pp = new ProdutoContoller();
 
@@ -26,8 +28,9 @@ public class ProdutoContoller extends Produto {
 		new ProdutoDao().inserir(pp);
 	}
 
-	public void editar(int id, int codBarras, String descricao, GeneroProd genero,
-			Unidade unidade, BigDecimal custo, BigDecimal margemLucro) {
+	public void editar(int id, int codBarras, String descricao,
+			GeneroProd genero, Unidade unidade, BigDecimal custo,
+			BigDecimal margemLucro) {
 
 		ProdutoContoller pp = new ProdutoContoller();
 		pp.setId(id);

@@ -48,24 +48,6 @@ public class CadVenda extends JFrame {
 	List<Produto> listaProd = new ArrayList<Produto>();
 	List<Cliente> listaCli = new ArrayList<Cliente>();
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public CadVenda() {
 		setTitle("Venda");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

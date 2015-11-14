@@ -42,23 +42,6 @@ public class CadCliente extends JFrame {
 	private JComboBox cbEstado;
 	private JComboBox cbGenero;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	public CadCliente() {
 		setTitle("Cadastro de Clientes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -175,8 +158,8 @@ public class CadCliente extends JFrame {
 					GeneroCli genCli = (GeneroCli) cbEstado.getSelectedItem();
 					cc.editar(Integer.parseInt(txtId.getText().trim()), txtNome
 							.getText().trim(), txtEndereco.getText().trim(),
-							txtCidade.getText().trim(), estado, genCli, txtEmail
-									.getText().trim());
+							txtCidade.getText().trim(), estado, genCli,
+							txtEmail.getText().trim());
 
 					limparCampos();
 
@@ -319,8 +302,8 @@ public class CadCliente extends JFrame {
 					GeneroCli genCli = (GeneroCli) cbGenero.getSelectedItem();
 					cc.salvar(Integer.parseInt(txtId.getText().trim()), txtNome
 							.getText().trim(), txtEndereco.getText().trim(),
-							txtCidade.getText().trim(), estado, genCli, txtEmail
-									.getText().trim());
+							txtCidade.getText().trim(), estado, genCli,
+							txtEmail.getText().trim());
 
 					limparCampos();
 

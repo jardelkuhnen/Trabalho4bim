@@ -31,21 +31,6 @@ public class Principal extends JFrame {
 	 * Launch the application.
 	 */
 	
-	
-	// Usar o main do Login
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					Principal principal = new Principal();
-//					principal.setExtendedState(JFrame.MAXIMIZED_BOTH);
-//					principal.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	
 

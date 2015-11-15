@@ -7,20 +7,20 @@ public class Venda {
 
 	private int nNota;
 	private String cliente;
-	private String produto;
+	private String descricao;
 	private int qtd;
-	private BigDecimal vlrProduto;
+	private BigDecimal custo;
 	private BigDecimal vlrTotal;
 	private BigDecimal vlrPagamento;
 	private BigDecimal vlrTroco;
 	private String dataHora;
 
 	public BigDecimal getVlrProduto() {
-		return vlrProduto;
+		return custo;
 	}
 
 	public void setVlrProduto(BigDecimal vlrProduto) {
-		this.vlrProduto = vlrProduto;
+		this.custo = vlrProduto;
 	}
 
 	public String getCliente() {
@@ -48,11 +48,11 @@ public class Venda {
 	}
 
 	public String getProduto() {
-		return produto;
+		return descricao;
 	}
 
 	public void setProduto(String produto) {
-		this.produto = produto;
+		this.descricao = produto;
 	}
 
 	public BigDecimal getVlrTotal() {
@@ -85,6 +85,22 @@ public class Venda {
 
 	public void setDataHora(String dataHora) {
 		this.dataHora = dataHora;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public BigDecimal getCusto() {
+		return custo;
+	}
+
+	public void setCusto(BigDecimal custo) {
+		this.custo = custo;
 	}
 
 }

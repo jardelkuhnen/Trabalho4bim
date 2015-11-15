@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class TabelaModel extends AbstractTableModel {
 
-	private List<ProdVenda> lista;
+	private List<Venda> lista;
 
 	public int getColumnCount() {
 		return 2;
@@ -18,7 +18,7 @@ public class TabelaModel extends AbstractTableModel {
 
 	public Object getValueAt(int row, int col) {
 
-		ProdVenda p = lista.get(row);
+		Venda p = lista.get(row);
 
 		switch (col) {
 		case 0:
@@ -34,8 +34,8 @@ public class TabelaModel extends AbstractTableModel {
 		return null;
 	}
 
-	public void incluir(ProdVenda p) {
-		lista.add(p);
+	public void incluir(Venda v) {
+		lista.add(v);
 		super.fireTableDataChanged();
 	}
 

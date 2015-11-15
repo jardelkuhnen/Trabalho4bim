@@ -7,7 +7,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -89,10 +91,10 @@ public class CadVenda extends JFrame {
 				String produto = cbProduto.getSelectedItem().toString();
 				int qtd = Integer.parseInt(txtQuantidade.getText());
 
-				ProdVenda p = new ProdVenda(produto, qtd);
+				Venda v = new Venda();
 
 				System.out.println(produto + " " + qtd);
-				model.incluir(p);
+				model.incluir(v);
 				txtQuantidade.setText("");
 
 			}
@@ -318,18 +320,9 @@ public class CadVenda extends JFrame {
 	}
 
 	public String horaVenda() {
-		String data = "dd/MM/yyyy";
-		String hora = "h:mm - a";
-		String data1, hora1;
-
-		Date agora = new java.util.Date();
-		SimpleDateFormat formata = new SimpleDateFormat(data);
-		data1 = formata.format(agora);
-		formata = new SimpleDateFormat(hora);
-		hora1 = formata.format(agora);
-
-		String compl = data1 + " " + hora1;
-		return compl;
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Date date = new Date();
+		return dateFormat.format(date);
 	}
 
 	void preencheLista() throws SQLException {

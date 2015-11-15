@@ -7,7 +7,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -31,7 +30,6 @@ import br.univel.controller.VendaController;
 import br.univel.dao.ClienteDao;
 import br.univel.dao.VendaDao;
 import br.univel.model.Cliente;
-import br.univel.model.ProdVenda;
 import br.univel.model.Produto;
 import br.univel.model.TabelaModel;
 import br.univel.model.Venda;
@@ -88,14 +86,7 @@ public class CadVenda extends JFrame {
 		btnAdicionar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				String produto = cbProduto.getSelectedItem().toString();
-				int qtd = Integer.parseInt(txtQuantidade.getText());
-
-				Venda v = new Venda();
-
-				System.out.println(produto + " " + qtd);
-				model.incluir(v);
-				txtQuantidade.setText("");
+				adicionarProdutos();
 
 			}
 		});
@@ -218,7 +209,7 @@ public class CadVenda extends JFrame {
 		JButton btnGravar = new JButton("Gravar");
 		btnGravar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				adicionarProdutos();
+				gravarVenda();
 			}
 		});
 
@@ -288,7 +279,23 @@ public class CadVenda extends JFrame {
 
 	}
 
-	protected void adicionarProdutos() {
+	public void adicionarProdutos() {
+		String produto = cbProduto.getSelectedItem().toString();
+		int qtd = Integer.parseInt(txtQuantidade.getText());
+
+		Venda v = new Venda();
+		v.setDescricao(produto);
+		v.setQtd(qtd);
+		
+		
+		
+		System.out.println(produto + " " + qtd);
+		model.incluir(v);
+		txtQuantidade.setText("");
+
+	}
+
+	protected void gravarVenda() {
 
 		VendaController vd = new VendaController();
 

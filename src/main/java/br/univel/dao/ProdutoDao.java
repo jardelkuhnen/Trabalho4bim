@@ -98,8 +98,8 @@ public class ProdutoDao {
 		con = Conexao.getConnection();
 
 		try {
-			PreparedStatement stmt;
-			stmt = con.prepareStatement("DELETE FROM PRODUTO WHERE ID = ?");
+			String sql = "DELETE FROM PRODUTO WHERE ID = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
 
 			stmt.setInt(1, id);
 			JOptionPane.showMessageDialog(null,
@@ -113,5 +113,13 @@ public class ProdutoDao {
 
 		return null;
 
+	}
+
+	public BigDecimal valorProd(String produto) {
+
+		con = Conexao.getConnection();
+
+		// continua implementando busca pelo valor do produto
+		return null;
 	}
 }

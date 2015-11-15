@@ -51,7 +51,7 @@ public class ClienteDao {
 
 	}
 
-	public List<Cliente> listarCLiente(List<Cliente> lista) throws SQLException {
+	public List<Cliente> listarCliente(List<Cliente> lista) throws SQLException {
 
 		String sql = "Select nome from Cliente";
 

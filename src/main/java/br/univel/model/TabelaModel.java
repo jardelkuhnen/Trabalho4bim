@@ -1,12 +1,13 @@
 package br.univel.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
 public class TabelaModel extends AbstractTableModel {
 
-	private List<Venda> lista;
+	private List<Produto> lista = new ArrayList<Produto>();
 
 	public int getColumnCount() {
 		return 2;
@@ -18,24 +19,24 @@ public class TabelaModel extends AbstractTableModel {
 
 	public Object getValueAt(int row, int col) {
 
-		Venda p = lista.get(row);
+		Produto p = lista.get(row);
 
 		switch (col) {
 		case 0:
 			return p.getDescricao();
 		case 1:
-			p.getQtd();
-			break;
+			return p.getQuantidade();
+		case 2:
+			return p.getCusto();
 
 		default:
-			break;
+			return "Erro!";
 		}
 
-		return null;
 	}
 
-	public void incluir(Venda v) {
-		lista.add(v);
+	public void incluir(Produto p) {
+		lista.add(p);
 		super.fireTableDataChanged();
 	}
 
@@ -45,6 +46,8 @@ public class TabelaModel extends AbstractTableModel {
 		case 0:
 			return "Nome";
 		case 1:
+			return "Quantidade";
+		case 2:
 			return "Valor";
 		default:
 			return "Erro";

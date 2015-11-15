@@ -92,6 +92,7 @@ public class Principal extends JFrame {
 				CadVenda TVenda = new CadVenda();
 				TVenda.setVisible(true);
 				TVenda.setLocationRelativeTo(null);
+				TVenda.configuraManual();
 
 			}
 		});

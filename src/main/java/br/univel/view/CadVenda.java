@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,11 +29,11 @@ import javax.swing.border.EmptyBorder;
 
 import br.univel.controller.VendaController;
 import br.univel.dao.ClienteDao;
+import br.univel.dao.ProdutoDao;
 import br.univel.dao.VendaDao;
 import br.univel.model.Cliente;
 import br.univel.model.Produto;
 import br.univel.model.TabelaModel;
-import br.univel.model.Venda;
 
 public class CadVenda extends JFrame {
 
@@ -46,11 +47,11 @@ public class CadVenda extends JFrame {
 	private JTextField txtQuantidade;
 	private JLabel lblVlrTotal;
 	private TabelaModel model;
-	private JTable tabela;
+	private JTable tab;
 
 	List<Produto> listaProd = new ArrayList<Produto>();
 	List<Cliente> listaCli = new ArrayList<Cliente>();
-	List<Venda> listaProdVenda = new ArrayList<Venda>();
+	List<Produto> listaProdVenda = new ArrayList<Produto>();
 
 	public CadVenda() {
 		setTitle("Venda");
@@ -277,24 +278,27 @@ public class CadVenda extends JFrame {
 		gbc_btnGravar.gridy = 10;
 		panel.add(btnGravar, gbc_btnGravar);
 
+		tab = new JTable();
+		tabela.setViewportView(tab);
+
 	}
 
 	public void adicionarProdutos() {
 		String produto = cbProduto.getSelectedItem().toString();
 		int qtd = Integer.parseInt(txtQuantidade.getText());
+		BigDecimal custo = new ProdutoDao().valorProd(produto);
+		
+		Produto p = new Produto();
+		p.setDescricao(produto);
+		p.setQuantidade(qtd);
+		p.setCusto(custo);
 
-		Venda v = new Venda();
-		v.setDescricao(produto);
-		v.setQtd(qtd);
-		
-		
-		
-		System.out.println(produto + " " + qtd);
-		model.incluir(v);
+		model.incluir(p);
 		txtQuantidade.setText("");
 
 	}
 
+	// Grava a venda no banco de dados
 	protected void gravarVenda() {
 
 		VendaController vd = new VendaController();
@@ -311,12 +315,11 @@ public class CadVenda extends JFrame {
 	}
 
 	protected void configuraManual() {
-
 		model = new TabelaModel();
-		tabela.setModel(model);
-
+		tab.setModel(model);
 	}
 
+	// limpa os campos
 	private void limparCampos() {
 		txtNNota.setText("");
 		txtQuantidade.setText("");
@@ -326,19 +329,22 @@ public class CadVenda extends JFrame {
 
 	}
 
+	// Pega a hora e retorna para a variavel que chamou o método
 	public String horaVenda() {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Date date = new Date();
 		return dateFormat.format(date);
 	}
 
+	// Preenche lista de produtos e lista de cliente que sao exibidos no
+	// comboBox
 	void preencheLista() throws SQLException {
 
 		VendaDao vdao = new VendaDao();
 		ClienteDao cdao = new ClienteDao();
 
 		vdao.listarProdutos(listaProd);
-		cdao.listarCLiente(listaCli);
+		cdao.listarCliente(listaCli);
 
 	}
 }

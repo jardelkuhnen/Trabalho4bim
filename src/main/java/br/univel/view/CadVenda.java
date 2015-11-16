@@ -287,7 +287,7 @@ public class CadVenda extends JFrame {
 		String produto = cbProduto.getSelectedItem().toString();
 		int qtd = Integer.parseInt(txtQuantidade.getText());
 		BigDecimal custo = new ProdutoDao().valorProd(produto);
-		
+
 		Produto p = new Produto();
 		p.setDescricao(produto);
 		p.setQuantidade(qtd);
@@ -333,7 +333,7 @@ public class CadVenda extends JFrame {
 	public String horaVenda() {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Date date = new Date();
-		return dateFormat.format(date);
+		return dateFormat.format(date).toString();
 	}
 
 	// Preenche lista de produtos e lista de cliente que sao exibidos no

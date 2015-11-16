@@ -44,11 +44,11 @@ public class TabelaModel extends AbstractTableModel {
 	public String getColumnName(int column) {
 		switch (column) {
 		case 0:
-			return "Nome";
+			return "Produto";
 		case 1:
 			return "Quantidade";
 		case 2:
-			return "Valor";
+			return "Valor Unitário";
 		default:
 			return "Erro";
 

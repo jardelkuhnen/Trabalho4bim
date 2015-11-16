@@ -10,8 +10,6 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import br.univel.enun.GeneroProd;
-import br.univel.enun.Unidade;
 import br.univel.model.Produto;
 
 public class ProdutoDao {
@@ -115,11 +113,27 @@ public class ProdutoDao {
 
 	}
 
-	public BigDecimal valorProd(String produto) {
+	public BigDecimal valorProd(int a) {
 
 		con = Conexao.getConnection();
 
-		// continua implementando busca pelo valor do produto
-		return null;
+		String sql = "SELECT CUSTO FROM PRODUTO WHERE ID = " + a + " ;";
+		Produto p = new Produto();
+
+		try {
+			PreparedStatement stmt = con.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				BigDecimal custo = new BigDecimal(rs.getString("CUSTO"));
+				p.setCusto(custo);
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,
+					"Erro ao buscar valor do produto!");
+			e.printStackTrace();
+		}
+		System.out.println(p.getCusto());
+		return p.getCusto();
 	}
 }

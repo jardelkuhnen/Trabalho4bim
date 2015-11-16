@@ -285,8 +285,9 @@ public class CadVenda extends JFrame {
 
 	public void adicionarProdutos() {
 		String produto = cbProduto.getSelectedItem().toString();
+		int indexProd = cbProduto.getSelectedIndex();
 		int qtd = Integer.parseInt(txtQuantidade.getText());
-		BigDecimal custo = new ProdutoDao().valorProd(produto);
+		BigDecimal custo = new ProdutoDao().valorProd(indexProd);
 
 		Produto p = new Produto();
 		p.setDescricao(produto);
@@ -305,7 +306,7 @@ public class CadVenda extends JFrame {
 
 		Cliente c = (Cliente) cbCliente.getSelectedItem();
 		Produto p = (Produto) cbProduto.getSelectedItem();
-		String horaData = horaVenda();
+		String horaData = horaVenda().toString();
 		vd.gravarVenda(Integer.parseInt(txtNNota.getText().trim()),
 				c.toString(), p.toString(),
 				Integer.parseInt(txtQuantidade.getText().trim()), horaData);

@@ -65,30 +65,4 @@ public class VendaDao {
 
 	}
 
-	// METODO PARA CONSULTA NO BANCO DE DADOS, O MESMO DEVERÁ RETORNAR O VALOR
-	// DO PRODUTO QUE SERÁ MOSTRADO NA VIEW
-
-	// AINDA ESTA SENDO IMPLEMENTADO, PRECISO DESCOBRIR UMA FORMA DE DAR ESTE
-	// RETORNO...
-	public String valorProd(Produto prod) {
-
-		con = Conexao.getConnection();
-
-		String sql = "SELECT CUSTO FROM PRODUTO WHERE ID = " + prod.getId()
-				+ ";";
-
-		try {
-			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setString(1, prod.getCusto().toString());
-
-			stmt.execute();
-			stmt.close();
-
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro fatal! ");
-			e.printStackTrace();
-		}
-		return sql;
-
-	}
 }

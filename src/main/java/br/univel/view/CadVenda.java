@@ -26,6 +26,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 import br.univel.controller.VendaController;
 import br.univel.dao.ClienteDao;
@@ -34,6 +35,7 @@ import br.univel.dao.VendaDao;
 import br.univel.model.Cliente;
 import br.univel.model.Produto;
 import br.univel.model.TabelaModel;
+import br.univel.model.Venda;
 
 public class CadVenda extends JFrame {
 
@@ -51,7 +53,8 @@ public class CadVenda extends JFrame {
 
 	List<Produto> listaProd = new ArrayList<Produto>();
 	List<Cliente> listaCli = new ArrayList<Cliente>();
-	List<Produto> listaProdVenda = new ArrayList<Produto>();
+	List<Produto> listaVenda = new ArrayList<Produto>();
+	boolean valido;
 
 	public CadVenda() {
 		setTitle("Venda");
@@ -284,8 +287,12 @@ public class CadVenda extends JFrame {
 	}
 
 	public void adicionarProdutos() {
+
 		String produto = cbProduto.getSelectedItem().toString();
 		int indexProd = cbProduto.getSelectedIndex();
+		if (indexProd == 0) {
+			indexProd = indexProd + 1;
+		}
 		int qtd = Integer.parseInt(txtQuantidade.getText());
 		BigDecimal custo = new ProdutoDao().valorProd(indexProd);
 
@@ -295,6 +302,7 @@ public class CadVenda extends JFrame {
 		p.setCusto(custo);
 
 		model.incluir(p);
+		listaVenda.add(p);
 		txtQuantidade.setText("");
 
 	}
@@ -306,13 +314,41 @@ public class CadVenda extends JFrame {
 
 		Cliente c = (Cliente) cbCliente.getSelectedItem();
 		Produto p = (Produto) cbProduto.getSelectedItem();
-		String horaData = horaVenda().toString();
-		vd.gravarVenda(Integer.parseInt(txtNNota.getText().trim()),
-				c.toString(), p.toString(),
-				Integer.parseInt(txtQuantidade.getText().trim()), horaData);
+		String horaData = horaVenda();
+		String qtdDigitada = txtQuantidade.getText().trim();
+		// Venda v = new Venda();
+		// v.setCliente(c.toString());
+		// v.setnNota(Integer.parseInt(txtNNota.getText().trim()));
+
+		if (qtdDigitada.isEmpty()) {
+			qtdDigitada = "0";
+		}
+		int qtd = Integer.parseInt(qtdDigitada);
+		valido = validaVenda();
+		if (valido == true) {
+
+			vd.gravarVenda(Integer.parseInt(txtNNota.getText().trim()),
+					c.toString(), p.toString(), qtd, horaData);
+			limparModel();
+		} else {
+			JOptionPane.showMessageDialog(null, "Verifique, há campos vazios!");
+		}
 
 		limparCampos();
+	}
 
+	private boolean validaVenda() {
+
+		if (txtNNota.getText().equals("")) {
+			valido = false;
+		}
+
+		return false;
+	}
+
+	private void limparModel() {
+
+		model.limparlista();
 	}
 
 	protected void configuraManual() {
@@ -332,7 +368,7 @@ public class CadVenda extends JFrame {
 
 	// Pega a hora e retorna para a variavel que chamou o método
 	public String horaVenda() {
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Date date = new Date();
 		return dateFormat.format(date).toString();
 	}

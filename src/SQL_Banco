@@ -1,18 +1,18 @@
 
 CREATE TABLE Cliente
-(id int,
+(id int primary key,
 nome varchar(100),
-endereco varchar(100),
-cidade varchar(100),
+endereco varchar(50),
+cidade varchar(50),
 estado char(2),
 genero varchar(20),
-email varchar(100));
+email varchar(50));
 
 
 CREATE TABLE Produto
 (id int primary key,
 codBarras int,
-descricao varchar(100),
+descricao varchar(50),
 genero varchar(30),
 unidade varchar(30),
 custo bigint,
@@ -21,16 +21,16 @@ margemLucro bigint);
 
 CREATE TABLE Usuario
 (idCliente int,
-idUs int,
-senha varchar(100));
+idUs int primary key,
+senha varchar(25));
 
 
 create table Venda(
 nNota int not null,
-cliente varchar(100),
-produto varchar(100),
+cliente varchar(50),
+produto varchar(50),
 qtd int,
-dataHora varchar(50));
+dataHora varchar(30));
 
 
 

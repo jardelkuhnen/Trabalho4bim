@@ -10,7 +10,7 @@ public class TabelaModel extends AbstractTableModel {
 	private List<Produto> lista = new ArrayList<Produto>();
 
 	public int getColumnCount() {
-		return 2;
+		return 3;
 	}
 
 	public int getRowCount() {
@@ -53,5 +53,9 @@ public class TabelaModel extends AbstractTableModel {
 			return "Erro";
 
 		}
+	}
+
+	public void limparlista() {
+		lista.clear();
 	}
 }

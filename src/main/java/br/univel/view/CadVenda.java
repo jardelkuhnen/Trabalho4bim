@@ -11,10 +11,10 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
+import java.util.function.Consumer;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -26,7 +26,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.StyledEditorKit.BoldAction;
 
 import br.univel.controller.VendaController;
 import br.univel.dao.ClienteDao;
@@ -35,7 +34,6 @@ import br.univel.dao.VendaDao;
 import br.univel.model.Cliente;
 import br.univel.model.Produto;
 import br.univel.model.TabelaModel;
-import br.univel.model.Venda;
 
 public class CadVenda extends JFrame {
 
@@ -51,10 +49,9 @@ public class CadVenda extends JFrame {
 	private TabelaModel model;
 	private JTable tab;
 
-	List<Produto> listaProd = new ArrayList<Produto>();
-	List<Cliente> listaCli = new ArrayList<Cliente>();
-	List<Produto> listaVenda = new ArrayList<Produto>();
-	boolean valido;
+	private List<Produto> listaProd;
+	private List<Cliente> listaCli;
+	private List<Produto> listaVenda;
 
 	public CadVenda() {
 		setTitle("Venda");
@@ -324,31 +321,47 @@ public class CadVenda extends JFrame {
 			qtdDigitada = "0";
 		}
 		int qtd = Integer.parseInt(qtdDigitada);
-		valido = validaVenda();
-		if (valido == true) {
 
-			vd.gravarVenda(Integer.parseInt(txtNNota.getText().trim()),
-					c.toString(), p.toString(), qtd, horaData);
-			limparModel();
-		} else {
-			JOptionPane.showMessageDialog(null, "Verifique, há campos vazios!");
-		}
+		vd.gravarVenda(Integer.parseInt(txtNNota.getText().trim()),
+				c.toString(), p.toString(), qtd, horaData);
+		limparModel();
 
 		limparCampos();
 	}
 
-	private boolean validaVenda() {
+	protected void abreBusca() {
 
-		if (txtNNota.getText().equals("")) {
-			valido = false;
-		}
+		PainelBusca painelBusca = new PainelBusca();
 
-		return false;
+		painelBusca.setOnOk(new Consumer<Produto>() {
+			public void accept(Produto p) {
+				getGlassPane().setVisible(false);
+				preencher(p);
+			}
+		});
+
+		painelBusca.setOnCancel(new Runnable() {
+
+			@Override
+			public void run() {
+				limparCampos();
+				getGlassPane().setVisible(false);
+			}
+		});
+
+		setGlassPane(painelBusca);
+		painelBusca.setVisible(true);
+	}
+
+	protected void preencher(Produto p) {
+
+		
 	}
 
 	private void limparModel() {
 
 		model.limparlista();
+		listaVenda.clear();
 	}
 
 	protected void configuraManual() {

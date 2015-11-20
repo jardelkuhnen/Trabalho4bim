@@ -136,25 +136,4 @@ public class ProdutoDao {
 
 		return BigDecimal.ZERO;
 	}
-
-	public Produto buscaDadosF2(String palavra) throws SQLException {
-
-		Produto p = new Produto();
-		con = Conexao.getConnection();
-
-		String sql = "SELECT DESCRICAO, QUANTIDADE, CUSTO FROM PRODUTO WHERE DESCRICAO = ?;";
-
-		PreparedStatement stmt = con.prepareStatement(sql);
-		stmt.setString(1, palavra);
-		
-		ResultSet rs = stmt.executeQuery();
-		
-		while (rs.next()) {
-			p.setDescricao(rs.getString("descricao"));
-			p.setQuantidade(rs.getInt("quantidade"));
-			p.setCusto(rs.getBigDecimal("custo"));
-		}
-		return p;
-
-	}
 }

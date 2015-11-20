@@ -26,7 +26,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.StyledEditorKit.BoldAction;
 
 import br.univel.controller.VendaController;
 import br.univel.dao.ClienteDao;
@@ -35,7 +34,6 @@ import br.univel.dao.VendaDao;
 import br.univel.model.Cliente;
 import br.univel.model.Produto;
 import br.univel.model.TabelaModel;
-import br.univel.model.Venda;
 
 public class CadVenda extends JFrame {
 
@@ -300,10 +298,10 @@ public class CadVenda extends JFrame {
 		p.setDescricao(produto);
 		p.setQuantidade(qtd);
 		p.setCusto(custo);
-
 		model.incluir(p);
 		listaVenda.add(p);
 		txtQuantidade.setText("");
+		txtVlrTotal.setText(p.getCusto().toString());
 
 	}
 
@@ -316,34 +314,18 @@ public class CadVenda extends JFrame {
 		Produto p = (Produto) cbProduto.getSelectedItem();
 		String horaData = horaVenda();
 		String qtdDigitada = txtQuantidade.getText().trim();
-		// Venda v = new Venda();
-		// v.setCliente(c.toString());
-		// v.setnNota(Integer.parseInt(txtNNota.getText().trim()));
+		BigDecimal mgLucro = margemLucro(cbProduto.getSelectedIndex());
 
 		if (qtdDigitada.isEmpty()) {
 			qtdDigitada = "0";
 		}
 		int qtd = Integer.parseInt(qtdDigitada);
-		valido = validaVenda();
-		if (valido == true) {
 
-			vd.gravarVenda(Integer.parseInt(txtNNota.getText().trim()),
-					c.toString(), p.toString(), qtd, horaData);
-			limparModel();
-		} else {
-			JOptionPane.showMessageDialog(null, "Verifique, há campos vazios!");
-		}
+		vd.gravarVenda(Integer.parseInt(txtNNota.getText().trim()),
+				c.toString(), p.toString(), qtd, horaData);
+		limparModel();
 
 		limparCampos();
-	}
-
-	private boolean validaVenda() {
-
-		if (txtNNota.getText().equals("")) {
-			valido = false;
-		}
-
-		return false;
 	}
 
 	private void limparModel() {
@@ -371,6 +353,14 @@ public class CadVenda extends JFrame {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		Date date = new Date();
 		return dateFormat.format(date).toString();
+	}
+
+	private BigDecimal margemLucro(int i) {
+
+		ProdutoDao pd = new ProdutoDao();
+
+		pd.buscaMargem(i);
+		return null;
 	}
 
 	// Preenche lista de produtos e lista de cliente que sao exibidos no

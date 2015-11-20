@@ -16,10 +16,10 @@ public class Produto {
 	private BigDecimal margemLucro;
 	private int quantidade;
 
-//	public Produto(String produto, int qtd, ) {
-//		this.descricao = produto;
-//		this.quantidade = qtd;
-//	}
+	// public Produto(String produto, int qtd, ) {
+	// this.descricao = produto;
+	// this.quantidade = qtd;
+	// }
 
 	public int getId() {
 		return id;

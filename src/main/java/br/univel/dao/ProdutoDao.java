@@ -136,4 +136,26 @@ public class ProdutoDao {
 
 		return BigDecimal.ZERO;
 	}
+
+	public BigDecimal buscaMargem(int i) {
+
+		try {
+			con = Conexao.getConnection();
+			String sql = "SELECT MARGEMLUCRO FROM PODUTO WHERE ID = ?;";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, i);
+
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				return rs.getBigDecimal("MARGEMLUCRO");
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,
+					"Erro ao buscar margem de lucro!!!");
+			e.printStackTrace();
+		}
+		return BigDecimal.ZERO;
+
+	}
 }

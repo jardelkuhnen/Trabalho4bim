@@ -30,6 +30,7 @@ nNota int not null,
 cliente varchar(50),
 produto varchar(50),
 qtd int,
+valorVenda bigint,
 dataHora varchar(30));
 
 

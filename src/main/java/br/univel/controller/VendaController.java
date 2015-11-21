@@ -1,5 +1,6 @@
 package br.univel.controller;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import br.univel.model.Venda;
 public class VendaController extends Venda {
 	// Classe controller, que irá controlar todas as movimentaçoes da venda,
 	public void gravarVenda(int nNota, String cliente, String descricao,
-			int qtd, String dataHora) {
+			int qtd, BigDecimal vlrTotal, String dataHora) {
 
 		VendaController vd = new VendaController();
 
@@ -19,6 +20,7 @@ public class VendaController extends Venda {
 		vd.setProduto(descricao);
 		vd.setQtd(qtd);
 		vd.setDataHora(dataHora);
+		vd.setVlrTotal(vlrTotal);
 
 		new VendaDao().inserirP(vd);
 

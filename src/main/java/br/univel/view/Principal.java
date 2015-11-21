@@ -25,14 +25,6 @@ import java.awt.Window.Type;
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
-	
-
-	/**
-	 * Launch the application.
-	 */
-	
-
-	
 
 	/**
 	 * Create the frame.
@@ -41,7 +33,6 @@ public class Principal extends JFrame {
 		setPreferredSize(new Dimension(640, 480));
 		setTitle("Mobili");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -114,6 +105,5 @@ public class Principal extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 	}
-
 
 }

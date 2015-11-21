@@ -315,6 +315,11 @@ public class CadVenda extends JFrame {
 		String horaData = horaVenda();
 		String qtdDigitada = txtQuantidade.getText().trim();
 		BigDecimal mgLucro = margemLucro(cbProduto.getSelectedIndex());
+		BigDecimal vlrProd = valroProd(cbProduto.getSelectedIndex());
+		// Esta dando erro nesta linha, pois estou pegando o valor do produto,
+		// multiplicando pela margem de lucro e diminuindo 100, oque seria a
+		// conta de porcentagem padrão
+		BigDecimal vlrFinal = vlrProd.multiply(mgLucro).divide(vlrProd, 100);
 
 		if (qtdDigitada.isEmpty()) {
 			qtdDigitada = "0";
@@ -322,7 +327,7 @@ public class CadVenda extends JFrame {
 		int qtd = Integer.parseInt(qtdDigitada);
 
 		vd.gravarVenda(Integer.parseInt(txtNNota.getText().trim()),
-				c.toString(), p.toString(), qtd, horaData);
+				c.toString(), p.toString(), qtd, vlrFinal, horaData);
 		limparModel();
 
 		limparCampos();
@@ -359,8 +364,12 @@ public class CadVenda extends JFrame {
 
 		ProdutoDao pd = new ProdutoDao();
 
-		pd.buscaMargem(i);
-		return null;
+		return pd.buscaMargem(i);
+	}
+
+	public BigDecimal valroProd(int idProd) {
+		ProdutoDao pd = new ProdutoDao();
+		return pd.buscarValorProd(idProd);
 	}
 
 	// Preenche lista de produtos e lista de cliente que sao exibidos no

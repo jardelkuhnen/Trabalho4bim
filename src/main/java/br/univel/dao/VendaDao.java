@@ -44,7 +44,7 @@ public class VendaDao {
 	public void inserirP(Venda v) {
 		con = Conexao.getConnection();
 
-		String sql = "insert into Venda (nNota, cliente, produto, qtd, dataHora) values(?,?,?,?,?)";
+		String sql = "insert into Venda (nNota, cliente, produto, qtd, vlrVenda, dataHora) values(?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
@@ -52,7 +52,8 @@ public class VendaDao {
 			stmt.setString(2, v.getCliente());
 			stmt.setString(3, v.getProduto());
 			stmt.setInt(4, v.getQtd());
-			stmt.setString(5, v.getDataHora());
+			stmt.setBigDecimal(5, v.getVlrTotal());
+			stmt.setString(6, v.getDataHora());
 
 			stmt.execute();
 			stmt.close();

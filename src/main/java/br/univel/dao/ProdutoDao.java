@@ -137,18 +137,18 @@ public class ProdutoDao {
 		return BigDecimal.ZERO;
 	}
 
-	public BigDecimal buscaMargem(int i) {
+	public BigDecimal buscaMargem(int idProd) {
 
 		try {
 			con = Conexao.getConnection();
-			String sql = "SELECT MARGEMLUCRO FROM PODUTO WHERE ID = ?;";
+			String sql = "SELECT MARGEMLUCRO FROM PRODUTO WHERE ID = ?;";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(1, i);
+			stmt.setInt(1, idProd);
 
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				return rs.getBigDecimal("MARGEMLUCRO");
+				return rs.getBigDecimal("margemLucro");
 			}
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null,
@@ -157,5 +157,27 @@ public class ProdutoDao {
 		}
 		return BigDecimal.ZERO;
 
+	}
+
+	public BigDecimal buscarValorProd(int idProd) {
+		try {
+			con = Conexao.getConnection();
+			String sql = "SELECT CUSTO FROM PRODUTO WHERE ID = ?;";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setInt(1, idProd);
+
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				return rs.getBigDecimal("custo");
+			}
+
+		} catch (SQLException e) {
+			JOptionPane
+					.showMessageDialog(null, "Erro ao buscar valor produto!");
+			e.printStackTrace();
+		}
+
+		return BigDecimal.ZERO;
 	}
 }

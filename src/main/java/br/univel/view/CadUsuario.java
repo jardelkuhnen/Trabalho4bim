@@ -49,6 +49,7 @@ public class CadUsuario extends JFrame {
 	private JTextField txtSenha;
 	boolean resp = false;
 	private JTextField txtConfirmaSenha;
+	private JTextField txtUsuario;
 
 	public CadUsuario() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -64,7 +65,7 @@ public class CadUsuario extends JFrame {
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 78, 129, 80, 63, 0 };
 		gbl_panel.rowHeights = new int[] { 39, 20, 20, 20, 20, 20, 23, 0, 0, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0,
+		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0, 1.0,
 				Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, Double.MIN_VALUE };
@@ -75,7 +76,7 @@ public class CadUsuario extends JFrame {
 				16));
 		GridBagConstraints gbc_lblCadastroDeUsurio = new GridBagConstraints();
 		gbc_lblCadastroDeUsurio.anchor = GridBagConstraints.NORTH;
-		gbc_lblCadastroDeUsurio.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCadastroDeUsurio.insets = new Insets(0, 0, 5, 0);
 		gbc_lblCadastroDeUsurio.gridwidth = 4;
 		gbc_lblCadastroDeUsurio.gridx = 0;
 		gbc_lblCadastroDeUsurio.gridy = 1;
@@ -119,44 +120,6 @@ public class CadUsuario extends JFrame {
 		panel.add(txtIdUs, gbc_txtIdUs);
 		txtIdUs.setColumns(10);
 
-		JLabel lblSenha = new JLabel("Senha");
-		GridBagConstraints gbc_lblSenha = new GridBagConstraints();
-		gbc_lblSenha.anchor = GridBagConstraints.EAST;
-		gbc_lblSenha.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSenha.gridx = 0;
-		gbc_lblSenha.gridy = 4;
-		panel.add(lblSenha, gbc_lblSenha);
-
-		txtSenha = new JTextField();
-		GridBagConstraints gbc_txtSenha = new GridBagConstraints();
-		gbc_txtSenha.anchor = GridBagConstraints.NORTH;
-		gbc_txtSenha.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtSenha.insets = new Insets(0, 0, 5, 5);
-		gbc_txtSenha.gridwidth = 2;
-		gbc_txtSenha.gridx = 1;
-		gbc_txtSenha.gridy = 4;
-		panel.add(txtSenha, gbc_txtSenha);
-		txtSenha.setColumns(10);
-
-		JLabel lblConfirmaSenha = new JLabel("Confirma Senha");
-		GridBagConstraints gbc_lblConfirmaSenha = new GridBagConstraints();
-		gbc_lblConfirmaSenha.anchor = GridBagConstraints.NORTHEAST;
-		gbc_lblConfirmaSenha.insets = new Insets(0, 0, 5, 5);
-		gbc_lblConfirmaSenha.gridx = 0;
-		gbc_lblConfirmaSenha.gridy = 5;
-		panel.add(lblConfirmaSenha, gbc_lblConfirmaSenha);
-
-		txtConfirmaSenha = new JTextField();
-		GridBagConstraints gbc_txtConfirmaSenha = new GridBagConstraints();
-		gbc_txtConfirmaSenha.anchor = GridBagConstraints.NORTH;
-		gbc_txtConfirmaSenha.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtConfirmaSenha.insets = new Insets(0, 0, 5, 5);
-		gbc_txtConfirmaSenha.gridwidth = 2;
-		gbc_txtConfirmaSenha.gridx = 1;
-		gbc_txtConfirmaSenha.gridy = 5;
-		panel.add(txtConfirmaSenha, gbc_txtConfirmaSenha);
-		txtConfirmaSenha.setColumns(10);
-
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -182,10 +145,12 @@ public class CadUsuario extends JFrame {
 								"Cliente inexistente !!!");
 					} else {
 
-						us.salvar(
-								Integer.parseInt(txtIdCliente.getText().trim()),
-								Integer.parseInt(txtIdUs.getText().trim()),
-								txtSenha.getText().trim());
+						int idCliente = Integer.parseInt(txtIdCliente.getText()
+								.trim());
+						int idUs = Integer.parseInt(txtIdUs.getText().trim());
+						String usuario = txtUsuario.getText().trim();
+						String senha = txtSenha.getText().trim();
+						us.salvar(idCliente, idUs, usuario, senha);
 					}
 					limparCampos();
 
@@ -205,10 +170,13 @@ public class CadUsuario extends JFrame {
 				} else {
 
 					UsuarioController us = new UsuarioController();
+					int idCliente = Integer.parseInt(txtIdCliente.getText()
+							.trim());
+					int idUs = Integer.parseInt(txtIdUs.getText().trim());
+					String usuario = txtUsuario.getText().trim();
+					String senha = txtSenha.getText().trim();
 
-					us.editar(Integer.parseInt(txtIdCliente.getText().trim()),
-							Integer.parseInt(txtIdUs.getText().trim()),
-							txtSenha.getText().trim());
+					us.editar(idCliente, idUs, usuario, senha);
 
 					limparCampos();
 
@@ -238,6 +206,61 @@ public class CadUsuario extends JFrame {
 				limparCampos();
 			}
 		});
+
+		JLabel lblUsurio = new JLabel("Usu\u00E1rio");
+		GridBagConstraints gbc_lblUsurio = new GridBagConstraints();
+		gbc_lblUsurio.anchor = GridBagConstraints.EAST;
+		gbc_lblUsurio.insets = new Insets(0, 0, 5, 5);
+		gbc_lblUsurio.gridx = 0;
+		gbc_lblUsurio.gridy = 4;
+		panel.add(lblUsurio, gbc_lblUsurio);
+
+		txtUsuario = new JTextField();
+		GridBagConstraints gbc_txtUsuario = new GridBagConstraints();
+		gbc_txtUsuario.insets = new Insets(0, 0, 5, 5);
+		gbc_txtUsuario.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtUsuario.gridx = 1;
+		gbc_txtUsuario.gridy = 4;
+		panel.add(txtUsuario, gbc_txtUsuario);
+		txtUsuario.setColumns(10);
+
+		JLabel lblSenha = new JLabel("Senha");
+		GridBagConstraints gbc_lblSenha = new GridBagConstraints();
+		gbc_lblSenha.anchor = GridBagConstraints.EAST;
+		gbc_lblSenha.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSenha.gridx = 0;
+		gbc_lblSenha.gridy = 5;
+		panel.add(lblSenha, gbc_lblSenha);
+
+		txtSenha = new JTextField();
+		GridBagConstraints gbc_txtSenha = new GridBagConstraints();
+		gbc_txtSenha.anchor = GridBagConstraints.NORTH;
+		gbc_txtSenha.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtSenha.insets = new Insets(0, 0, 5, 5);
+		gbc_txtSenha.gridwidth = 2;
+		gbc_txtSenha.gridx = 1;
+		gbc_txtSenha.gridy = 5;
+		panel.add(txtSenha, gbc_txtSenha);
+		txtSenha.setColumns(10);
+
+		JLabel lblConfirmaSenha = new JLabel("Confirma Senha");
+		GridBagConstraints gbc_lblConfirmaSenha = new GridBagConstraints();
+		gbc_lblConfirmaSenha.anchor = GridBagConstraints.NORTHEAST;
+		gbc_lblConfirmaSenha.insets = new Insets(0, 0, 5, 5);
+		gbc_lblConfirmaSenha.gridx = 0;
+		gbc_lblConfirmaSenha.gridy = 6;
+		panel.add(lblConfirmaSenha, gbc_lblConfirmaSenha);
+
+		txtConfirmaSenha = new JTextField();
+		GridBagConstraints gbc_txtConfirmaSenha = new GridBagConstraints();
+		gbc_txtConfirmaSenha.anchor = GridBagConstraints.NORTH;
+		gbc_txtConfirmaSenha.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtConfirmaSenha.insets = new Insets(0, 0, 5, 5);
+		gbc_txtConfirmaSenha.gridwidth = 2;
+		gbc_txtConfirmaSenha.gridx = 1;
+		gbc_txtConfirmaSenha.gridy = 6;
+		panel.add(txtConfirmaSenha, gbc_txtConfirmaSenha);
+		txtConfirmaSenha.setColumns(10);
 		GridBagConstraints gbc_btnExcluir = new GridBagConstraints();
 		gbc_btnExcluir.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnExcluir.insets = new Insets(0, 0, 0, 5);

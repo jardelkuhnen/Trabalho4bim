@@ -22,6 +22,7 @@ margemLucro bigint);
 CREATE TABLE Usuario
 (idCliente int,
 idUs int primary key,
+usuario varchar(50),
 senha varchar(25));
 
 

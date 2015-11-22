@@ -25,7 +25,7 @@ import br.univel.controller.UsuarioController;
 public class Login extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtNome;
+	private JTextField txtUsuario;
 	private JPasswordField txtSenha;
 
 	/**
@@ -72,8 +72,8 @@ public class Login extends JFrame {
 				0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
-		JLabel lblRf = new JLabel("Mobili");
-		lblRf.setForeground(Color.RED);
+		JLabel lblRf = new JLabel("Prolar Planejados");
+		lblRf.setForeground(new Color(0, 0, 128));
 		lblRf.setFont(new Font("Andalus", Font.PLAIN, 28));
 		GridBagConstraints gbc_lblRf = new GridBagConstraints();
 		gbc_lblRf.gridwidth = 5;
@@ -86,7 +86,7 @@ public class Login extends JFrame {
 		btnLogar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				UsuarioController uc = new UsuarioController();
-				boolean msg = uc.logar(txtNome.getText(), txtSenha.getText());
+				boolean msg = uc.logar(txtUsuario.getText(), txtSenha.getText());
 
 				if (msg) {
 
@@ -111,15 +111,15 @@ public class Login extends JFrame {
 		gbc_lblNewLabel.gridy = 2;
 		panel.add(lblNewLabel, gbc_lblNewLabel);
 
-		txtNome = new JTextField();
-		GridBagConstraints gbc_txtNome = new GridBagConstraints();
-		gbc_txtNome.gridwidth = 3;
-		gbc_txtNome.insets = new Insets(0, 0, 5, 0);
-		gbc_txtNome.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtNome.gridx = 1;
-		gbc_txtNome.gridy = 3;
-		panel.add(txtNome, gbc_txtNome);
-		txtNome.setColumns(10);
+		txtUsuario = new JTextField();
+		GridBagConstraints gbc_txtUsuario = new GridBagConstraints();
+		gbc_txtUsuario.gridwidth = 3;
+		gbc_txtUsuario.insets = new Insets(0, 0, 5, 0);
+		gbc_txtUsuario.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtUsuario.gridx = 1;
+		gbc_txtUsuario.gridy = 3;
+		panel.add(txtUsuario, gbc_txtUsuario);
+		txtUsuario.setColumns(10);
 
 		JLabel lblNewLabel_1 = new JLabel("Senha");
 		lblNewLabel_1.setForeground(Color.BLACK);
@@ -146,8 +146,9 @@ public class Login extends JFrame {
 	}
 
 	public void limpaCampos() {
-		txtNome.setText("");
+		txtUsuario.setText("");
 		txtSenha.setText("");
 	}
+
 
 }

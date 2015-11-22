@@ -21,20 +21,22 @@ public class UsuarioDao {
 	public void inserir(Usuario usuario) {
 
 		con = Conexao.getConnection();
-		String sql = "INSERT INTO USUARIO (idCliente, idUs, senha) values(?,?,?)";
+		String sql = "INSERT INTO USUARIO (idCliente, idUs, usuario, senha) values(?,?,?,?)";
 
 		try {
 			PreparedStatement stmt;
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, usuario.getIdCliente());
 			stmt.setInt(2, usuario.getIdUs());
-			stmt.setString(3, usuario.getSenha().toUpperCase());
+			stmt.setString(3, usuario.getUsuario().toUpperCase());
+			stmt.setString(4, usuario.getSenha().toUpperCase());
 
 			stmt.execute();
 			stmt.close();
 
 			JOptionPane.showMessageDialog(null, "Usuário salvo com sucesso!!!");
 		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erro ao salvar usuário!!!");
 			e.printStackTrace();
 		}
 
@@ -43,13 +45,14 @@ public class UsuarioDao {
 	public void editar(Usuario u) {
 		con = Conexao.getConnection();
 
-		String sql = "UPDATE USUARIO SET idCliente = ?, IdUs = ?, SENHA = ?";
+		String sql = "UPDATE USUARIO SET idCliente = ?, IdUs = ?, ususario = ?, SENHA = ?";
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
 
 			stmt.setInt(1, u.getIdCliente());
 			stmt.setInt(2, u.getIdUs());
+			stmt.setString(3, u.getUsuario().toUpperCase());
 			stmt.setString(3, u.getSenha().toUpperCase());
 
 			stmt.execute();
@@ -85,21 +88,20 @@ public class UsuarioDao {
 
 	}
 
-	public boolean logar(String nome, String senha) {
+	public boolean logar(String usuario, String senha) {
 
 		PreparedStatement stmt;
 		con = Conexao.getConnection();
-		String sql = "select * from usuario where nome=? and senha=?";
+		String sql = "select usuario, senha from usuario where nome=? and senha=?";
+		boolean a = true;
 		try {
 
 			stmt = con.prepareStatement(sql);
-			stmt.setString(1, nome);
+			stmt.setString(1, usuario);
 			stmt.setString(2, senha);
-			ResultSet result = stmt.executeQuery();
-
-			boolean a = result.next();
-
-			if (a) {
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				return true;
 
 			} else {
 				return false;
@@ -108,7 +110,7 @@ public class UsuarioDao {
 		} catch (Exception e) {
 
 		}
-		return false;
+		return a;
 
 	}
 

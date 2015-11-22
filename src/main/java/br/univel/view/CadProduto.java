@@ -298,7 +298,8 @@ public class CadProduto extends JFrame {
 							Integer.parseInt(txtCodBarras.getText().trim()),
 							cat, txtDescricao.getText().trim(), un, custo,
 							mgValor);
-
+					JOptionPane.showMessageDialog(null,
+							"Produto Cadastrado com sucesso!!!");
 					limparCampos();
 
 				}

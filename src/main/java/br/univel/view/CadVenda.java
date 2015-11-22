@@ -60,7 +60,7 @@ public class CadVenda extends JFrame {
 	public CadVenda() {
 		setTitle("Venda");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 582, 495);
+		setBounds(100, 100, 582, 461);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -77,7 +77,7 @@ public class CadVenda extends JFrame {
 		panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 95, 25, 33, 37, 119, 50, 47, 18,
+		gbl_panel.columnWidths = new int[] { 95, 25, 33, 37, 119, 50, 22, 52,
 				77, 0 };
 		gbl_panel.rowHeights = new int[] { 30, 20, 20, 20, 20, 23, 171, 20, 20,
 				20, 23, 0 };
@@ -200,13 +200,6 @@ public class CadVenda extends JFrame {
 		gbc_lblValorTotal.gridy = 7;
 		panel.add(lblValorTotal, gbc_lblValorTotal);
 
-		JButton btnGravar = new JButton("Gravar");
-		btnGravar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				gravarVenda();
-			}
-		});
-
 		txtVlrTotal = new JTextField();
 		GridBagConstraints gbc_txtVlrTotal = new GridBagConstraints();
 		gbc_txtVlrTotal.anchor = GridBagConstraints.NORTH;
@@ -248,20 +241,31 @@ public class CadVenda extends JFrame {
 			}
 		});
 		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
+		gbc_btnCancelar.insets = new Insets(0, 0, 5, 5);
 		gbc_btnCancelar.anchor = GridBagConstraints.NORTHEAST;
-		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCancelar.gridx = 7;
-		gbc_btnCancelar.gridy = 10;
+		gbc_btnCancelar.gridy = 9;
 		panel.add(btnCancelar, gbc_btnCancelar);
-		GridBagConstraints gbc_btnGravar = new GridBagConstraints();
-		gbc_btnGravar.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnGravar.gridx = 8;
-		gbc_btnGravar.gridy = 10;
-		panel.add(btnGravar, gbc_btnGravar);
 
 		tab = new JTable();
 		tabela.setViewportView(tab);
-		contentPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{txtNNota, cbCliente, cbProduto, txtQuantidade, btnAdicionar, txtVlrTotal, txtVlrPagamento, btnCancelar, btnGravar}));
+
+		JButton btnGravar = new JButton("Gravar");
+		btnGravar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gravarVenda();
+			}
+		});
+		contentPane.setFocusTraversalPolicy(new FocusTraversalOnArray(
+				new Component[] { txtNNota, cbCliente, cbProduto,
+						txtQuantidade, btnAdicionar, txtVlrTotal,
+						txtVlrPagamento, btnCancelar, btnGravar }));
+		GridBagConstraints gbc_btnGravar = new GridBagConstraints();
+		gbc_btnGravar.insets = new Insets(0, 0, 5, 0);
+		gbc_btnGravar.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnGravar.gridx = 8;
+		gbc_btnGravar.gridy = 9;
+		panel.add(btnGravar, gbc_btnGravar);
 
 	}
 
@@ -292,7 +296,7 @@ public class CadVenda extends JFrame {
 	}
 
 	// Grava a venda no banco de dados
-	protected void gravarVenda() {
+	public void gravarVenda() {
 
 		VendaController vd = new VendaController();
 
@@ -334,7 +338,7 @@ public class CadVenda extends JFrame {
 
 			BigDecimal troco = vlrPagamento.subtract(vlrFinal);
 			JOptionPane.showMessageDialog(null, "Troco do cliente: "
-					+ NumberFormat.getInstance().format(troco).toString());
+					+ NumberFormat.getCurrencyInstance().format(troco));
 
 			vd.gravarVenda(Integer.parseInt(txtNNota.getText().trim()),
 					c.toString(), p.toString(), qtd, vlrFinal, horaData);
@@ -347,6 +351,7 @@ public class CadVenda extends JFrame {
 	private void limparModel() {
 
 		model.limparlista();
+		listaVenda.clear();
 	}
 
 	protected void configuraManual() {

@@ -3,7 +3,8 @@ package br.univel.model;
 public class Usuario {
 
 	private int idCliente;
-	protected int idUs;
+	private int idUs;
+	private String usuario;
 	private String senha;
 
 	public String getSenha() {
@@ -12,6 +13,14 @@ public class Usuario {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 
 	public int getIdCliente() {

@@ -35,6 +35,8 @@ import br.univel.dao.VendaDao;
 import br.univel.model.Cliente;
 import br.univel.model.Produto;
 import br.univel.model.TabelaModel;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class CadVenda extends JFrame {
 
@@ -53,6 +55,7 @@ public class CadVenda extends JFrame {
 	List<Cliente> listaCli = new ArrayList<Cliente>();
 	List<Produto> listaVenda = new ArrayList<Produto>();
 	boolean valido;
+	private JPanel panel;
 
 	public CadVenda() {
 		setTitle("Venda");
@@ -71,7 +74,7 @@ public class CadVenda extends JFrame {
 			e2.printStackTrace();
 		}
 
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 95, 25, 33, 37, 119, 50, 47, 18,
@@ -164,21 +167,21 @@ public class CadVenda extends JFrame {
 		gbc_txtQuantidade.gridy = 5;
 		panel.add(txtQuantidade, gbc_txtQuantidade);
 		txtQuantidade.setColumns(10);
-		
-				JButton btnAdicionar = new JButton("Adicionar");
-				btnAdicionar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
 
-						adicionarProdutos();
+		JButton btnAdicionar = new JButton("Adicionar");
+		btnAdicionar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 
-					}
-				});
-				GridBagConstraints gbc_btnAdicionar = new GridBagConstraints();
-				gbc_btnAdicionar.anchor = GridBagConstraints.NORTHWEST;
-				gbc_btnAdicionar.insets = new Insets(0, 0, 5, 5);
-				gbc_btnAdicionar.gridx = 7;
-				gbc_btnAdicionar.gridy = 5;
-				panel.add(btnAdicionar, gbc_btnAdicionar);
+				adicionarProdutos();
+
+			}
+		});
+		GridBagConstraints gbc_btnAdicionar = new GridBagConstraints();
+		gbc_btnAdicionar.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnAdicionar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAdicionar.gridx = 7;
+		gbc_btnAdicionar.gridy = 5;
+		panel.add(btnAdicionar, gbc_btnAdicionar);
 
 		JScrollPane tabela = new JScrollPane();
 		GridBagConstraints gbc_tabela = new GridBagConstraints();
@@ -188,14 +191,14 @@ public class CadVenda extends JFrame {
 		gbc_tabela.gridx = 0;
 		gbc_tabela.gridy = 6;
 		panel.add(tabela, gbc_tabela);
-		
-				JLabel lblValorTotal = new JLabel("Valor Total");
-				GridBagConstraints gbc_lblValorTotal = new GridBagConstraints();
-				gbc_lblValorTotal.anchor = GridBagConstraints.EAST;
-				gbc_lblValorTotal.insets = new Insets(0, 0, 5, 5);
-				gbc_lblValorTotal.gridx = 0;
-				gbc_lblValorTotal.gridy = 7;
-				panel.add(lblValorTotal, gbc_lblValorTotal);
+
+		JLabel lblValorTotal = new JLabel("Valor Total");
+		GridBagConstraints gbc_lblValorTotal = new GridBagConstraints();
+		gbc_lblValorTotal.anchor = GridBagConstraints.EAST;
+		gbc_lblValorTotal.insets = new Insets(0, 0, 5, 5);
+		gbc_lblValorTotal.gridx = 0;
+		gbc_lblValorTotal.gridy = 7;
+		panel.add(lblValorTotal, gbc_lblValorTotal);
 
 		JButton btnGravar = new JButton("Gravar");
 		btnGravar.addActionListener(new ActionListener() {
@@ -203,17 +206,17 @@ public class CadVenda extends JFrame {
 				gravarVenda();
 			}
 		});
-		
-				txtVlrTotal = new JTextField();
-				GridBagConstraints gbc_txtVlrTotal = new GridBagConstraints();
-				gbc_txtVlrTotal.anchor = GridBagConstraints.NORTH;
-				gbc_txtVlrTotal.fill = GridBagConstraints.HORIZONTAL;
-				gbc_txtVlrTotal.insets = new Insets(0, 0, 5, 5);
-				gbc_txtVlrTotal.gridwidth = 5;
-				gbc_txtVlrTotal.gridx = 1;
-				gbc_txtVlrTotal.gridy = 7;
-				panel.add(txtVlrTotal, gbc_txtVlrTotal);
-				txtVlrTotal.setColumns(10);
+
+		txtVlrTotal = new JTextField();
+		GridBagConstraints gbc_txtVlrTotal = new GridBagConstraints();
+		gbc_txtVlrTotal.anchor = GridBagConstraints.NORTH;
+		gbc_txtVlrTotal.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtVlrTotal.insets = new Insets(0, 0, 5, 5);
+		gbc_txtVlrTotal.gridwidth = 5;
+		gbc_txtVlrTotal.gridx = 1;
+		gbc_txtVlrTotal.gridy = 7;
+		panel.add(txtVlrTotal, gbc_txtVlrTotal);
+		txtVlrTotal.setColumns(10);
 
 		JLabel lblValorPagamento = new JLabel("Vlr. Pagamento");
 		GridBagConstraints gbc_lblValorPagamento = new GridBagConstraints();
@@ -222,34 +225,34 @@ public class CadVenda extends JFrame {
 		gbc_lblValorPagamento.gridx = 0;
 		gbc_lblValorPagamento.gridy = 8;
 		panel.add(lblValorPagamento, gbc_lblValorPagamento);
-		
-				txtVlrPagamento = new JTextField();
-				GridBagConstraints gbc_txtVlrPagamento = new GridBagConstraints();
-				gbc_txtVlrPagamento.anchor = GridBagConstraints.NORTH;
-				gbc_txtVlrPagamento.fill = GridBagConstraints.HORIZONTAL;
-				gbc_txtVlrPagamento.insets = new Insets(0, 0, 5, 5);
-				gbc_txtVlrPagamento.gridwidth = 5;
-				gbc_txtVlrPagamento.gridx = 1;
-				gbc_txtVlrPagamento.gridy = 8;
-				panel.add(txtVlrPagamento, gbc_txtVlrPagamento);
-				txtVlrPagamento.setColumns(10);
-		
-				JButton btnCancelar = new JButton("Cancelar");
-				btnCancelar.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent arg0) {
-						try {
-							this.finalize();
-						} catch (Throwable e) {
-							e.printStackTrace();
-						}
-					}
-				});
-				GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
-				gbc_btnCancelar.anchor = GridBagConstraints.NORTHEAST;
-				gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
-				gbc_btnCancelar.gridx = 7;
-				gbc_btnCancelar.gridy = 10;
-				panel.add(btnCancelar, gbc_btnCancelar);
+
+		txtVlrPagamento = new JTextField();
+		GridBagConstraints gbc_txtVlrPagamento = new GridBagConstraints();
+		gbc_txtVlrPagamento.anchor = GridBagConstraints.NORTH;
+		gbc_txtVlrPagamento.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtVlrPagamento.insets = new Insets(0, 0, 5, 5);
+		gbc_txtVlrPagamento.gridwidth = 5;
+		gbc_txtVlrPagamento.gridx = 1;
+		gbc_txtVlrPagamento.gridy = 8;
+		panel.add(txtVlrPagamento, gbc_txtVlrPagamento);
+		txtVlrPagamento.setColumns(10);
+
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					this.finalize();
+				} catch (Throwable e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
+		gbc_btnCancelar.anchor = GridBagConstraints.NORTHEAST;
+		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnCancelar.gridx = 7;
+		gbc_btnCancelar.gridy = 10;
+		panel.add(btnCancelar, gbc_btnCancelar);
 		GridBagConstraints gbc_btnGravar = new GridBagConstraints();
 		gbc_btnGravar.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnGravar.gridx = 8;
@@ -258,6 +261,7 @@ public class CadVenda extends JFrame {
 
 		tab = new JTable();
 		tabela.setViewportView(tab);
+		contentPane.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{txtNNota, cbCliente, cbProduto, txtQuantidade, btnAdicionar, txtVlrTotal, txtVlrPagamento, btnCancelar, btnGravar}));
 
 	}
 
@@ -282,7 +286,6 @@ public class CadVenda extends JFrame {
 		p.setCusto(vlrFinal);
 		model.incluir(p);
 		listaVenda.add(p);
-		txtQuantidade.setText("");
 		txtVlrTotal.setText(NumberFormat.getCurrencyInstance()
 				.format(p.getCusto()).toString());
 
@@ -309,7 +312,7 @@ public class CadVenda extends JFrame {
 		BigDecimal mgLucro = margemLucro(indexProd);
 
 		int qtd = Integer.parseInt(qtdDigitada);
-		
+
 		// Quantidade de produtos na venda, utilizado para fazer o calculo de
 		// valor final da venda
 		BigDecimal mg = vlrProd.multiply(mgLucro);
@@ -319,14 +322,26 @@ public class CadVenda extends JFrame {
 		if (qtdDigitada.isEmpty()) {
 			qtdDigitada = "0";
 		}
-		BigDecimal troco = vlrPagamento.subtract(vlrFinal);
-		JOptionPane.showMessageDialog(null, "Troco do cliente: " + troco);
 
-		vd.gravarVenda(Integer.parseInt(txtNNota.getText().trim()),
-				c.toString(), p.toString(), qtd, vlrFinal, horaData);
-		limparModel();
+		// ------------------------------------troco
 
-		limparCampos();
+		if (vlrFinal.compareTo(vlrFinal) > vlrPagamento.compareTo(vlrPagamento)) {
+			JOptionPane
+					.showMessageDialog(null,
+							"Valor de pagamento menor do que o valor total da venda!!!");
+
+		} else {
+
+			BigDecimal troco = vlrPagamento.subtract(vlrFinal);
+			JOptionPane.showMessageDialog(null, "Troco do cliente: "
+					+ NumberFormat.getInstance().format(troco).toString());
+
+			vd.gravarVenda(Integer.parseInt(txtNNota.getText().trim()),
+					c.toString(), p.toString(), qtd, vlrFinal, horaData);
+			limparModel();
+
+			limparCampos();
+		}
 	}
 
 	private void limparModel() {

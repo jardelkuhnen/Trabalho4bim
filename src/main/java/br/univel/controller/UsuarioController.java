@@ -33,7 +33,7 @@ public class UsuarioController extends Usuario {
 		UsuarioDao us = new UsuarioDao().deletar(idUs);
 	}
 
-	public String logar(String nome, String senha) {
+	public boolean logar(String nome, String senha) {
 
 		UsuarioDao dao = new UsuarioDao();
 

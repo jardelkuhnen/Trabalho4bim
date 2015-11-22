@@ -39,6 +39,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.Color;
 
 public class CadUsuario extends JFrame {
 
@@ -47,25 +48,26 @@ public class CadUsuario extends JFrame {
 	private JTextField txtIdUs;
 	private JTextField txtSenha;
 	boolean resp = false;
+	private JTextField txtConfirmaSenha;
 
 	public CadUsuario() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 414, 283);
+		setBounds(100, 100, 414, 308);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(UIManager.getColor("Button.light"));
+		panel.setBackground(new Color(240, 240, 240));
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 94, 43, 15, 61, 63, 0 };
-		gbl_panel.rowHeights = new int[] { 39, 20, 0, 20, 20, 20, 31, 23, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
+		gbl_panel.columnWidths = new int[] { 78, 129, 80, 63, 0 };
+		gbl_panel.rowHeights = new int[] { 39, 20, 20, 20, 20, 20, 23, 0, 0, 0 };
+		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0,
 				Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, Double.MIN_VALUE };
+				0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		JLabel lblCadastroDeUsurio = new JLabel("Cadastro de Usu\u00E1rio");
@@ -73,28 +75,28 @@ public class CadUsuario extends JFrame {
 				16));
 		GridBagConstraints gbc_lblCadastroDeUsurio = new GridBagConstraints();
 		gbc_lblCadastroDeUsurio.anchor = GridBagConstraints.NORTH;
-		gbc_lblCadastroDeUsurio.insets = new Insets(0, 0, 5, 0);
-		gbc_lblCadastroDeUsurio.gridwidth = 10;
+		gbc_lblCadastroDeUsurio.insets = new Insets(0, 0, 5, 5);
+		gbc_lblCadastroDeUsurio.gridwidth = 4;
 		gbc_lblCadastroDeUsurio.gridx = 0;
 		gbc_lblCadastroDeUsurio.gridy = 1;
 		panel.add(lblCadastroDeUsurio, gbc_lblCadastroDeUsurio);
 
 		JLabel lblIdcliente = new JLabel("IdCliente");
 		GridBagConstraints gbc_lblIdcliente = new GridBagConstraints();
-		gbc_lblIdcliente.anchor = GridBagConstraints.WEST;
+		gbc_lblIdcliente.anchor = GridBagConstraints.EAST;
 		gbc_lblIdcliente.insets = new Insets(0, 0, 5, 5);
-		gbc_lblIdcliente.gridx = 1;
-		gbc_lblIdcliente.gridy = 3;
+		gbc_lblIdcliente.gridx = 0;
+		gbc_lblIdcliente.gridy = 2;
 		panel.add(lblIdcliente, gbc_lblIdcliente);
 
 		txtIdCliente = new JTextField();
 		GridBagConstraints gbc_txtIdCliente = new GridBagConstraints();
 		gbc_txtIdCliente.anchor = GridBagConstraints.NORTH;
 		gbc_txtIdCliente.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtIdCliente.insets = new Insets(0, 0, 5, 0);
-		gbc_txtIdCliente.gridwidth = 3;
-		gbc_txtIdCliente.gridx = 2;
-		gbc_txtIdCliente.gridy = 3;
+		gbc_txtIdCliente.insets = new Insets(0, 0, 5, 5);
+		gbc_txtIdCliente.gridwidth = 2;
+		gbc_txtIdCliente.gridx = 1;
+		gbc_txtIdCliente.gridy = 2;
 		panel.add(txtIdCliente, gbc_txtIdCliente);
 		txtIdCliente.setColumns(10);
 
@@ -102,18 +104,18 @@ public class CadUsuario extends JFrame {
 		GridBagConstraints gbc_lblId = new GridBagConstraints();
 		gbc_lblId.anchor = GridBagConstraints.EAST;
 		gbc_lblId.insets = new Insets(0, 0, 5, 5);
-		gbc_lblId.gridx = 1;
-		gbc_lblId.gridy = 4;
+		gbc_lblId.gridx = 0;
+		gbc_lblId.gridy = 3;
 		panel.add(lblId, gbc_lblId);
 
 		txtIdUs = new JTextField();
 		GridBagConstraints gbc_txtIdUs = new GridBagConstraints();
 		gbc_txtIdUs.anchor = GridBagConstraints.NORTH;
 		gbc_txtIdUs.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtIdUs.insets = new Insets(0, 0, 5, 0);
-		gbc_txtIdUs.gridwidth = 3;
-		gbc_txtIdUs.gridx = 2;
-		gbc_txtIdUs.gridy = 4;
+		gbc_txtIdUs.insets = new Insets(0, 0, 5, 5);
+		gbc_txtIdUs.gridwidth = 2;
+		gbc_txtIdUs.gridx = 1;
+		gbc_txtIdUs.gridy = 3;
 		panel.add(txtIdUs, gbc_txtIdUs);
 		txtIdUs.setColumns(10);
 
@@ -121,20 +123,39 @@ public class CadUsuario extends JFrame {
 		GridBagConstraints gbc_lblSenha = new GridBagConstraints();
 		gbc_lblSenha.anchor = GridBagConstraints.EAST;
 		gbc_lblSenha.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSenha.gridx = 1;
-		gbc_lblSenha.gridy = 5;
+		gbc_lblSenha.gridx = 0;
+		gbc_lblSenha.gridy = 4;
 		panel.add(lblSenha, gbc_lblSenha);
 
 		txtSenha = new JTextField();
 		GridBagConstraints gbc_txtSenha = new GridBagConstraints();
 		gbc_txtSenha.anchor = GridBagConstraints.NORTH;
 		gbc_txtSenha.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtSenha.insets = new Insets(0, 0, 5, 0);
-		gbc_txtSenha.gridwidth = 3;
-		gbc_txtSenha.gridx = 2;
-		gbc_txtSenha.gridy = 5;
+		gbc_txtSenha.insets = new Insets(0, 0, 5, 5);
+		gbc_txtSenha.gridwidth = 2;
+		gbc_txtSenha.gridx = 1;
+		gbc_txtSenha.gridy = 4;
 		panel.add(txtSenha, gbc_txtSenha);
 		txtSenha.setColumns(10);
+
+		JLabel lblConfirmaSenha = new JLabel("Confirma Senha");
+		GridBagConstraints gbc_lblConfirmaSenha = new GridBagConstraints();
+		gbc_lblConfirmaSenha.anchor = GridBagConstraints.NORTHEAST;
+		gbc_lblConfirmaSenha.insets = new Insets(0, 0, 5, 5);
+		gbc_lblConfirmaSenha.gridx = 0;
+		gbc_lblConfirmaSenha.gridy = 5;
+		panel.add(lblConfirmaSenha, gbc_lblConfirmaSenha);
+
+		txtConfirmaSenha = new JTextField();
+		GridBagConstraints gbc_txtConfirmaSenha = new GridBagConstraints();
+		gbc_txtConfirmaSenha.anchor = GridBagConstraints.NORTH;
+		gbc_txtConfirmaSenha.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtConfirmaSenha.insets = new Insets(0, 0, 5, 5);
+		gbc_txtConfirmaSenha.gridwidth = 2;
+		gbc_txtConfirmaSenha.gridx = 1;
+		gbc_txtConfirmaSenha.gridy = 5;
+		panel.add(txtConfirmaSenha, gbc_txtConfirmaSenha);
+		txtConfirmaSenha.setColumns(10);
 
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
@@ -156,7 +177,7 @@ public class CadUsuario extends JFrame {
 						e1.printStackTrace();
 					}
 
-					if (resp == true) {
+					if (resp) {
 						JOptionPane.showMessageDialog(null,
 								"Cliente inexistente !!!");
 					} else {
@@ -218,35 +239,34 @@ public class CadUsuario extends JFrame {
 			}
 		});
 		GridBagConstraints gbc_btnExcluir = new GridBagConstraints();
-		gbc_btnExcluir.anchor = GridBagConstraints.SOUTH;
-		gbc_btnExcluir.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnExcluir.insets = new Insets(0, 0, 5, 5);
-		gbc_btnExcluir.gridwidth = 2;
+		gbc_btnExcluir.anchor = GridBagConstraints.NORTHEAST;
+		gbc_btnExcluir.insets = new Insets(0, 0, 0, 5);
 		gbc_btnExcluir.gridx = 1;
-		gbc_btnExcluir.gridy = 6;
+		gbc_btnExcluir.gridy = 8;
 		panel.add(btnExcluir, gbc_btnExcluir);
 		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
-		gbc_btnEditar.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_btnEditar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnEditar.gridx = 3;
-		gbc_btnEditar.gridy = 6;
+		gbc_btnEditar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnEditar.anchor = GridBagConstraints.NORTH;
+		gbc_btnEditar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnEditar.gridx = 2;
+		gbc_btnEditar.gridy = 8;
 		panel.add(btnEditar, gbc_btnEditar);
 		GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
-		gbc_btnSalvar.insets = new Insets(0, 0, 5, 0);
-		gbc_btnSalvar.anchor = GridBagConstraints.SOUTHWEST;
-		gbc_btnSalvar.gridx = 4;
-		gbc_btnSalvar.gridy = 6;
+		gbc_btnSalvar.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnSalvar.gridx = 3;
+		gbc_btnSalvar.gridy = 8;
 		panel.add(btnSalvar, gbc_btnSalvar);
 	}
 
 	public boolean verificaCliente(int idCl) throws SQLException {
 		Connection con = Conexao.getConnection();
 
-		String sql = "select id cliente where id = " + idCl;
-		List<Cliente> listaCliente = new ArrayList<Cliente>();
-		PreparedStatement pp = con.prepareStatement(sql);
+		String sql = "select id from  cliente where id = ?;";
 
-		ResultSet rs = pp.executeQuery();
+		List<Cliente> listaCliente = new ArrayList<Cliente>();
+		PreparedStatement stmt = con.prepareStatement(sql);
+		stmt.setInt(1, idCl);
+		ResultSet rs = stmt.executeQuery();
 
 		while (rs.next()) {
 
@@ -287,5 +307,4 @@ public class CadUsuario extends JFrame {
 		return valida;
 
 	}
-
 }

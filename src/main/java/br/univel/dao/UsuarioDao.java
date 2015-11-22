@@ -85,7 +85,7 @@ public class UsuarioDao {
 
 	}
 
-	public String logar(String nome, String senha) {
+	public boolean logar(String nome, String senha) {
 
 		PreparedStatement stmt;
 		con = Conexao.getConnection();
@@ -102,13 +102,13 @@ public class UsuarioDao {
 			if (a) {
 
 			} else {
-				return "Usuário não cadastrado";
+				return false;
 			}
 
 		} catch (Exception e) {
 
 		}
-		return "";
+		return false;
 
 	}
 

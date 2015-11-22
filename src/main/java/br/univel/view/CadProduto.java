@@ -54,7 +54,8 @@ public class CadProduto extends JFrame {
 		setContentPane(contentPane);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(UIManager.getColor("Button.light"));
+		panel.setBorder(null);
+		panel.setBackground(new Color(240, 240, 240));
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 52, 82, 45, 61, 120, 0 };

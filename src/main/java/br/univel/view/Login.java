@@ -86,17 +86,18 @@ public class Login extends JFrame {
 		btnLogar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				UsuarioController uc = new UsuarioController();
-				String msg = uc.logar(txtNome.getText(), txtSenha.getText());
+				boolean msg = uc.logar(txtNome.getText(), txtSenha.getText());
 
-				if (msg == "Usuário não cadastrado") {
+				if (msg) {
 
-					JOptionPane.showMessageDialog(null, msg);
-				} else {
 					limpaCampos();
 					Principal p = new Principal();
 					p.setExtendedState(JFrame.MAXIMIZED_BOTH);
 					p.setVisible(true);
 					setVisible(false);
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Usuário não cadastrado");
 				}
 			}
 		});

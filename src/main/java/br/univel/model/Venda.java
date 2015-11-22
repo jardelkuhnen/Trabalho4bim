@@ -1,7 +1,6 @@
 package br.univel.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 public class Venda {
 
@@ -17,6 +16,14 @@ public class Venda {
 
 	public BigDecimal getVlrProduto() {
 		return custo;
+	}
+
+	public BigDecimal getVlrTotal() {
+		return vlrTotal;
+	}
+
+	public void setVlrTotal(BigDecimal vlrTotal) {
+		this.vlrTotal = vlrTotal;
 	}
 
 	public void setVlrProduto(BigDecimal vlrProduto) {
@@ -53,14 +60,6 @@ public class Venda {
 
 	public void setProduto(String produto) {
 		this.descricao = produto;
-	}
-
-	public BigDecimal getVlrTotal() {
-		return vlrTotal;
-	}
-
-	public void setVlrTotal(BigDecimal vlrTotal) {
-		this.vlrTotal = vlrTotal;
 	}
 
 	public BigDecimal getVlrPagamento() {

@@ -2,6 +2,7 @@ package br.univel.controller;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.List;
 
 import br.univel.dao.VendaDao;

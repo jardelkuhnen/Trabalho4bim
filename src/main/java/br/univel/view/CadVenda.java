@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,7 +42,6 @@ public class CadVenda extends JFrame {
 	private JTextField txtNNota;
 	private JTextField txtVlrTotal;
 	private JTextField txtVlrPagamento;
-	private JTextField txtTroco;
 	private JComboBox cbProduto;
 	private JComboBox cbCliente;
 	private JTextField txtQuantidade;
@@ -57,7 +57,7 @@ public class CadVenda extends JFrame {
 	public CadVenda() {
 		setTitle("Venda");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 582, 529);
+		setBounds(100, 100, 582, 495);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -74,24 +74,15 @@ public class CadVenda extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 111, 25, 33, 37, 119, 50, 75, 16,
+		gbl_panel.columnWidths = new int[] { 95, 25, 33, 37, 119, 50, 47, 18,
 				77, 0 };
 		gbl_panel.rowHeights = new int[] { 30, 20, 20, 20, 20, 23, 171, 20, 20,
 				20, 23, 0 };
 		gbl_panel.columnWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, Double.MIN_VALUE };
+				0.0, 0.0, 1.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
-
-		JButton btnAdicionar = new JButton("Adicionar");
-		btnAdicionar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				adicionarProdutos();
-
-			}
-		});
 
 		JLabel lblvendas = new JLabel("***Vendas***");
 		lblvendas.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
@@ -111,8 +102,8 @@ public class CadVenda extends JFrame {
 		panel.add(lblNmeroNota, gbc_lblNmeroNota);
 		txtNNota = new JTextField();
 		GridBagConstraints gbc_txtNNota = new GridBagConstraints();
-		gbc_txtNNota.anchor = GridBagConstraints.NORTH;
 		gbc_txtNNota.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtNNota.anchor = GridBagConstraints.NORTH;
 		gbc_txtNNota.insets = new Insets(0, 0, 5, 5);
 		gbc_txtNNota.gridwidth = 3;
 		gbc_txtNNota.gridx = 1;
@@ -130,8 +121,8 @@ public class CadVenda extends JFrame {
 
 		cbCliente = new JComboBox(new Vector<Cliente>(listaCli));
 		GridBagConstraints gbc_cbCliente = new GridBagConstraints();
-		gbc_cbCliente.anchor = GridBagConstraints.NORTH;
 		gbc_cbCliente.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbCliente.anchor = GridBagConstraints.NORTH;
 		gbc_cbCliente.insets = new Insets(0, 0, 5, 5);
 		gbc_cbCliente.gridwidth = 7;
 		gbc_cbCliente.gridx = 1;
@@ -148,8 +139,8 @@ public class CadVenda extends JFrame {
 
 		cbProduto = new JComboBox(new Vector<Produto>(listaProd));
 		GridBagConstraints gbc_cbProduto = new GridBagConstraints();
-		gbc_cbProduto.anchor = GridBagConstraints.NORTH;
 		gbc_cbProduto.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbProduto.anchor = GridBagConstraints.NORTH;
 		gbc_cbProduto.insets = new Insets(0, 0, 5, 5);
 		gbc_cbProduto.gridwidth = 7;
 		gbc_cbProduto.gridx = 1;
@@ -173,40 +164,38 @@ public class CadVenda extends JFrame {
 		gbc_txtQuantidade.gridy = 5;
 		panel.add(txtQuantidade, gbc_txtQuantidade);
 		txtQuantidade.setColumns(10);
-		GridBagConstraints gbc_btnAdicionar = new GridBagConstraints();
-		gbc_btnAdicionar.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnAdicionar.insets = new Insets(0, 0, 5, 0);
-		gbc_btnAdicionar.gridx = 8;
-		gbc_btnAdicionar.gridy = 5;
-		panel.add(btnAdicionar, gbc_btnAdicionar);
+		
+				JButton btnAdicionar = new JButton("Adicionar");
+				btnAdicionar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+
+						adicionarProdutos();
+
+					}
+				});
+				GridBagConstraints gbc_btnAdicionar = new GridBagConstraints();
+				gbc_btnAdicionar.anchor = GridBagConstraints.NORTHWEST;
+				gbc_btnAdicionar.insets = new Insets(0, 0, 5, 5);
+				gbc_btnAdicionar.gridx = 7;
+				gbc_btnAdicionar.gridy = 5;
+				panel.add(btnAdicionar, gbc_btnAdicionar);
 
 		JScrollPane tabela = new JScrollPane();
 		GridBagConstraints gbc_tabela = new GridBagConstraints();
 		gbc_tabela.gridwidth = 9;
-		gbc_tabela.insets = new Insets(0, 0, 5, 5);
+		gbc_tabela.insets = new Insets(0, 0, 5, 0);
 		gbc_tabela.fill = GridBagConstraints.BOTH;
 		gbc_tabela.gridx = 0;
 		gbc_tabela.gridy = 6;
 		panel.add(tabela, gbc_tabela);
-
-		JLabel lblValorTotal = new JLabel("Valor Total");
-		GridBagConstraints gbc_lblValorTotal = new GridBagConstraints();
-		gbc_lblValorTotal.anchor = GridBagConstraints.EAST;
-		gbc_lblValorTotal.insets = new Insets(0, 0, 5, 5);
-		gbc_lblValorTotal.gridx = 1;
-		gbc_lblValorTotal.gridy = 7;
-		panel.add(lblValorTotal, gbc_lblValorTotal);
-
-		txtVlrTotal = new JTextField();
-		GridBagConstraints gbc_txtVlrTotal = new GridBagConstraints();
-		gbc_txtVlrTotal.anchor = GridBagConstraints.NORTH;
-		gbc_txtVlrTotal.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtVlrTotal.insets = new Insets(0, 0, 5, 5);
-		gbc_txtVlrTotal.gridwidth = 5;
-		gbc_txtVlrTotal.gridx = 2;
-		gbc_txtVlrTotal.gridy = 7;
-		panel.add(txtVlrTotal, gbc_txtVlrTotal);
-		txtVlrTotal.setColumns(10);
+		
+				JLabel lblValorTotal = new JLabel("Valor Total");
+				GridBagConstraints gbc_lblValorTotal = new GridBagConstraints();
+				gbc_lblValorTotal.anchor = GridBagConstraints.EAST;
+				gbc_lblValorTotal.insets = new Insets(0, 0, 5, 5);
+				gbc_lblValorTotal.gridx = 0;
+				gbc_lblValorTotal.gridy = 7;
+				panel.add(lblValorTotal, gbc_lblValorTotal);
 
 		JButton btnGravar = new JButton("Gravar");
 		btnGravar.addActionListener(new ActionListener() {
@@ -214,68 +203,56 @@ public class CadVenda extends JFrame {
 				gravarVenda();
 			}
 		});
+		
+				txtVlrTotal = new JTextField();
+				GridBagConstraints gbc_txtVlrTotal = new GridBagConstraints();
+				gbc_txtVlrTotal.anchor = GridBagConstraints.NORTH;
+				gbc_txtVlrTotal.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtVlrTotal.insets = new Insets(0, 0, 5, 5);
+				gbc_txtVlrTotal.gridwidth = 5;
+				gbc_txtVlrTotal.gridx = 1;
+				gbc_txtVlrTotal.gridy = 7;
+				panel.add(txtVlrTotal, gbc_txtVlrTotal);
+				txtVlrTotal.setColumns(10);
 
 		JLabel lblValorPagamento = new JLabel("Vlr. Pagamento");
 		GridBagConstraints gbc_lblValorPagamento = new GridBagConstraints();
 		gbc_lblValorPagamento.anchor = GridBagConstraints.EAST;
 		gbc_lblValorPagamento.insets = new Insets(0, 0, 5, 5);
-		gbc_lblValorPagamento.gridwidth = 2;
 		gbc_lblValorPagamento.gridx = 0;
 		gbc_lblValorPagamento.gridy = 8;
 		panel.add(lblValorPagamento, gbc_lblValorPagamento);
-
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					this.finalize();
-				} catch (Throwable e) {
-					e.printStackTrace();
-				}
-			}
-		});
-
-		txtVlrPagamento = new JTextField();
-		GridBagConstraints gbc_txtVlrPagamento = new GridBagConstraints();
-		gbc_txtVlrPagamento.anchor = GridBagConstraints.NORTH;
-		gbc_txtVlrPagamento.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtVlrPagamento.insets = new Insets(0, 0, 5, 5);
-		gbc_txtVlrPagamento.gridwidth = 5;
-		gbc_txtVlrPagamento.gridx = 2;
-		gbc_txtVlrPagamento.gridy = 8;
-		panel.add(txtVlrPagamento, gbc_txtVlrPagamento);
-		txtVlrPagamento.setColumns(10);
-
-		JLabel lblTroco = new JLabel("Troco");
-		GridBagConstraints gbc_lblTroco = new GridBagConstraints();
-		gbc_lblTroco.gridwidth = 2;
-		gbc_lblTroco.anchor = GridBagConstraints.EAST;
-		gbc_lblTroco.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTroco.gridx = 0;
-		gbc_lblTroco.gridy = 9;
-		panel.add(lblTroco, gbc_lblTroco);
-
-		txtTroco = new JTextField();
-		GridBagConstraints gbc_txtTroco = new GridBagConstraints();
-		gbc_txtTroco.anchor = GridBagConstraints.NORTH;
-		gbc_txtTroco.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtTroco.insets = new Insets(0, 0, 5, 5);
-		gbc_txtTroco.gridwidth = 5;
-		gbc_txtTroco.gridx = 2;
-		gbc_txtTroco.gridy = 9;
-		panel.add(txtTroco, gbc_txtTroco);
-		txtTroco.setColumns(10);
-		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
-		gbc_btnCancelar.anchor = GridBagConstraints.NORTH;
-		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
-		gbc_btnCancelar.gridx = 6;
-		gbc_btnCancelar.gridy = 10;
-		panel.add(btnCancelar, gbc_btnCancelar);
+		
+				txtVlrPagamento = new JTextField();
+				GridBagConstraints gbc_txtVlrPagamento = new GridBagConstraints();
+				gbc_txtVlrPagamento.anchor = GridBagConstraints.NORTH;
+				gbc_txtVlrPagamento.fill = GridBagConstraints.HORIZONTAL;
+				gbc_txtVlrPagamento.insets = new Insets(0, 0, 5, 5);
+				gbc_txtVlrPagamento.gridwidth = 5;
+				gbc_txtVlrPagamento.gridx = 1;
+				gbc_txtVlrPagamento.gridy = 8;
+				panel.add(txtVlrPagamento, gbc_txtVlrPagamento);
+				txtVlrPagamento.setColumns(10);
+		
+				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						try {
+							this.finalize();
+						} catch (Throwable e) {
+							e.printStackTrace();
+						}
+					}
+				});
+				GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
+				gbc_btnCancelar.anchor = GridBagConstraints.NORTHEAST;
+				gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
+				gbc_btnCancelar.gridx = 7;
+				gbc_btnCancelar.gridy = 10;
+				panel.add(btnCancelar, gbc_btnCancelar);
 		GridBagConstraints gbc_btnGravar = new GridBagConstraints();
-		gbc_btnGravar.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnGravar.anchor = GridBagConstraints.NORTH;
-		gbc_btnGravar.gridwidth = 2;
-		gbc_btnGravar.gridx = 7;
+		gbc_btnGravar.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnGravar.gridx = 8;
 		gbc_btnGravar.gridy = 10;
 		panel.add(btnGravar, gbc_btnGravar);
 
@@ -293,15 +270,21 @@ public class CadVenda extends JFrame {
 		}
 		int qtd = Integer.parseInt(txtQuantidade.getText());
 		BigDecimal custo = new ProdutoDao().valorProd(indexProd);
+		BigDecimal mgLucro = margemLucro(indexProd);
+		String qtdDigitada = txtQuantidade.getText().trim();
+		BigDecimal mg = custo.multiply(mgLucro);
+		BigDecimal vlrFinal = mg.divide(new BigDecimal(100.00)).add(custo)
+				.multiply(new BigDecimal(qtdDigitada));
 
 		Produto p = new Produto();
 		p.setDescricao(produto);
 		p.setQuantidade(qtd);
-		p.setCusto(custo);
+		p.setCusto(vlrFinal);
 		model.incluir(p);
 		listaVenda.add(p);
 		txtQuantidade.setText("");
-		txtVlrTotal.setText(p.getCusto().toString());
+		txtVlrTotal.setText(NumberFormat.getCurrencyInstance()
+				.format(p.getCusto()).toString());
 
 	}
 
@@ -314,17 +297,30 @@ public class CadVenda extends JFrame {
 		Produto p = (Produto) cbProduto.getSelectedItem();
 		String horaData = horaVenda();
 		String qtdDigitada = txtQuantidade.getText().trim();
-		BigDecimal mgLucro = margemLucro(cbProduto.getSelectedIndex());
-		BigDecimal vlrProd = valroProd(cbProduto.getSelectedIndex());
-		// Esta dando erro nesta linha, pois estou pegando o valor do produto,
-		// multiplicando pela margem de lucro e diminuindo 100, oque seria a
-		// conta de porcentagem padrão
-		BigDecimal vlrFinal = vlrProd.multiply(mgLucro).divide(vlrProd, 100);
+		int indexProd = cbProduto.getSelectedIndex();
+		if (indexProd == 0) {
+			indexProd = indexProd + 1;
+		}
 
+		// busca no banco o valor do produto selecionado
+		BigDecimal vlrProd = valroProd(indexProd);
+
+		// Busca no banco o valor de mergem de lucro
+		BigDecimal mgLucro = margemLucro(indexProd);
+
+		int qtd = Integer.parseInt(qtdDigitada);
+		
+		// Quantidade de produtos na venda, utilizado para fazer o calculo de
+		// valor final da venda
+		BigDecimal mg = vlrProd.multiply(mgLucro);
+		BigDecimal vlrFinal = mg.divide(new BigDecimal(100.00)).add(vlrProd);
+		BigDecimal vlrPagamento = new BigDecimal(txtVlrPagamento.getText()
+				.trim());
 		if (qtdDigitada.isEmpty()) {
 			qtdDigitada = "0";
 		}
-		int qtd = Integer.parseInt(qtdDigitada);
+		BigDecimal troco = vlrPagamento.subtract(vlrFinal);
+		JOptionPane.showMessageDialog(null, "Troco do cliente: " + troco);
 
 		vd.gravarVenda(Integer.parseInt(txtNNota.getText().trim()),
 				c.toString(), p.toString(), qtd, vlrFinal, horaData);
@@ -347,7 +343,6 @@ public class CadVenda extends JFrame {
 	private void limparCampos() {
 		txtNNota.setText("");
 		txtQuantidade.setText("");
-		txtTroco.setText("");
 		txtVlrPagamento.setText("");
 		txtVlrTotal.setText("");
 

@@ -1,42 +1,41 @@
 package br.univel.relatorio;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import java.awt.GridBagLayout;
-
-import javax.swing.JLabel;
-
-import java.awt.GridBagConstraints;
-import java.awt.Font;
-import java.awt.Insets;
-
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.border.EtchedBorder;
-
-import br.univel.dao.ClienteDao;
-import br.univel.dao.VendaDao;
-import br.univel.model.Cliente;
-import br.univel.model.Produto;
-
 import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EtchedBorder;
+
+import org.w3c.dom.ls.LSInput;
+
+import br.univel.dao.ClienteDao;
+import br.univel.dao.ProdutoDao;
+import br.univel.dao.RelatorioDao;
+import br.univel.dao.VendaDao;
+import br.univel.model.Cliente;
+import br.univel.model.Produto;
+
 public class RelVenda extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtDia;
+	private JTextField txtMes;
 	static List<Cliente> listaCli = new ArrayList<Cliente>();
 	static List<Produto> listaProd = new ArrayList<Produto>();
 
@@ -56,10 +55,10 @@ public class RelVenda extends JFrame {
 
 	public static void preencherListas() throws SQLException {
 
-		VendaDao dao = new VendaDao();
 		ClienteDao cli = new ClienteDao();
+		ProdutoDao pdao = new ProdutoDao();
 
-		dao.listarProdutos(listaProd);
+		pdao.listarGenero(listaProd);
 		cli.listarCliente(listaCli);
 
 	}
@@ -111,15 +110,15 @@ public class RelVenda extends JFrame {
 		gbc_lblDia.gridy = 3;
 		contentPane.add(lblDia, gbc_lblDia);
 
-		textField = new JTextField();
-		textField.setColumns(10);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.gridwidth = 2;
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 3;
-		contentPane.add(textField, gbc_textField);
+		txtDia = new JTextField();
+		txtDia.setColumns(10);
+		GridBagConstraints gbc_txtDia = new GridBagConstraints();
+		gbc_txtDia.gridwidth = 2;
+		gbc_txtDia.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtDia.insets = new Insets(0, 0, 5, 5);
+		gbc_txtDia.gridx = 1;
+		gbc_txtDia.gridy = 3;
+		contentPane.add(txtDia, gbc_txtDia);
 
 		JButton btnBuscaDia = new JButton("Buscar");
 		GridBagConstraints gbc_btnBuscaDia = new GridBagConstraints();
@@ -137,15 +136,15 @@ public class RelVenda extends JFrame {
 		gbc_lblEstado.gridy = 5;
 		contentPane.add(lblEstado, gbc_lblEstado);
 
-		textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.gridwidth = 2;
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.gridx = 1;
-		gbc_textField_1.gridy = 5;
-		contentPane.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		txtMes = new JTextField();
+		GridBagConstraints gbc_txtMes = new GridBagConstraints();
+		gbc_txtMes.gridwidth = 2;
+		gbc_txtMes.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtMes.insets = new Insets(0, 0, 5, 5);
+		gbc_txtMes.gridx = 1;
+		gbc_txtMes.gridy = 5;
+		contentPane.add(txtMes, gbc_txtMes);
+		txtMes.setColumns(10);
 
 		JButton btnBuscaEstado = new JButton("Buscar");
 		GridBagConstraints gbc_btnBuscaEstado = new GridBagConstraints();
@@ -173,6 +172,11 @@ public class RelVenda extends JFrame {
 		contentPane.add(cbProduto, gbc_cbProduto);
 
 		JButton btnBuscaCategoria = new JButton("Buscar");
+		btnBuscaCategoria.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+			}
+		});
 		GridBagConstraints gbc_btnBuscaCategoria = new GridBagConstraints();
 		gbc_btnBuscaCategoria.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnBuscaCategoria.insets = new Insets(0, 0, 5, 5);
@@ -198,6 +202,17 @@ public class RelVenda extends JFrame {
 		contentPane.add(cbCliente, gbc_cbCliente);
 
 		JButton btnBuscaCliente = new JButton("Buscar");
+		btnBuscaCliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				String cliente = cbCliente.getSelectedItem().toString();
+				
+				RelatorioDao rel = new RelatorioDao();
+				
+				rel.gerarRelatorio(cliente);
+				
+			}
+		});
 		GridBagConstraints gbc_btnBuscaCliente = new GridBagConstraints();
 		gbc_btnBuscaCliente.insets = new Insets(0, 0, 0, 5);
 		gbc_btnBuscaCliente.anchor = GridBagConstraints.NORTHWEST;

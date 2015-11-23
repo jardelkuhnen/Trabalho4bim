@@ -150,5 +150,4 @@ public class Login extends JFrame {
 		txtSenha.setText("");
 	}
 
-
 }

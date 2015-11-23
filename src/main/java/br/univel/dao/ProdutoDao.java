@@ -180,4 +180,29 @@ public class ProdutoDao {
 
 		return BigDecimal.ZERO;
 	}
+
+	public List<Produto> listarGenero(List<Produto> listaProd) {
+
+		try {
+			con = Conexao.getConnection();
+
+			String sql = "SELECT GENERO FROM PRODUTO;";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Produto p = new Produto();
+
+				p.setGenero(rs.getString("genero").toString());
+
+				listaProd.add(p);
+
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erro ao buscar categorias!");
+			e.printStackTrace();
+		}
+		return listaProd;
+
+	}
 }

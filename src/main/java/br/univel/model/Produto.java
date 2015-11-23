@@ -15,6 +15,7 @@ public class Produto {
 	private BigDecimal custo;
 	private BigDecimal margemLucro;
 	private int quantidade;
+	private String genero1;
 
 	// public Produto(String produto, int qtd, ) {
 	// this.descricao = produto;
@@ -88,6 +89,11 @@ public class Produto {
 	@Override
 	public String toString() {
 		return descricao;
+	}
+
+	public void setGenero(String genero1) {
+		this.genero1 = genero1;
+
 	}
 
 }

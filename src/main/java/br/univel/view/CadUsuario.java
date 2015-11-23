@@ -317,7 +317,8 @@ public class CadUsuario extends JFrame {
 		txtIdCliente.setText("");
 		txtIdUs.setText("");
 		txtSenha.setText("");
-
+		txtConfirmaSenha.setText("");
+		txtUsuario.setText("");
 	}
 
 	protected boolean validaCampos() {

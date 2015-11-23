@@ -1,5 +1,5 @@
 package br.univel.relatorio;
 
-public class RelCliente {
+public class RelVenda {
 
 }

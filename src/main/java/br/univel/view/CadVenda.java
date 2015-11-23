@@ -37,6 +37,7 @@ import br.univel.model.Produto;
 import br.univel.model.TabelaModel;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
+import java.awt.Color;
 
 public class CadVenda extends JFrame {
 
@@ -88,11 +89,13 @@ public class CadVenda extends JFrame {
 		panel.setLayout(gbl_panel);
 
 		JLabel lblvendas = new JLabel("***Vendas***");
+		lblvendas.setForeground(new Color(0, 0, 128));
 		lblvendas.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		GridBagConstraints gbc_lblvendas = new GridBagConstraints();
-		gbc_lblvendas.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblvendas.gridwidth = 9;
+		gbc_lblvendas.anchor = GridBagConstraints.NORTH;
 		gbc_lblvendas.insets = new Insets(0, 0, 5, 5);
-		gbc_lblvendas.gridx = 4;
+		gbc_lblvendas.gridx = 0;
 		gbc_lblvendas.gridy = 1;
 		panel.add(lblvendas, gbc_lblvendas);
 
@@ -341,7 +344,8 @@ public class CadVenda extends JFrame {
 					+ NumberFormat.getCurrencyInstance().format(troco));
 
 			vd.gravarVenda(Integer.parseInt(txtNNota.getText().trim()),
-					c.toString(), p.toString(), qtd, vlrFinal, horaData);
+					c.toString(), p.toString(), qtd, vlrFinal, vlrPagamento,
+					troco, horaData);
 			limparModel();
 
 			limparCampos();

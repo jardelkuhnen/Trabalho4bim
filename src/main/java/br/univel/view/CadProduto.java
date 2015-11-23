@@ -68,6 +68,7 @@ public class CadProduto extends JFrame {
 		panel.setLayout(gbl_panel);
 
 		JLabel lblCadastroDeProduto = new JLabel("Cadastro de Produto");
+		lblCadastroDeProduto.setForeground(new Color(0, 0, 128));
 		lblCadastroDeProduto.setFont(new Font("Tahoma",
 				Font.BOLD | Font.ITALIC, 16));
 		GridBagConstraints gbc_lblCadastroDeProduto = new GridBagConstraints();

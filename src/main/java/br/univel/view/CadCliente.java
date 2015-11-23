@@ -72,13 +72,13 @@ public class CadCliente extends JFrame {
 		cadCliente.setLayout(gbl_cadCliente);
 
 		JLabel lblCadasroDeCliente = new JLabel("Cadasro de Cliente");
+		lblCadasroDeCliente.setForeground(new Color(0, 0, 128));
 		lblCadasroDeCliente.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC,
 				16));
 		GridBagConstraints gbc_lblCadasroDeCliente = new GridBagConstraints();
-		gbc_lblCadasroDeCliente.anchor = GridBagConstraints.NORTHWEST;
 		gbc_lblCadasroDeCliente.insets = new Insets(0, 0, 5, 5);
-		gbc_lblCadasroDeCliente.gridwidth = 3;
-		gbc_lblCadasroDeCliente.gridx = 2;
+		gbc_lblCadasroDeCliente.gridwidth = 8;
+		gbc_lblCadasroDeCliente.gridx = 0;
 		gbc_lblCadasroDeCliente.gridy = 0;
 		cadCliente.add(lblCadasroDeCliente, gbc_lblCadasroDeCliente);
 

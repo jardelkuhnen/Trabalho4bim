@@ -53,7 +53,7 @@ public class CadUsuario extends JFrame {
 
 	public CadUsuario() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 414, 308);
+		setBounds(100, 100, 414, 334);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -64,30 +64,31 @@ public class CadUsuario extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 78, 129, 80, 63, 0 };
-		gbl_panel.rowHeights = new int[] { 39, 20, 20, 20, 20, 20, 23, 0, 0, 0 };
+		gbl_panel.rowHeights = new int[] { 39, 20, 0, 20, 20, 20, 20, 23, 0, 0, 0 };
 		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0, 1.0,
 				Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
-
-		JLabel lblCadastroDeUsurio = new JLabel("Cadastro de Usu\u00E1rio");
-		lblCadastroDeUsurio.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC,
-				16));
-		GridBagConstraints gbc_lblCadastroDeUsurio = new GridBagConstraints();
-		gbc_lblCadastroDeUsurio.anchor = GridBagConstraints.NORTH;
-		gbc_lblCadastroDeUsurio.insets = new Insets(0, 0, 5, 0);
-		gbc_lblCadastroDeUsurio.gridwidth = 4;
-		gbc_lblCadastroDeUsurio.gridx = 0;
-		gbc_lblCadastroDeUsurio.gridy = 1;
-		panel.add(lblCadastroDeUsurio, gbc_lblCadastroDeUsurio);
+		
+				JLabel lblCadastroDeUsurio = new JLabel("Cadastro de Usu\u00E1rio");
+				lblCadastroDeUsurio.setForeground(new Color(0, 0, 128));
+				lblCadastroDeUsurio.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC,
+						16));
+				GridBagConstraints gbc_lblCadastroDeUsurio = new GridBagConstraints();
+				gbc_lblCadastroDeUsurio.anchor = GridBagConstraints.NORTH;
+				gbc_lblCadastroDeUsurio.insets = new Insets(0, 0, 5, 0);
+				gbc_lblCadastroDeUsurio.gridwidth = 5;
+				gbc_lblCadastroDeUsurio.gridx = 0;
+				gbc_lblCadastroDeUsurio.gridy = 1;
+				panel.add(lblCadastroDeUsurio, gbc_lblCadastroDeUsurio);
 
 		JLabel lblIdcliente = new JLabel("IdCliente");
 		GridBagConstraints gbc_lblIdcliente = new GridBagConstraints();
 		gbc_lblIdcliente.anchor = GridBagConstraints.EAST;
 		gbc_lblIdcliente.insets = new Insets(0, 0, 5, 5);
 		gbc_lblIdcliente.gridx = 0;
-		gbc_lblIdcliente.gridy = 2;
+		gbc_lblIdcliente.gridy = 3;
 		panel.add(lblIdcliente, gbc_lblIdcliente);
 
 		txtIdCliente = new JTextField();
@@ -97,7 +98,7 @@ public class CadUsuario extends JFrame {
 		gbc_txtIdCliente.insets = new Insets(0, 0, 5, 5);
 		gbc_txtIdCliente.gridwidth = 2;
 		gbc_txtIdCliente.gridx = 1;
-		gbc_txtIdCliente.gridy = 2;
+		gbc_txtIdCliente.gridy = 3;
 		panel.add(txtIdCliente, gbc_txtIdCliente);
 		txtIdCliente.setColumns(10);
 
@@ -106,7 +107,7 @@ public class CadUsuario extends JFrame {
 		gbc_lblId.anchor = GridBagConstraints.EAST;
 		gbc_lblId.insets = new Insets(0, 0, 5, 5);
 		gbc_lblId.gridx = 0;
-		gbc_lblId.gridy = 3;
+		gbc_lblId.gridy = 4;
 		panel.add(lblId, gbc_lblId);
 
 		txtIdUs = new JTextField();
@@ -116,7 +117,7 @@ public class CadUsuario extends JFrame {
 		gbc_txtIdUs.insets = new Insets(0, 0, 5, 5);
 		gbc_txtIdUs.gridwidth = 2;
 		gbc_txtIdUs.gridx = 1;
-		gbc_txtIdUs.gridy = 3;
+		gbc_txtIdUs.gridy = 4;
 		panel.add(txtIdUs, gbc_txtIdUs);
 		txtIdUs.setColumns(10);
 
@@ -212,7 +213,7 @@ public class CadUsuario extends JFrame {
 		gbc_lblUsurio.anchor = GridBagConstraints.EAST;
 		gbc_lblUsurio.insets = new Insets(0, 0, 5, 5);
 		gbc_lblUsurio.gridx = 0;
-		gbc_lblUsurio.gridy = 4;
+		gbc_lblUsurio.gridy = 5;
 		panel.add(lblUsurio, gbc_lblUsurio);
 
 		txtUsuario = new JTextField();
@@ -220,7 +221,7 @@ public class CadUsuario extends JFrame {
 		gbc_txtUsuario.insets = new Insets(0, 0, 5, 5);
 		gbc_txtUsuario.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtUsuario.gridx = 1;
-		gbc_txtUsuario.gridy = 4;
+		gbc_txtUsuario.gridy = 5;
 		panel.add(txtUsuario, gbc_txtUsuario);
 		txtUsuario.setColumns(10);
 
@@ -229,7 +230,7 @@ public class CadUsuario extends JFrame {
 		gbc_lblSenha.anchor = GridBagConstraints.EAST;
 		gbc_lblSenha.insets = new Insets(0, 0, 5, 5);
 		gbc_lblSenha.gridx = 0;
-		gbc_lblSenha.gridy = 5;
+		gbc_lblSenha.gridy = 6;
 		panel.add(lblSenha, gbc_lblSenha);
 
 		txtSenha = new JTextField();
@@ -239,7 +240,7 @@ public class CadUsuario extends JFrame {
 		gbc_txtSenha.insets = new Insets(0, 0, 5, 5);
 		gbc_txtSenha.gridwidth = 2;
 		gbc_txtSenha.gridx = 1;
-		gbc_txtSenha.gridy = 5;
+		gbc_txtSenha.gridy = 6;
 		panel.add(txtSenha, gbc_txtSenha);
 		txtSenha.setColumns(10);
 
@@ -248,7 +249,7 @@ public class CadUsuario extends JFrame {
 		gbc_lblConfirmaSenha.anchor = GridBagConstraints.NORTHEAST;
 		gbc_lblConfirmaSenha.insets = new Insets(0, 0, 5, 5);
 		gbc_lblConfirmaSenha.gridx = 0;
-		gbc_lblConfirmaSenha.gridy = 6;
+		gbc_lblConfirmaSenha.gridy = 7;
 		panel.add(lblConfirmaSenha, gbc_lblConfirmaSenha);
 
 		txtConfirmaSenha = new JTextField();
@@ -258,26 +259,26 @@ public class CadUsuario extends JFrame {
 		gbc_txtConfirmaSenha.insets = new Insets(0, 0, 5, 5);
 		gbc_txtConfirmaSenha.gridwidth = 2;
 		gbc_txtConfirmaSenha.gridx = 1;
-		gbc_txtConfirmaSenha.gridy = 6;
+		gbc_txtConfirmaSenha.gridy = 7;
 		panel.add(txtConfirmaSenha, gbc_txtConfirmaSenha);
 		txtConfirmaSenha.setColumns(10);
 		GridBagConstraints gbc_btnExcluir = new GridBagConstraints();
 		gbc_btnExcluir.anchor = GridBagConstraints.NORTHEAST;
 		gbc_btnExcluir.insets = new Insets(0, 0, 0, 5);
 		gbc_btnExcluir.gridx = 1;
-		gbc_btnExcluir.gridy = 8;
+		gbc_btnExcluir.gridy = 9;
 		panel.add(btnExcluir, gbc_btnExcluir);
 		GridBagConstraints gbc_btnEditar = new GridBagConstraints();
 		gbc_btnEditar.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnEditar.anchor = GridBagConstraints.NORTH;
 		gbc_btnEditar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnEditar.gridx = 2;
-		gbc_btnEditar.gridy = 8;
+		gbc_btnEditar.gridy = 9;
 		panel.add(btnEditar, gbc_btnEditar);
 		GridBagConstraints gbc_btnSalvar = new GridBagConstraints();
 		gbc_btnSalvar.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnSalvar.gridx = 3;
-		gbc_btnSalvar.gridy = 8;
+		gbc_btnSalvar.gridy = 9;
 		panel.add(btnSalvar, gbc_btnSalvar);
 	}
 

@@ -32,6 +32,8 @@ cliente varchar(50),
 produto varchar(50),
 qtd int,
 valorVenda bigint,
+valorPagamento bigint,
+valortroco bigint,
 dataHora varchar(30));
 
 

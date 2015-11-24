@@ -1,6 +1,8 @@
 package br.univel.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -28,6 +30,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+
 import br.univel.controller.VendaController;
 import br.univel.dao.ClienteDao;
 import br.univel.dao.ProdutoDao;
@@ -35,9 +39,6 @@ import br.univel.dao.VendaDao;
 import br.univel.model.Cliente;
 import br.univel.model.Produto;
 import br.univel.model.TabelaModel;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
-import java.awt.Component;
-import java.awt.Color;
 
 public class CadVenda extends JFrame {
 
@@ -50,13 +51,13 @@ public class CadVenda extends JFrame {
 	private JTextField txtQuantidade;
 	private JLabel lblVlrTotal;
 	private TabelaModel model;
-	private JTable tab;
 
 	List<Produto> listaProd = new ArrayList<Produto>();
 	List<Cliente> listaCli = new ArrayList<Cliente>();
 	List<Produto> listaVenda = new ArrayList<Produto>();
 	boolean valido;
 	private JPanel panel;
+	private JTable table;
 
 	public CadVenda() {
 		setTitle("Venda");
@@ -78,7 +79,7 @@ public class CadVenda extends JFrame {
 		panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 95, 25, 33, 37, 119, 50, 22, 52,
+		gbl_panel.columnWidths = new int[] { 111, 25, 33, 37, 97, 50, 80, 52,
 				77, 0 };
 		gbl_panel.rowHeights = new int[] { 30, 20, 20, 20, 20, 23, 171, 20, 20,
 				20, 23, 0 };
@@ -94,7 +95,7 @@ public class CadVenda extends JFrame {
 		GridBagConstraints gbc_lblvendas = new GridBagConstraints();
 		gbc_lblvendas.gridwidth = 9;
 		gbc_lblvendas.anchor = GridBagConstraints.NORTH;
-		gbc_lblvendas.insets = new Insets(0, 0, 5, 5);
+		gbc_lblvendas.insets = new Insets(0, 0, 5, 0);
 		gbc_lblvendas.gridx = 0;
 		gbc_lblvendas.gridy = 1;
 		panel.add(lblvendas, gbc_lblvendas);
@@ -182,9 +183,25 @@ public class CadVenda extends JFrame {
 		GridBagConstraints gbc_btnAdicionar = new GridBagConstraints();
 		gbc_btnAdicionar.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnAdicionar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAdicionar.gridx = 7;
+		gbc_btnAdicionar.gridx = 6;
 		gbc_btnAdicionar.gridy = 5;
 		panel.add(btnAdicionar, gbc_btnAdicionar);
+
+		JButton button = new JButton("Remover");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				removerProduto();
+				txtQuantidade.setText("");
+				txtVlrTotal.setText("");
+
+			}
+		});
+		GridBagConstraints gbc_button = new GridBagConstraints();
+		gbc_button.insets = new Insets(0, 0, 5, 5);
+		gbc_button.gridx = 7;
+		gbc_button.gridy = 5;
+		panel.add(button, gbc_button);
 
 		JScrollPane tabela = new JScrollPane();
 		GridBagConstraints gbc_tabela = new GridBagConstraints();
@@ -194,6 +211,9 @@ public class CadVenda extends JFrame {
 		gbc_tabela.gridx = 0;
 		gbc_tabela.gridy = 6;
 		panel.add(tabela, gbc_tabela);
+
+		table = new JTable();
+		tabela.setViewportView(table);
 
 		JLabel lblValorTotal = new JLabel("Valor Total");
 		GridBagConstraints gbc_lblValorTotal = new GridBagConstraints();
@@ -233,6 +253,20 @@ public class CadVenda extends JFrame {
 		panel.add(txtVlrPagamento, gbc_txtVlrPagamento);
 		txtVlrPagamento.setColumns(10);
 
+		JButton btnGravar = new JButton("Gravar");
+		btnGravar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gravarVenda();
+			}
+		});
+		GridBagConstraints gbc_btnGravar = new GridBagConstraints();
+		gbc_btnGravar.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnGravar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnGravar.anchor = GridBagConstraints.NORTH;
+		gbc_btnGravar.gridx = 6;
+		gbc_btnGravar.gridy = 9;
+		panel.add(btnGravar, gbc_btnGravar);
+
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -249,27 +283,35 @@ public class CadVenda extends JFrame {
 		gbc_btnCancelar.gridx = 7;
 		gbc_btnCancelar.gridy = 9;
 		panel.add(btnCancelar, gbc_btnCancelar);
-
-		tab = new JTable();
-		tabela.setViewportView(tab);
-
-		JButton btnGravar = new JButton("Gravar");
-		btnGravar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				gravarVenda();
-			}
-		});
 		contentPane.setFocusTraversalPolicy(new FocusTraversalOnArray(
 				new Component[] { txtNNota, cbCliente, cbProduto,
 						txtQuantidade, btnAdicionar, txtVlrTotal,
 						txtVlrPagamento, btnCancelar, btnGravar }));
-		GridBagConstraints gbc_btnGravar = new GridBagConstraints();
-		gbc_btnGravar.insets = new Insets(0, 0, 5, 0);
-		gbc_btnGravar.anchor = GridBagConstraints.NORTHWEST;
-		gbc_btnGravar.gridx = 8;
-		gbc_btnGravar.gridy = 9;
-		panel.add(btnGravar, gbc_btnGravar);
 
+	}
+
+	protected void removerProduto() {
+
+		Produto p = getProdutoSelecionado();
+		if (p != null) {
+			((TabelaModel) table.getModel()).removeProduto(p);
+		}
+
+	}
+
+	private Produto getProdutoSelecionado() {
+
+		Produto p = null;
+
+		int index = table.getSelectedRow();
+		if (index == -1) {
+			JOptionPane.showMessageDialog(null, "Linha não selecionada");
+
+		} else {
+			p = ((TabelaModel) table.getModel()).getClienteNaLinha(index);
+		}
+
+		return p;
 	}
 
 	public void adicionarProdutos() {
@@ -360,7 +402,7 @@ public class CadVenda extends JFrame {
 
 	protected void configuraManual() {
 		model = new TabelaModel();
-		tab.setModel(model);
+		table.setModel(model);
 	}
 
 	// limpa os campos

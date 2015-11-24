@@ -58,4 +58,17 @@ public class TabelaModel extends AbstractTableModel {
 	public void limparlista() {
 		lista.clear();
 	}
+
+	public Produto getClienteNaLinha(int index) {
+
+		return lista.get(index);
+	}
+
+	public void removeProduto(Produto p) {
+		int idx = this.lista.indexOf(p);
+		this.lista.remove(p);
+		super.fireTableRowsDeleted(idx, idx);
+
+	}
+
 }

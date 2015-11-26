@@ -54,7 +54,7 @@ public class CadVenda extends JFrame {
 
 	List<Produto> listaProd = new ArrayList<Produto>();
 	List<Cliente> listaCli = new ArrayList<Cliente>();
-	List<Produto> listaVenda = new ArrayList<Produto>();
+	List<Produto> listaVenda = new ArrayList();
 	boolean valido;
 	private JPanel panel;
 	private JTable table;

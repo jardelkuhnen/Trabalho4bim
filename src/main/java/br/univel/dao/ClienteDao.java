@@ -77,7 +77,7 @@ public class ClienteDao {
 		con = Conexao.getConnection();
 
 		String sql = "UPDATE CLIENTE SET NOME = ?, ENDERECO = ?,"
-				+ "CIDADE = ?, ESTADO = ?, GENERO = ?, EMAIL = ? WHERE ID = ?";
+				+ "CIDADE = ?, ESTADO = ?, GENERO = ? WHERE ID = ?;";
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
@@ -87,7 +87,6 @@ public class ClienteDao {
 			stmt.setString(3, c.getCidade().toUpperCase());
 			stmt.setString(4, c.getEstado().toString());
 			stmt.setString(5, c.getGenero().toString());
-			stmt.setString(6, c.getEmail().toUpperCase());
 
 			stmt.execute();
 			stmt.close();

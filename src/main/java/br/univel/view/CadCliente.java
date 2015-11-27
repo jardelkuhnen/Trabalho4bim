@@ -297,7 +297,7 @@ public class CadCliente extends JFrame {
 					ClienteController cc = new ClienteController();
 
 					Uf estado = (Uf) cbEstado.getSelectedItem();
-					GeneroCli genCli = (GeneroCli) cbEstado.getSelectedItem();
+					GeneroCli genCli = (GeneroCli) cbGenero.getSelectedItem();
 					cc.editar(Integer.parseInt(txtId.getText().trim()), txtNome
 							.getText().trim(), txtEndereco.getText().trim(),
 							txtCidade.getText().trim(), estado, genCli,

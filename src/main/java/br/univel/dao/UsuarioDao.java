@@ -45,15 +45,15 @@ public class UsuarioDao {
 	public void editar(Usuario u) {
 		con = Conexao.getConnection();
 
-		String sql = "UPDATE USUARIO SET idCliente = ?, IdUs = ?, ususario = ?, SENHA = ?";
+		String sql = "UPDATE USUARIO SET idCliente = ?, IdUs = ?, USUARIO = ?, SENHA = ?";
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
 
 			stmt.setInt(1, u.getIdCliente());
 			stmt.setInt(2, u.getIdUs());
-			stmt.setString(3, u.getUsuario().toUpperCase());
-			stmt.setString(3, u.getSenha().toUpperCase());
+			stmt.setString(3, u.getUsuario());
+			stmt.setString(4, u.getSenha());
 
 			stmt.execute();
 			stmt.close();

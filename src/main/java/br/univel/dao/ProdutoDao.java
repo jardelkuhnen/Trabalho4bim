@@ -68,7 +68,7 @@ public class ProdutoDao {
 	public void editar(Produto p) {
 		con = Conexao.getConnection();
 
-		String sql = "UPDATE PRODUTO SET ID = ?, codBarras = ?, CATEGORIA = ?, DESCRICAO = ?, UNIDADE = ?, CUSTO = ?, MARGEMLUCRO = ? where id = ?";
+		String sql = "UPDATE PRODUTO SET ID = ?, codBarras = ?, genero = ?, descricao = ?, unidade = ?, custo = ?, margemLucro = ? where id = ?;";
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);

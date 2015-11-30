@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.h2.command.ddl.PrepareProcedure;
+
 import br.univel.enun.GeneroCli;
 import br.univel.enun.Uf;
 import br.univel.model.Cliente;
@@ -40,12 +42,10 @@ public class ClienteDao {
 			stmt.execute();
 			stmt.close();
 
-			JOptionPane.showMessageDialog(null,
-					"Cliente cadastrado com sucesso!!!");
+			JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!!!");
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,
-					"ERRO: Problemas ao salvar cliente!!!");
+			JOptionPane.showMessageDialog(null, "ERRO: Problemas ao salvar cliente!!!");
 			e.printStackTrace();
 		}
 
@@ -76,8 +76,7 @@ public class ClienteDao {
 	public void editar(Cliente c) {
 		con = Conexao.getConnection();
 
-		String sql = "UPDATE CLIENTE SET NOME = ?, ENDERECO = ?,"
-				+ "CIDADE = ?, ESTADO = ?, GENERO = ? WHERE ID = ?;";
+		String sql = "UPDATE CLIENTE SET NOME = ?, ENDERECO = ?," + "CIDADE = ?, ESTADO = ?, GENERO = ? WHERE ID = ?;";
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
@@ -90,8 +89,7 @@ public class ClienteDao {
 
 			stmt.execute();
 			stmt.close();
-			JOptionPane.showMessageDialog(null,
-					"Cliente editado com sucesso !!!");
+			JOptionPane.showMessageDialog(null, "Cliente editado com sucesso !!!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao editar cliente !!!");
 			e.printStackTrace();
@@ -108,16 +106,43 @@ public class ClienteDao {
 			stmt = con.prepareStatement("DELETE FROM CLIENTE WHERE ID = ?");
 			int rs = stmt.executeUpdate();
 			stmt.setInt(1, id);
-			JOptionPane.showMessageDialog(null,
-					"Cliente apagado com sucesso!!!");
+			JOptionPane.showMessageDialog(null, "Cliente apagado com sucesso!!!");
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,
-					"ERRO: Problemas ao apagar cliente!!!");
+			JOptionPane.showMessageDialog(null, "ERRO: Problemas ao apagar cliente!!!");
 			e.printStackTrace();
 		}
 
 		return null;
+
+	}
+
+	public List<Cliente> listarCliente(String nome) {
+		con = Conexao.getConnection();
+		List<Cliente> lista = new ArrayList<>();
+
+		try {
+			String sql = "SELECT ID, NOME, ENDERECO, CIDADE, ESTADO, GENERO, EMAIL FROM CLIENTE WHERE NOME = ?;";
+			PreparedStatement stmt;
+			stmt = con.prepareStatement(sql);
+			stmt.setString(1, nome);
+
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+
+				Cliente c = new Cliente();
+
+				c.setNome(rs.getString("nome"));
+
+				lista.add(c);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return lista;
 
 	}
 

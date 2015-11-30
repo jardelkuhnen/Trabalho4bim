@@ -25,6 +25,8 @@ import br.univel.enun.GeneroCli;
 import br.univel.enun.Uf;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 
 import javax.swing.UIManager;
@@ -61,20 +63,16 @@ public class CadCliente extends JFrame {
 		cadCliente.setBackground(new Color(240, 240, 240));
 		contentPane.add(cadCliente, BorderLayout.CENTER);
 		GridBagLayout gbl_cadCliente = new GridBagLayout();
-		gbl_cadCliente.columnWidths = new int[] { 69, 86, 25, 63, 66, 65, 0, 0,
-				0 };
-		gbl_cadCliente.rowHeights = new int[] { 20, 40, 20, 20, 20, 20, 20, 20,
-				20, 20, 23, 0 };
-		gbl_cadCliente.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 1.0, Double.MIN_VALUE };
-		gbl_cadCliente.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
-				0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_cadCliente.columnWidths = new int[] { 69, 86, 25, 63, 66, 65, 0, 0, 0 };
+		gbl_cadCliente.rowHeights = new int[] { 20, 40, 20, 20, 20, 20, 20, 20, 20, 20, 23, 0 };
+		gbl_cadCliente.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_cadCliente.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
 		cadCliente.setLayout(gbl_cadCliente);
 
 		JLabel lblCadasroDeCliente = new JLabel("Cadasro de Cliente");
 		lblCadasroDeCliente.setForeground(new Color(0, 0, 128));
-		lblCadasroDeCliente.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC,
-				16));
+		lblCadasroDeCliente.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
 		GridBagConstraints gbc_lblCadasroDeCliente = new GridBagConstraints();
 		gbc_lblCadasroDeCliente.insets = new Insets(0, 0, 5, 5);
 		gbc_lblCadasroDeCliente.gridwidth = 8;
@@ -91,6 +89,17 @@ public class CadCliente extends JFrame {
 		cadCliente.add(lblId, gbc_lblId);
 
 		txtId = new JTextField();
+		txtId.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_F2) {
+					BuscaCliente c = new BuscaCliente();
+					c.setVisible(true);
+					c.setLocationRelativeTo(null);
+				}
+			}
+		});
 		GridBagConstraints gbc_txtId = new GridBagConstraints();
 		gbc_txtId.anchor = GridBagConstraints.NORTH;
 		gbc_txtId.fill = GridBagConstraints.HORIZONTAL;
@@ -234,15 +243,12 @@ public class CadCliente extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				if (validaCampos() == true) {
-					JOptionPane.showMessageDialog(null,
-							"Preencha os campos corretamente !!!");
+					JOptionPane.showMessageDialog(null, "Preencha os campos corretamente !!!");
 				} else {
 					ClienteController cc = new ClienteController();
 
-					int resposta = JOptionPane.showConfirmDialog(
-							null,
-							"Deseja excluir o cliente de Id: "
-									+ txtId.getText() + " ?");
+					int resposta = JOptionPane.showConfirmDialog(null,
+							"Deseja excluir o cliente de Id: " + txtId.getText() + " ?");
 					if (resposta == JOptionPane.YES_OPTION) {
 						cc.deletar(Integer.parseInt(txtId.getText().trim()));
 
@@ -263,8 +269,7 @@ public class CadCliente extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (validaCampos() == true) {
-					JOptionPane.showMessageDialog(null,
-							"Preencha corretamente os campos!!!.");
+					JOptionPane.showMessageDialog(null, "Preencha corretamente os campos!!!.");
 
 				} else {
 
@@ -272,9 +277,8 @@ public class CadCliente extends JFrame {
 
 					Uf estado = (Uf) cbEstado.getSelectedItem();
 					GeneroCli genCli = (GeneroCli) cbGenero.getSelectedItem();
-					cc.salvar(Integer.parseInt(txtId.getText().trim()), txtNome
-							.getText().trim(), txtEndereco.getText().trim(),
-							txtCidade.getText().trim(), estado, genCli,
+					cc.salvar(Integer.parseInt(txtId.getText().trim()), txtNome.getText().trim(),
+							txtEndereco.getText().trim(), txtCidade.getText().trim(), estado, genCli,
 							txtEmail.getText().trim());
 
 					limparCampos();
@@ -289,8 +293,7 @@ public class CadCliente extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (validaCampos() == true) {
-					JOptionPane.showMessageDialog(null,
-							"Preencha corretamente os campos!!!.");
+					JOptionPane.showMessageDialog(null, "Preencha corretamente os campos!!!.");
 
 				} else {
 
@@ -298,9 +301,8 @@ public class CadCliente extends JFrame {
 
 					Uf estado = (Uf) cbEstado.getSelectedItem();
 					GeneroCli genCli = (GeneroCli) cbGenero.getSelectedItem();
-					cc.editar(Integer.parseInt(txtId.getText().trim()), txtNome
-							.getText().trim(), txtEndereco.getText().trim(),
-							txtCidade.getText().trim(), estado, genCli,
+					cc.editar(Integer.parseInt(txtId.getText().trim()), txtNome.getText().trim(),
+							txtEndereco.getText().trim(), txtCidade.getText().trim(), estado, genCli,
 							txtEmail.getText().trim());
 
 					limparCampos();
@@ -321,12 +323,9 @@ public class CadCliente extends JFrame {
 		gbc_btnSalvar.gridx = 5;
 		gbc_btnSalvar.gridy = 10;
 		cadCliente.add(btnSalvar, gbc_btnSalvar);
-		cadCliente
-				.setFocusTraversalPolicy(new FocusTraversalOnArray(
-						new Component[] { lblCadasroDeCliente, txtId, txtNome,
-								txtTelefone, txtEndereco, txtCidade, cbEstado,
-								cbGenero, txtEmail, btnExcluir, btnEditar,
-								btnSalvar }));
+		cadCliente.setFocusTraversalPolicy(
+				new FocusTraversalOnArray(new Component[] { lblCadasroDeCliente, txtId, txtNome, txtTelefone,
+						txtEndereco, txtCidade, cbEstado, cbGenero, txtEmail, btnExcluir, btnEditar, btnSalvar }));
 	}
 
 	void limparCampos() {

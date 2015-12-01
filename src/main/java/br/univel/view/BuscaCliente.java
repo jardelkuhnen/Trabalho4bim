@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -35,8 +36,7 @@ public class BuscaCliente extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					BuscaCliente frame = new BuscaCliente();
-					frame.setVisible(true);
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -72,11 +72,9 @@ public class BuscaCliente extends JFrame {
 		JButton btnNewButton = new JButton("Buscar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				List<Cliente> lista = new ArrayList<>();
 				ClienteDao dao = new ClienteDao();
-
-				lista = dao.listarCliente(txtNome.getText().toString());
-				model.incluir(lista);
+				String nomeCliente = txtNome.getText().toString().toUpperCase();
+				model.incluir(dao.listarCliente(nomeCliente));
 			}
 		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
@@ -95,6 +93,14 @@ public class BuscaCliente extends JFrame {
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
+
+		configutaTela();
+	}
+
+	private void configutaTela() {
+		BuscaClienteModel model = new BuscaClienteModel();
+		table.setModel(model);
+
 	}
 
 }

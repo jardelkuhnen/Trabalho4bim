@@ -122,28 +122,37 @@ public class ClienteDao {
 		List<Cliente> lista = new ArrayList<>();
 
 		try {
-			String sql = "SELECT ID, NOME, ENDERECO, CIDADE, ESTADO, GENERO, EMAIL FROM CLIENTE WHERE NOME = ?;";
+			String sql = "SELECT ID, NOME FROM CLIENTE WHERE NOME = ?";
 			PreparedStatement stmt;
 			stmt = con.prepareStatement(sql);
 			stmt.setString(1, nome);
 
 			ResultSet rs = stmt.executeQuery();
 
+			Cliente c = new Cliente();
 			while (rs.next()) {
 
-				Cliente c = new Cliente();
-
+				c.setId(rs.getInt("id"));
 				c.setNome(rs.getString("nome"));
 
 				lista.add(c);
 			}
+			System.out.println(c.getNome() + c.getId());
+			return lista;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		mostraLista(lista);
+		return null;
 
-		return lista;
+	}
 
+	private void mostraLista(List<Cliente> lista) {
+
+		for (int i = 0; i < lista.size(); i++) {
+			System.out.println(lista.get(i));
+		}
 	}
 
 }

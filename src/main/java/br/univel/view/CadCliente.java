@@ -340,7 +340,7 @@ public class CadCliente extends JFrame {
 
 	boolean validaCampos() {
 		boolean valida;
-		if (txtId.getText().equals("")) {
+		if (txtId.getText().equals("") || txtNome.getText().equals("")) {
 			valida = true;
 		} else {
 			valida = false;

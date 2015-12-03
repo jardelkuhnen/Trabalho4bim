@@ -35,17 +35,19 @@ public class ClienteDao {
 			stmt.setString(2, c.getNome().toUpperCase());
 			stmt.setString(3, c.getEndereco().toUpperCase());
 			stmt.setString(4, c.getCidade().toUpperCase());
-			stmt.setString(5, c.getEstado().toString());
+			stmt.setInt(5, c.getEstado().ordinal());
 			stmt.setString(6, c.getGenero().toString());
 			stmt.setString(7, c.getEmail());
 
 			stmt.execute();
 			stmt.close();
 
-			JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!!!");
+			JOptionPane.showMessageDialog(null,
+					"Cliente cadastrado com sucesso!!!");
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "ERRO: Problemas ao salvar cliente!!!");
+			JOptionPane.showMessageDialog(null,
+					"ERRO: Problemas ao salvar cliente!!!");
 			e.printStackTrace();
 		}
 
@@ -76,7 +78,8 @@ public class ClienteDao {
 	public void editar(Cliente c) {
 		con = Conexao.getConnection();
 
-		String sql = "UPDATE CLIENTE SET NOME = ?, ENDERECO = ?," + "CIDADE = ?, ESTADO = ?, GENERO = ? WHERE ID = ?;";
+		String sql = "UPDATE CLIENTE SET NOME = ?, ENDERECO = ?,"
+				+ "CIDADE = ?, ESTADO = ?, GENERO = ? WHERE ID = ?;";
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
@@ -89,7 +92,8 @@ public class ClienteDao {
 
 			stmt.execute();
 			stmt.close();
-			JOptionPane.showMessageDialog(null, "Cliente editado com sucesso !!!");
+			JOptionPane.showMessageDialog(null,
+					"Cliente editado com sucesso !!!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao editar cliente !!!");
 			e.printStackTrace();
@@ -106,10 +110,12 @@ public class ClienteDao {
 			stmt = con.prepareStatement("DELETE FROM CLIENTE WHERE ID = ?");
 			int rs = stmt.executeUpdate();
 			stmt.setInt(1, id);
-			JOptionPane.showMessageDialog(null, "Cliente apagado com sucesso!!!");
+			JOptionPane.showMessageDialog(null,
+					"Cliente apagado com sucesso!!!");
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "ERRO: Problemas ao apagar cliente!!!");
+			JOptionPane.showMessageDialog(null,
+					"ERRO: Problemas ao apagar cliente!!!");
 			e.printStackTrace();
 		}
 
@@ -122,9 +128,12 @@ public class ClienteDao {
 		List<Cliente> lista = new ArrayList<>();
 
 		try {
-			String sql = "SELECT ID, NOME FROM CLIENTE WHERE NOME = ?";
+			StringBuilder sql = new StringBuilder();
+			sql.append("SELECT * FROM CLIENTE WHERE NOME = ?");
 			PreparedStatement stmt;
-			stmt = con.prepareStatement(sql);
+
+			stmt = con.prepareStatement(sql.toString());
+
 			stmt.setString(1, nome);
 
 			ResultSet rs = stmt.executeQuery();
@@ -134,16 +143,18 @@ public class ClienteDao {
 
 				c.setId(rs.getInt("id"));
 				c.setNome(rs.getString("nome"));
+				c.setEndereco(rs.getString("endereco"));
+				c.setCidade(rs.getString("cidade"));
+				c.setEstado(Uf.values()[rs.getInt("estado")]);
+				c.setEmail(rs.getString("email"));
 
 				lista.add(c);
 			}
-			System.out.println(c.getNome() + c.getId());
+			mostraLista(lista);
 			return lista;
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		mostraLista(lista);
 		return null;
 
 	}
@@ -153,6 +164,7 @@ public class ClienteDao {
 		for (int i = 0; i < lista.size(); i++) {
 			System.out.println(lista.get(i));
 		}
+
 	}
 
 }

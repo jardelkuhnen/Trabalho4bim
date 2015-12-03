@@ -4,7 +4,7 @@ CREATE TABLE Cliente
 nome varchar(100) not null,
 endereco varchar(50),
 cidade varchar(50),
-estado char(2),
+estado int,
 genero varchar(20),
 email varchar(50));
 

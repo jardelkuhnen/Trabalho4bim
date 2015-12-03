@@ -6,12 +6,11 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -27,28 +26,20 @@ public class BuscaCliente extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtNome;
 	private JTable table;
-	private BuscaClienteModel model;
+	private BuscaClienteModel model = new BuscaClienteModel();
+	private CadCliente cadCliente;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public BuscaCliente() {
 	}
 
 	/**
 	 * Create the frame.
+	 * 
+	 * @param cadCliente
 	 */
-	public BuscaCliente() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	public BuscaCliente(CadCliente cadCliente) {
+		this.cadCliente = cadCliente;
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -57,7 +48,8 @@ public class BuscaCliente extends JFrame {
 		gbl_contentPane.columnWidths = new int[] { 0, 0 };
 		gbl_contentPane.rowHeights = new int[] { 0, 0, 0, 0 };
 		gbl_contentPane.columnWeights = new double[] { 1.0, Double.MIN_VALUE };
-		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 1.0,
+				Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
 
 		txtNome = new JTextField();
@@ -73,10 +65,13 @@ public class BuscaCliente extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ClienteDao dao = new ClienteDao();
-				String nomeCliente = txtNome.getText().toString().toUpperCase();
+				String nomeCliente = txtNome.getText().toUpperCase();
+
 				model.incluir(dao.listarCliente(nomeCliente));
+				table.setModel(model);
 			}
 		});
+
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton.anchor = GridBagConstraints.EAST;
@@ -94,7 +89,49 @@ public class BuscaCliente extends JFrame {
 		table = new JTable();
 		scrollPane.setViewportView(table);
 
+		addMouseClickedTable();
+
 		configutaTela();
+	}
+
+	private void addMouseClickedTable() {
+		table.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+
+					int selectedRow = table.getSelectedRow();
+
+					Cliente clienteSelecionado = ((BuscaClienteModel) table
+							.getModel()).getCliente(selectedRow);
+
+					BuscaCliente.this.cadCliente
+							.carregaClientePesquisadoEmTela(clienteSelecionado);
+
+					fechaTela();
+				}
+			}
+		});
+	}
+
+	private void fechaTela() {
+		this.setVisible(false);
 	}
 
 	private void configutaTela() {

@@ -2,17 +2,26 @@ package br.univel.enun;
 
 public enum Uf {
 
-	PR("Paraná"), SC("Santa Catarian"), SP("São Paulo"), RS("Rio Grande do Sul"), RJ(
-			"Rio de Janeiro");
+	PR(0, "Paraná"), 
+	SC(1, "Santa Catarian"), 
+	SP(2, "São Paulo"), 
+	RS(3, "Rio Grande do Sul"), 
+	RJ(4, "Rio de Janeiro");
 
-	private String uf;
+	private String descricao;
 
-	Uf(String uf) {
-		this.uf = uf;
+
+	private Uf(Integer ordinal, String descricao) {
+		this.descricao = descricao;
 	}
-
-	public String getUf() {
-		return uf;
+	
+	public String getDescricao() {
+		return descricao;
+	}
+	
+	@Override
+	public String toString() {
+		return getDescricao();
 	}
 
 }

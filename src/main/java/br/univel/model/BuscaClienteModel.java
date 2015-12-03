@@ -15,9 +15,6 @@ public class BuscaClienteModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		if (lista == null)
-			return 0;
-
 		return lista.size();
 	}
 
@@ -32,10 +29,12 @@ public class BuscaClienteModel extends AbstractTableModel {
 		Cliente c = lista.get(row);
 
 		switch (col) {
-		case 1:
+		case 0:
 			return c.getId();
-		case 2:
+		case 1:
 			return c.getNome();
+		case 2:
+			return c.getEndereco();
 		default:
 			break;
 		}
@@ -58,4 +57,8 @@ public class BuscaClienteModel extends AbstractTableModel {
 
 	}
 
+	public Cliente getCliente(Integer indice){
+		return lista.get(indice);
+	}
+	
 }

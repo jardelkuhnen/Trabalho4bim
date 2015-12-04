@@ -80,17 +80,18 @@ public class ClienteDao {
 		con = Conexao.getConnection();
 
 		String sql = "UPDATE CLIENTE SET NOME = ?, TELEFONE = ?, ENDERECO = ?,"
-				+ "CIDADE = ?, ESTADO = ?, GENERO = ? WHERE ID = ?;";
+				+ "CIDADE = ?, ESTADO = ?, GENERO = ?, EMAIL = ? WHERE ID = ?;";
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(7, c.getId());
+			stmt.setInt(8, c.getId());
 			stmt.setString(1, c.getNome().toUpperCase());
 			stmt.setString(2, c.getTelefone());
 			stmt.setString(3, c.getEndereco().toUpperCase());
 			stmt.setString(4, c.getCidade().toUpperCase());
 			stmt.setInt(5, c.getEstado().ordinal());
 			stmt.setString(6, c.getGenero().toString());
+			stmt.setString(7, c.getEmail().toUpperCase());
 
 			stmt.execute();
 			stmt.close();

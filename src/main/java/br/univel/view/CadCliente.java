@@ -320,7 +320,7 @@ public class CadCliente extends JFrame {
 					Uf estado = (Uf) cbEstado.getSelectedItem();
 					GeneroCli genCli = (GeneroCli) cbGenero.getSelectedItem();
 					cc.editar(Integer.parseInt(txtId.getText().trim()), txtNome
-							.getText().trim(), txtEndereco.getText().trim(),
+							.getText().trim(), txtTelefone.getText().trim(), txtEndereco.getText().trim(),
 							txtCidade.getText().trim(), estado, genCli,
 							txtEmail.getText().trim());
 

@@ -21,7 +21,7 @@ public class ProdutoDao {
 
 		con = Conexao.getConnection();
 		String sql = "INSERT INTO PRODUTO (id, codBarras, genero, descricao,"
-				+ "unidade, custo, margemLucro) values (?,?,?,?,?,?,?)";
+				+ "quantidade, unidade, custo, margemLucro) values (?,?,?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt;
@@ -30,9 +30,10 @@ public class ProdutoDao {
 			stmt.setInt(2, produto.getCodBarras());
 			stmt.setString(3, produto.getGenero().toString());
 			stmt.setString(4, produto.getDescricao().toUpperCase());
-			stmt.setString(5, produto.getUnidade().toString().toUpperCase());
-			stmt.setBigDecimal(6, produto.getCusto());
-			stmt.setBigDecimal(7, produto.getMargemLucro());
+			stmt.setInt(5, produto.getQuantidade());
+			stmt.setString(6, produto.getUnidade().toString().toUpperCase());
+			stmt.setBigDecimal(7, produto.getCusto());
+			stmt.setBigDecimal(8, produto.getMargemLucro());
 
 			stmt.execute();
 			stmt.close();
@@ -68,7 +69,7 @@ public class ProdutoDao {
 	public void editar(Produto p) {
 		con = Conexao.getConnection();
 
-		String sql = "UPDATE PRODUTO SET ID = ?, codBarras = ?, genero = ?, descricao = ?, unidade = ?, custo = ?, margemLucro = ? where id = ?;";
+		String sql = "UPDATE PRODUTO SET ID = ?, codBarras = ?, genero = ?, descricao = ?,quantidade = ? unidade = ?, custo = ?, margemLucro = ? where id = ?;";
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
@@ -76,9 +77,10 @@ public class ProdutoDao {
 			stmt.setInt(1, p.getCodBarras());
 			stmt.setString(2, p.getGenero().toString());
 			stmt.setString(3, p.getDescricao().toUpperCase());
-			stmt.setString(4, p.getUnidade().toString());
-			stmt.setBigDecimal(5, p.getCusto());
-			stmt.setBigDecimal(6, p.getMargemLucro());
+			stmt.setInt(4, p.getQuantidade());
+			stmt.setString(5, p.getUnidade().toString());
+			stmt.setBigDecimal(6, p.getCusto());
+			stmt.setBigDecimal(7, p.getMargemLucro());
 
 			stmt.execute();
 			stmt.close();
@@ -222,6 +224,7 @@ public class ProdutoDao {
 				Produto p = new Produto();
 				p.setDescricao(rs.getString("descricao"));
 				p.setCodBarras(rs.getInt("codBarras"));
+				p.setQuantidade(rs.getInt("quantidade"));
 				p.setCusto(rs.getBigDecimal("custo"));
 				p.setGenero(rs.getString("genero"));
 				p.setId(rs.getInt("id"));

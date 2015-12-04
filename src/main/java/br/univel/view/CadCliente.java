@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 
+import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -38,6 +39,8 @@ import java.awt.Color;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 import java.awt.Component;
+import java.awt.Window.Type;
+import java.awt.Cursor;
 
 public class CadCliente extends JFrame {
 
@@ -52,6 +55,7 @@ public class CadCliente extends JFrame {
 	private JComboBox cbGenero;
 
 	public CadCliente() {
+		setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		setTitle("Cadastro de Clientes");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 481, 386);
@@ -344,12 +348,16 @@ public class CadCliente extends JFrame {
 								txtTelefone, txtEndereco, txtCidade, cbEstado,
 								cbGenero, txtEmail, btnExcluir, btnEditar,
 								btnSalvar }));
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] {
+				txtId, txtNome, txtTelefone, txtEndereco, txtCidade, cbEstado,
+				cbGenero, txtEmail, btnExcluir, btnEditar, btnSalvar }));
 	}
 
 	private void abriTelaPesquisaCliente() {
 		BuscaCliente c = new BuscaCliente(this);
 		c.setVisible(true);
 		c.setLocationRelativeTo(null);
+
 	}
 
 	public void carregaClientePesquisadoEmTela(Cliente cliente) {

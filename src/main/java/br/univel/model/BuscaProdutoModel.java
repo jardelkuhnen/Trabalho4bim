@@ -66,4 +66,9 @@ public class BuscaProdutoModel extends AbstractTableModel {
 		return null;
 	}
 
+	public Produto getProduto(int selectedRow) {
+
+		return listaProd.get(selectedRow);
+	}
+
 }

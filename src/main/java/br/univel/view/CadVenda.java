@@ -374,10 +374,11 @@ public class CadVenda extends JFrame {
 
 		// ------------------------------------troco
 
-		if (vlrFinal.compareTo(vlrFinal) > vlrPagamento.compareTo(vlrPagamento)) {
+		if (vlrFinal.compareTo(vlrFinal) > vlrPagamento.compareTo(vlrPagamento)
+				|| vlrPagamento.equals("")) {
 			JOptionPane
 					.showMessageDialog(null,
-							"Valor de pagamento menor do que o valor total da venda!!!");
+							"Valor de pagamento menor que o valor total da venda!!!");
 
 		} else {
 

@@ -12,14 +12,15 @@ public class ProdutoContoller extends Produto {
 	// Classe controller, que irá controlar todas as movimentaçoes do produto,
 	// tanto cadastros novos, exclusao e edição
 	public void salvar(int id, int codBarras, GeneroProd genero,
-			String descricao, Unidade unidade, BigDecimal custo,
-			BigDecimal margemLucro) {
+			String descricao, int quantidade, Unidade unidade,
+			BigDecimal custo, BigDecimal margemLucro) {
 
 		ProdutoContoller pp = new ProdutoContoller();
 
 		pp.setId(id);
 		pp.setCodBarras(codBarras);
 		pp.setDescricao(descricao);
+		pp.setQuantidade(quantidade);
 		pp.setGenero(genero);
 		pp.setUnidade(unidade);
 		pp.setCusto(custo);

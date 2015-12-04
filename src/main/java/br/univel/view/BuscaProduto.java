@@ -21,10 +21,17 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import br.univel.dao.ProdutoDao;
+import br.univel.model.BuscaClienteModel;
 import br.univel.model.BuscaProdutoModel;
+import br.univel.model.Cliente;
+import br.univel.model.Produto;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class BuscaProduto extends JFrame {
 
@@ -38,6 +45,7 @@ public class BuscaProduto extends JFrame {
 	 * Create the frame.
 	 */
 	public BuscaProduto(CadProduto cadProduto) {
+		setTitle("Busca Produto");
 		this.cadProduto = cadProduto;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -68,7 +76,8 @@ public class BuscaProduto extends JFrame {
 
 				ProdutoDao pd = new ProdutoDao();
 
-				model.incluir(pd.buscarProduto(txtProduto.getText()));
+				model.incluir(pd.buscarProduto(txtProduto.getText()
+						.toUpperCase()));
 				table.setModel(model);
 
 			}
@@ -89,10 +98,56 @@ public class BuscaProduto extends JFrame {
 
 		table = new JTable();
 		scrollPane.setViewportView(table);
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] {
+				txtProduto, btnBuscar, table }));
 
 		// Configura o layout da tela
 		configuraTela();
-		
+
+		addMouseClickedTable();
+	}
+
+	private void addMouseClickedTable() {
+
+		table.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getClickCount() == 2) {
+
+					int selectedRow = table.getSelectedRow();
+
+					Produto produtoSelecionado = ((BuscaProdutoModel) table
+							.getModel()).getProduto(selectedRow);
+
+					BuscaProduto.this.cadProduto
+							.carregaProdutoPesquisadoEmTela(produtoSelecionado);
+
+					fechaTela();
+				}
+			}
+
+		});
+
+	}
+
+	private void fechaTela() {
+		this.setVisible(false);
 	}
 
 	private void configuraTela() {

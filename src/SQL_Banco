@@ -16,6 +16,7 @@ codBarras int not null,
 descricao varchar(50) not null,
 genero varchar(30),
 unidade varchar(30),
+quantidade int,
 custo bigint not null,
 margemLucro bigint not null);
 

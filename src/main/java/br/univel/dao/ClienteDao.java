@@ -26,18 +26,19 @@ public class ClienteDao {
 
 		con = Conexao.getConnection();
 
-		String sql = "INSERT INTO CLIENTE (ID, NOME, ENDERECO, CIDADE, ESTADO, GENERO, EMAIL) VALUES (?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO CLIENTE (ID, NOME, TELEFONE, ENDERECO, CIDADE, ESTADO, GENERO, EMAIL) VALUES (?,?,?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt;
 			stmt = con.prepareStatement(sql);
 			stmt.setInt(1, c.getId());
 			stmt.setString(2, c.getNome().toUpperCase());
-			stmt.setString(3, c.getEndereco().toUpperCase());
-			stmt.setString(4, c.getCidade().toUpperCase());
-			stmt.setInt(5, c.getEstado().ordinal());
-			stmt.setString(6, c.getGenero().toString());
-			stmt.setString(7, c.getEmail());
+			stmt.setString(3, c.getTelefone());
+			stmt.setString(4, c.getEndereco().toUpperCase());
+			stmt.setString(5, c.getCidade().toUpperCase());
+			stmt.setInt(6, c.getEstado().ordinal());
+			stmt.setString(7, c.getGenero().toString());
+			stmt.setString(8, c.getEmail());
 
 			stmt.execute();
 			stmt.close();
@@ -78,17 +79,18 @@ public class ClienteDao {
 	public void editar(Cliente c) {
 		con = Conexao.getConnection();
 
-		String sql = "UPDATE CLIENTE SET NOME = ?, ENDERECO = ?,"
+		String sql = "UPDATE CLIENTE SET NOME = ?, TELEFONE = ?, ENDERECO = ?,"
 				+ "CIDADE = ?, ESTADO = ?, GENERO = ? WHERE ID = ?;";
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(6, c.getId());
+			stmt.setInt(7, c.getId());
 			stmt.setString(1, c.getNome().toUpperCase());
-			stmt.setString(2, c.getEndereco().toUpperCase());
-			stmt.setString(3, c.getCidade().toUpperCase());
-			stmt.setString(4, c.getEstado().toString());
-			stmt.setString(5, c.getGenero().toString());
+			stmt.setString(2, c.getTelefone());
+			stmt.setString(3, c.getEndereco().toUpperCase());
+			stmt.setString(4, c.getCidade().toUpperCase());
+			stmt.setInt(5, c.getEstado().ordinal());
+			stmt.setString(6, c.getGenero().toString());
 
 			stmt.execute();
 			stmt.close();
@@ -143,6 +145,7 @@ public class ClienteDao {
 
 				c.setId(rs.getInt("id"));
 				c.setNome(rs.getString("nome"));
+				c.setTelefone(rs.getString("telefone"));
 				c.setEndereco(rs.getString("endereco"));
 				c.setCidade(rs.getString("cidade"));
 				c.setEstado(Uf.values()[rs.getInt("estado")]);
@@ -150,20 +153,11 @@ public class ClienteDao {
 
 				lista.add(c);
 			}
-			mostraLista(lista);
 			return lista;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
-
-	}
-
-	private void mostraLista(List<Cliente> lista) {
-
-		for (int i = 0; i < lista.size(); i++) {
-			System.out.println(lista.get(i));
-		}
 
 	}
 

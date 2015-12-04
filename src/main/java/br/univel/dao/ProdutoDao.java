@@ -205,4 +205,37 @@ public class ProdutoDao {
 		return listaProd;
 
 	}
+
+	public List<Produto> buscarProduto(String descricao) {
+
+		List<Produto> lista = new ArrayList<Produto>();
+		try {
+			con = Conexao.getConnection();
+
+			String sql = "SELECT * FROM PRODUTO WHERE DESCRICAO = ?";
+			PreparedStatement stmt = con.prepareStatement(sql);
+			stmt.setString(1, descricao);
+
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Produto p = new Produto();
+				p.setDescricao(rs.getString("descricao"));
+				p.setCodBarras(rs.getInt("codBarras"));
+				p.setCusto(rs.getBigDecimal("custo"));
+				p.setGenero(rs.getString("genero"));
+				p.setId(rs.getInt("id"));
+				p.setMargemLucro(rs.getBigDecimal("margemLucro"));
+				// p.setUnidade(rs.getString("unidade"));
+
+				lista.add(p);
+			}
+
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Erro ao buscar produtos!");
+			e.printStackTrace();
+		}
+		return lista;
+
+	}
 }

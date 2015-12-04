@@ -5,42 +5,44 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-public class BuscaClienteModel extends AbstractTableModel {
-	List<Cliente> lista = new ArrayList<>();
+public class BuscaProdutoModel extends AbstractTableModel {
+
+	List<Produto> listaProd = new ArrayList<Produto>();
 
 	@Override
 	public int getColumnCount() {
-		return 4;
+		return 5;
 	}
 
 	@Override
 	public int getRowCount() {
-		return lista.size();
+		return listaProd.size();
 	}
 
-	public void incluir(List<Cliente> c) {
-		this.lista = c;
+	public void incluir(List<Produto> c) {
+		this.listaProd = c;
 		fireTableDataChanged();
 	}
 
 	@Override
 	public Object getValueAt(int row, int col) {
 
-		Cliente c = lista.get(row);
-
+		Produto p = listaProd.get(row);
 		switch (col) {
 		case 0:
-			return c.getId();
+			return p.getId();
 		case 1:
-			return c.getNome();
+			return p.getCodBarras();
 		case 2:
-			return c.getTelefone();
+			return p.getDescricao();
 		case 3:
-			return c.getEndereco();
+			return p.getCusto();
+		case 4:
+			return p.getQuantidade();
 		default:
 			break;
 		}
-		return null;
+		return "";
 	}
 
 	@Override
@@ -50,20 +52,18 @@ public class BuscaClienteModel extends AbstractTableModel {
 		case 0:
 			return "Id";
 		case 1:
-			return "Nome";
+			return "Cod. Barras";
 		case 2:
-			return "Telefone";
+			return "Descrição";
 		case 3:
-			return "Endereco";
+			return "Custo";
+		case 4:
+			return "Quantidade";
+
 		default:
 			break;
 		}
-		return " ";
-
-	}
-
-	public Cliente getCliente(Integer indice) {
-		return lista.get(indice);
+		return null;
 	}
 
 }

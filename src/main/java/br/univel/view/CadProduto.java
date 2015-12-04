@@ -32,6 +32,8 @@ import br.univel.enun.Unidade;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 
 public class CadProduto extends JFrame {
@@ -59,14 +61,18 @@ public class CadProduto extends JFrame {
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[] { 52, 82, 45, 61, 120, 0 };
-		gbl_panel.rowHeights = new int[] { 30, 20, 32, 20, 20, 20, 20, 20, 20, 20, 23, 0 };
-		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
+		gbl_panel.rowHeights = new int[] { 30, 20, 32, 20, 20, 20, 20, 20, 20,
+				20, 23, 0 };
+		gbl_panel.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0,
+				Double.MIN_VALUE };
+		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+				0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		panel.setLayout(gbl_panel);
 
 		JLabel lblCadastroDeProduto = new JLabel("Cadastro de Produto");
 		lblCadastroDeProduto.setForeground(new Color(0, 0, 128));
-		lblCadastroDeProduto.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 16));
+		lblCadastroDeProduto.setFont(new Font("Tahoma",
+				Font.BOLD | Font.ITALIC, 16));
 		GridBagConstraints gbc_lblCadastroDeProduto = new GridBagConstraints();
 		gbc_lblCadastroDeProduto.anchor = GridBagConstraints.NORTH;
 		gbc_lblCadastroDeProduto.insets = new Insets(0, 0, 5, 0);
@@ -84,6 +90,18 @@ public class CadProduto extends JFrame {
 		panel.add(lblId, gbc_lblId);
 
 		txtId = new JTextField();
+		txtId.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+
+				if (e.getKeyCode() == KeyEvent.VK_F2) {
+					abrirTeladePesquisa();
+				}
+				super.keyPressed(e);
+			}
+
+		});
 		GridBagConstraints gbc_txtId = new GridBagConstraints();
 		gbc_txtId.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtId.anchor = GridBagConstraints.NORTH;
@@ -194,12 +212,14 @@ public class CadProduto extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (validaCampos() == true) {
-					JOptionPane.showMessageDialog(null, "Preencha os campos corretamente !!!");
+					JOptionPane.showMessageDialog(null,
+							"Preencha os campos corretamente !!!");
 				} else {
 					ProdutoContoller pp = new ProdutoContoller();
 
 					int resposta = JOptionPane.showConfirmDialog(null,
-							"Deseja excluir o produto de Id: " + txtId.getText().trim() + " ?");
+							"Deseja excluir o produto de Id: "
+									+ txtId.getText().trim() + " ?");
 					if (resposta == JOptionPane.YES_OPTION) {
 						pp.deletar(Integer.parseInt(txtId.getText().trim()));
 
@@ -240,7 +260,8 @@ public class CadProduto extends JFrame {
 		btnEdtar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (validaCampos() == true) {
-					JOptionPane.showMessageDialog(null, "Preencha corretamente os campos!!!.");
+					JOptionPane.showMessageDialog(null,
+							"Preencha corretamente os campos!!!.");
 
 				} else {
 
@@ -249,10 +270,13 @@ public class CadProduto extends JFrame {
 					GeneroProd genero = (GeneroProd) cbGenero.getSelectedItem();
 					Unidade un = (Unidade) cbUnidade.getSelectedItem();
 					BigDecimal custo = new BigDecimal(txtCusto.getText().trim());
-					BigDecimal mgLucro = new BigDecimal(txtMargemLucro.getText().trim());
+					BigDecimal mgLucro = new BigDecimal(txtMargemLucro
+							.getText().trim());
 
-					pp.editar(Integer.parseInt(txtId.getText().trim()), Integer.parseInt(txtCodBarras.getText().trim()),
-							txtDescricao.getText().trim(), genero, un, custo, mgLucro);
+					pp.editar(Integer.parseInt(txtId.getText().trim()),
+							Integer.parseInt(txtCodBarras.getText().trim()),
+							txtDescricao.getText().trim(), genero, un, custo,
+							mgLucro);
 
 					limparCampos();
 
@@ -272,7 +296,8 @@ public class CadProduto extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 
 				if (validaCampos() == true) {
-					JOptionPane.showMessageDialog(null, "Preencha corretamente os campos!!!.");
+					JOptionPane.showMessageDialog(null,
+							"Preencha corretamente os campos!!!.");
 
 				} else {
 
@@ -281,10 +306,13 @@ public class CadProduto extends JFrame {
 					Unidade un = (Unidade) cbUnidade.getSelectedItem();
 					GeneroProd cat = (GeneroProd) cbGenero.getSelectedItem();
 					BigDecimal custo = new BigDecimal(txtCusto.getText().trim());
-					BigDecimal mgValor = new BigDecimal(txtMargemLucro.getText().trim());
+					BigDecimal mgValor = new BigDecimal(txtMargemLucro
+							.getText().trim());
 
-					pp.salvar(Integer.parseInt(txtId.getText().trim()), Integer.parseInt(txtCodBarras.getText().trim()),
-							cat, txtDescricao.getText().trim(), un, custo, mgValor);
+					pp.salvar(Integer.parseInt(txtId.getText().trim()),
+							Integer.parseInt(txtCodBarras.getText().trim()),
+							cat, txtDescricao.getText().trim(), un, custo,
+							mgValor);
 					limparCampos();
 
 				}
@@ -298,6 +326,13 @@ public class CadProduto extends JFrame {
 		panel.add(btnSalvar, gbc_btnSalvar);
 	}
 
+	protected void abrirTeladePesquisa() {
+		BuscaProduto b = new BuscaProduto(this);
+		b.setVisible(true);
+		b.setLocationRelativeTo(null);
+
+	}
+
 	void limparCampos() {
 		txtId.setText("");
 		txtCodBarras.setText("");
@@ -308,7 +343,8 @@ public class CadProduto extends JFrame {
 
 	protected boolean validaCampos() {
 		boolean valida;
-		if (txtId.getText().equals("") || txtDescricao.getText().equals("") || txtCusto.getText().equals("")
+		if (txtId.getText().equals("") || txtDescricao.getText().equals("")
+				|| txtCusto.getText().equals("")
 				|| txtMargemLucro.getText().equals("")) {
 			valida = true;
 		} else {

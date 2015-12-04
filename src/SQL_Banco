@@ -2,6 +2,7 @@
 CREATE TABLE Cliente
 (id int not null,
 nome varchar(100) not null,
+telefone varchar(50),
 endereco varchar(50),
 cidade varchar(50),
 estado int,

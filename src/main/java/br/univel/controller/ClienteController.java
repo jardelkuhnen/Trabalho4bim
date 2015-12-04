@@ -8,14 +8,15 @@ import br.univel.model.Cliente;
 
 public class ClienteController extends Cliente {
 	// Classe controller, que irá controlar todas as movimentaçoes do cliente,
-	// tanto cadastros novos, exclusao e edição 
-	public void salvar(int id, String nome, String endereco, String cidade,
-			Uf estado, GeneroCli genero, String email) {
+	// tanto cadastros novos, exclusao e edição
+	public void salvar(int id, String nome, String telefone, String endereco,
+			String cidade, Uf estado, GeneroCli genero, String email) {
 
 		ClienteController cc = new ClienteController();
 
 		cc.setId(id);
 		cc.setNome(nome);
+		cc.setTelefone(telefone);
 		cc.setEndereco(endereco);
 		cc.setCidade(cidade);
 		cc.setEstado(estado);

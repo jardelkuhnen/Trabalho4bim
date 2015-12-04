@@ -289,9 +289,10 @@ public class CadCliente extends JFrame {
 					Uf estado = (Uf) cbEstado.getSelectedItem();
 					GeneroCli genCli = (GeneroCli) cbGenero.getSelectedItem();
 					cc.salvar(Integer.parseInt(txtId.getText().trim()), txtNome
-							.getText().trim(), txtEndereco.getText().trim(),
-							txtCidade.getText().trim(), estado, genCli,
-							txtEmail.getText().trim());
+							.getText().trim(), txtTelefone.getText(),
+							txtEndereco.getText().trim(), txtCidade.getText()
+									.trim(), estado, genCli, txtEmail.getText()
+									.trim());
 
 					limparCampos();
 
@@ -353,10 +354,11 @@ public class CadCliente extends JFrame {
 
 	public void carregaClientePesquisadoEmTela(Cliente cliente) {
 		txtId.setText(String.valueOf(cliente.getId()));
-		txtEmail.setText(cliente.getEmail());
-		txtCidade.setText(cliente.getCidade());
-		txtEndereco.setText(cliente.getEndereco());
 		txtNome.setText(cliente.getNome());
+		txtTelefone.setText(cliente.getTelefone());
+		txtEndereco.setText(cliente.getEndereco());
+		txtCidade.setText(cliente.getCidade());
+		txtEmail.setText(cliente.getEmail());
 	}
 
 	void limparCampos() {

@@ -9,6 +9,7 @@ public class Cliente {
 	private int id;
 	private String nome;
 	private String endereco;
+	private String telefone;
 	private String cidade;
 	private Uf estado;
 	private GeneroCli genero;
@@ -21,6 +22,15 @@ public class Cliente {
 		this.estado = estado;
 		this.genero = genero;
 		this.email = email;
+		this.telefone = telefone;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
 	public GeneroCli getGenero() {

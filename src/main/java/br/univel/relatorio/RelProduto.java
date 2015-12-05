@@ -15,12 +15,17 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.border.EtchedBorder;
+
+import br.univel.enun.GeneroProd;
+
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class RelProduto extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField txtMargemLucro;
 
 	/**
 	 * Launch the application.
@@ -29,7 +34,7 @@ public class RelProduto extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,12 +53,12 @@ public class RelProduto extends JFrame {
 		contentPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{63, 67, 175, 65, 0};
-		gbl_contentPane.rowHeights = new int[]{35, 22, 35, 23, 35, 23, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[] { 63, 67, 175, 65, 0 };
+		gbl_contentPane.rowHeights = new int[] { 35, 22, 35, 23, 35, 23, 0 };
+		gbl_contentPane.columnWeights = new double[] { 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
-		
+
 		JLabel lblRelatrioDeClientes = new JLabel("Relat\u00F3rio de Produtos");
 		lblRelatrioDeClientes.setForeground(new Color(0, 0, 128));
 		lblRelatrioDeClientes.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
@@ -64,7 +69,7 @@ public class RelProduto extends JFrame {
 		gbc_lblRelatrioDeClientes.gridx = 0;
 		gbc_lblRelatrioDeClientes.gridy = 1;
 		contentPane.add(lblRelatrioDeClientes, gbc_lblRelatrioDeClientes);
-		
+
 		JLabel lblMargemLucro = new JLabel("Margem Lucro");
 		GridBagConstraints gbc_lblMargemLucro = new GridBagConstraints();
 		gbc_lblMargemLucro.anchor = GridBagConstraints.WEST;
@@ -72,16 +77,16 @@ public class RelProduto extends JFrame {
 		gbc_lblMargemLucro.gridx = 1;
 		gbc_lblMargemLucro.gridy = 3;
 		contentPane.add(lblMargemLucro, gbc_lblMargemLucro);
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.gridx = 2;
-		gbc_textField.gridy = 3;
-		contentPane.add(textField, gbc_textField);
-		
+
+		txtMargemLucro = new JTextField();
+		txtMargemLucro.setColumns(10);
+		GridBagConstraints gbc_txtMargemLucro = new GridBagConstraints();
+		gbc_txtMargemLucro.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtMargemLucro.insets = new Insets(0, 0, 5, 5);
+		gbc_txtMargemLucro.gridx = 2;
+		gbc_txtMargemLucro.gridy = 3;
+		contentPane.add(txtMargemLucro, gbc_txtMargemLucro);
+
 		JButton btnBuscaLucro = new JButton("Buscar");
 		GridBagConstraints gbc_btnBuscaLucro = new GridBagConstraints();
 		gbc_btnBuscaLucro.anchor = GridBagConstraints.NORTHWEST;
@@ -89,7 +94,7 @@ public class RelProduto extends JFrame {
 		gbc_btnBuscaLucro.gridx = 3;
 		gbc_btnBuscaLucro.gridy = 3;
 		contentPane.add(btnBuscaLucro, gbc_btnBuscaLucro);
-		
+
 		JLabel lblEstado = new JLabel("Categoria");
 		GridBagConstraints gbc_lblEstado = new GridBagConstraints();
 		gbc_lblEstado.anchor = GridBagConstraints.EAST;
@@ -97,16 +102,23 @@ public class RelProduto extends JFrame {
 		gbc_lblEstado.gridx = 1;
 		gbc_lblEstado.gridy = 5;
 		contentPane.add(lblEstado, gbc_lblEstado);
-		
-		JComboBox comboBox = new JComboBox();
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.insets = new Insets(0, 0, 0, 5);
-		gbc_comboBox.gridx = 2;
-		gbc_comboBox.gridy = 5;
-		contentPane.add(comboBox, gbc_comboBox);
-		
+
+		JComboBox cbCategoria = new JComboBox(GeneroProd.values());
+		GridBagConstraints gbc_cbCategoria = new GridBagConstraints();
+		gbc_cbCategoria.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbCategoria.insets = new Insets(0, 0, 0, 5);
+		gbc_cbCategoria.gridx = 2;
+		gbc_cbCategoria.gridy = 5;
+		contentPane.add(cbCategoria, gbc_cbCategoria);
+
 		JButton btnBuscaCategoria = new JButton("Buscar");
+		btnBuscaCategoria.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			
+				
+				
+			}
+		});
 		GridBagConstraints gbc_btnBuscaCategoria = new GridBagConstraints();
 		gbc_btnBuscaCategoria.anchor = GridBagConstraints.NORTHWEST;
 		gbc_btnBuscaCategoria.gridx = 3;

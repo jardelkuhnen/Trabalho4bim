@@ -57,6 +57,7 @@ public class TabelaModel extends AbstractTableModel {
 
 	public void limparlista() {
 		lista.clear();
+		fireTableDataChanged();
 	}
 
 	public Produto getClienteNaLinha(int index) {

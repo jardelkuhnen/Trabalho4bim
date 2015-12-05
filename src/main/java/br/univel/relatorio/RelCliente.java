@@ -15,12 +15,15 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.border.EtchedBorder;
+
+import br.univel.enun.Uf;
+
 import java.awt.Color;
 
 public class RelCliente extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField txtCidade;
 
 	/**
 	 * Launch the application.
@@ -29,7 +32,7 @@ public class RelCliente extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					
+
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -48,12 +51,12 @@ public class RelCliente extends JFrame {
 		contentPane.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		setContentPane(contentPane);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{66, 280, 65, 0};
-		gbl_contentPane.rowHeights = new int[]{22, 0, 35, 23, 35, 23, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[] { 66, 280, 65, 0 };
+		gbl_contentPane.rowHeights = new int[] { 22, 0, 35, 23, 35, 23, 0 };
+		gbl_contentPane.columnWeights = new double[] { 0.0, 0.0, 1.0, Double.MIN_VALUE };
+		gbl_contentPane.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		contentPane.setLayout(gbl_contentPane);
-		
+
 		JLabel lblRelatrioDeClientes = new JLabel("Relat\u00F3rio de Clientes");
 		lblRelatrioDeClientes.setForeground(new Color(0, 0, 128));
 		lblRelatrioDeClientes.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 18));
@@ -64,7 +67,7 @@ public class RelCliente extends JFrame {
 		gbc_lblRelatrioDeClientes.gridx = 0;
 		gbc_lblRelatrioDeClientes.gridy = 1;
 		contentPane.add(lblRelatrioDeClientes, gbc_lblRelatrioDeClientes);
-		
+
 		JLabel label = new JLabel("Cidade");
 		GridBagConstraints gbc_label = new GridBagConstraints();
 		gbc_label.anchor = GridBagConstraints.EAST;
@@ -72,16 +75,16 @@ public class RelCliente extends JFrame {
 		gbc_label.gridx = 0;
 		gbc_label.gridy = 3;
 		contentPane.add(label, gbc_label);
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 3;
-		contentPane.add(textField, gbc_textField);
-		
+
+		txtCidade = new JTextField();
+		txtCidade.setColumns(10);
+		GridBagConstraints gbc_txtCidade = new GridBagConstraints();
+		gbc_txtCidade.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtCidade.insets = new Insets(0, 0, 5, 5);
+		gbc_txtCidade.gridx = 1;
+		gbc_txtCidade.gridy = 3;
+		contentPane.add(txtCidade, gbc_txtCidade);
+
 		JButton btnBuscaCidade = new JButton("Buscar");
 		GridBagConstraints gbc_btnBuscaCidade = new GridBagConstraints();
 		gbc_btnBuscaCidade.anchor = GridBagConstraints.NORTHWEST;
@@ -89,7 +92,7 @@ public class RelCliente extends JFrame {
 		gbc_btnBuscaCidade.gridx = 2;
 		gbc_btnBuscaCidade.gridy = 3;
 		contentPane.add(btnBuscaCidade, gbc_btnBuscaCidade);
-		
+
 		JLabel lblEstado = new JLabel("Estado");
 		GridBagConstraints gbc_lblEstado = new GridBagConstraints();
 		gbc_lblEstado.anchor = GridBagConstraints.EAST;
@@ -97,15 +100,15 @@ public class RelCliente extends JFrame {
 		gbc_lblEstado.gridx = 0;
 		gbc_lblEstado.gridy = 5;
 		contentPane.add(lblEstado, gbc_lblEstado);
-		
-		JComboBox comboBox = new JComboBox();
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.insets = new Insets(0, 0, 0, 5);
-		gbc_comboBox.gridx = 1;
-		gbc_comboBox.gridy = 5;
-		contentPane.add(comboBox, gbc_comboBox);
-		
+
+		JComboBox cbEstado = new JComboBox(Uf.values());
+		GridBagConstraints gbc_cbEstado = new GridBagConstraints();
+		gbc_cbEstado.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbEstado.insets = new Insets(0, 0, 0, 5);
+		gbc_cbEstado.gridx = 1;
+		gbc_cbEstado.gridy = 5;
+		contentPane.add(cbEstado, gbc_cbEstado);
+
 		JButton btnBuscaEstado = new JButton("Buscar");
 		GridBagConstraints gbc_btnBuscaEstado = new GridBagConstraints();
 		gbc_btnBuscaEstado.anchor = GridBagConstraints.NORTHWEST;

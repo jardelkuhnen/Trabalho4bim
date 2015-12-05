@@ -28,6 +28,7 @@ import br.univel.dao.ClienteDao;
 import br.univel.dao.ProdutoDao;
 import br.univel.dao.RelatorioDao;
 import br.univel.dao.VendaDao;
+import br.univel.enun.GeneroProd;
 import br.univel.model.Cliente;
 import br.univel.model.Produto;
 
@@ -162,7 +163,7 @@ public class RelVenda extends JFrame {
 		gbc_lblNewLabel.gridy = 7;
 		contentPane.add(lblNewLabel, gbc_lblNewLabel);
 
-		JComboBox cbProduto = new JComboBox(new Vector<Produto>(listaProd));
+		JComboBox cbProduto = new JComboBox(GeneroProd.values());
 		GridBagConstraints gbc_cbProduto = new GridBagConstraints();
 		gbc_cbProduto.gridwidth = 2;
 		gbc_cbProduto.fill = GridBagConstraints.HORIZONTAL;

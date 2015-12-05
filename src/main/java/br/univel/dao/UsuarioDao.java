@@ -57,8 +57,7 @@ public class UsuarioDao {
 
 			stmt.execute();
 			stmt.close();
-			JOptionPane.showMessageDialog(null,
-					"Usuário editado com sucesso !!!");
+			JOptionPane.showMessageDialog(null, "Usuário editado com sucesso !!!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao editar usuário !!!");
 			e.printStackTrace();
@@ -75,12 +74,10 @@ public class UsuarioDao {
 			stmt = con.prepareStatement("DELETE FROM USUARIO WHERE IdUs = ?");
 
 			stmt.setInt(1, idUs);
-			JOptionPane.showMessageDialog(null, "Usuário " + idUs
-					+ " apagado com sucesso!!!");
+			JOptionPane.showMessageDialog(null, "Usuário " + idUs + " apagado com sucesso!!!");
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,
-					"ERRO: Problemas ao apagar usuário!!!");
+			JOptionPane.showMessageDialog(null, "ERRO: Problemas ao apagar usuário!!!");
 			e.printStackTrace();
 		}
 
@@ -92,8 +89,8 @@ public class UsuarioDao {
 
 		PreparedStatement stmt;
 		con = Conexao.getConnection();
-		String sql = "select usuario, senha from usuario where nome=? and senha=?";
-		boolean a = true;
+		String sql = "select usuario, senha from usuario where usuario=? and senha=?";
+		boolean a = false;
 		try {
 
 			stmt = con.prepareStatement(sql);
@@ -101,14 +98,15 @@ public class UsuarioDao {
 			stmt.setString(2, senha);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				return true;
+				a = true;
 
 			} else {
-				return false;
+				a = false;
 			}
 
 		} catch (Exception e) {
-
+			JOptionPane.showMessageDialog(null, "Usuário não encontrado");
+			e.printStackTrace();
 		}
 		return a;
 

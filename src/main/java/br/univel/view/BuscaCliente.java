@@ -30,6 +30,7 @@ public class BuscaCliente extends JFrame {
 	private CadCliente cadCliente;
 
 	public BuscaCliente() {
+		setTitle("Busca Cliente");
 	}
 
 	/**

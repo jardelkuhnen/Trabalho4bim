@@ -43,12 +43,10 @@ public class ClienteDao {
 			stmt.execute();
 			stmt.close();
 
-			JOptionPane.showMessageDialog(null,
-					"Cliente cadastrado com sucesso!!!");
+			JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!!!");
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,
-					"ERRO: Problemas ao salvar cliente!!!");
+			JOptionPane.showMessageDialog(null, "ERRO: Problemas ao salvar cliente!!!");
 			e.printStackTrace();
 		}
 
@@ -80,23 +78,21 @@ public class ClienteDao {
 		con = Conexao.getConnection();
 
 		String sql = "UPDATE CLIENTE SET NOME = ?, TELEFONE = ?, ENDERECO = ?,"
-				+ "CIDADE = ?, ESTADO = ?, GENERO = ?, EMAIL = ? WHERE ID = ?;";
+				+ "CIDADE = ?, ESTADO = ?, GENERO = ? WHERE ID = ?;";
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setInt(8, c.getId());
+			stmt.setInt(7, c.getId());
 			stmt.setString(1, c.getNome().toUpperCase());
 			stmt.setString(2, c.getTelefone());
 			stmt.setString(3, c.getEndereco().toUpperCase());
 			stmt.setString(4, c.getCidade().toUpperCase());
 			stmt.setInt(5, c.getEstado().ordinal());
 			stmt.setString(6, c.getGenero().toString());
-			stmt.setString(7, c.getEmail().toUpperCase());
 
 			stmt.execute();
 			stmt.close();
-			JOptionPane.showMessageDialog(null,
-					"Cliente editado com sucesso !!!");
+			JOptionPane.showMessageDialog(null, "Cliente editado com sucesso !!!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao editar cliente !!!");
 			e.printStackTrace();
@@ -111,14 +107,12 @@ public class ClienteDao {
 		try {
 			PreparedStatement stmt;
 			stmt = con.prepareStatement("DELETE FROM CLIENTE WHERE ID = ?");
-			int rs = stmt.executeUpdate();
 			stmt.setInt(1, id);
-			JOptionPane.showMessageDialog(null,
-					"Cliente apagado com sucesso!!!");
+			int rs = stmt.executeUpdate();
+			JOptionPane.showMessageDialog(null, "Cliente apagado com sucesso!!!");
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,
-					"ERRO: Problemas ao apagar cliente!!!");
+			JOptionPane.showMessageDialog(null, "ERRO: Problemas ao apagar cliente!!!");
 			e.printStackTrace();
 		}
 
@@ -132,12 +126,12 @@ public class ClienteDao {
 
 		try {
 			StringBuilder sql = new StringBuilder();
-			sql.append("SELECT * FROM CLIENTE WHERE NOME = ?");
+			sql.append("SELECT * FROM CLIENTE WHERE NOME LIKE ?");
 			PreparedStatement stmt;
 
 			stmt = con.prepareStatement(sql.toString());
 
-			stmt.setString(1, nome);
+			stmt.setString(1, "%" + nome.toUpperCase() + "%");
 
 			ResultSet rs = stmt.executeQuery();
 

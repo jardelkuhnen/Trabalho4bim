@@ -69,7 +69,7 @@ public class ProdutoDao {
 	public void editar(Produto p) {
 		con = Conexao.getConnection();
 
-		String sql = "UPDATE PRODUTO SET ID = ?, codBarras = ?, genero = ?, descricao = ?,quantidade = ? unidade = ?, custo = ?, margemLucro = ? where id = ?;";
+		String sql = "UPDATE PRODUTO SET ID = ?, codBarras = ?, genero = ?, descricao = ?, quantidade = ?, unidade = ?, custo = ?, margemLucro = ? where id = ?;";
 
 		try {
 			PreparedStatement stmt = con.prepareStatement(sql);
@@ -84,8 +84,7 @@ public class ProdutoDao {
 
 			stmt.execute();
 			stmt.close();
-			JOptionPane.showMessageDialog(null,
-					"Produto editado com sucesso !!!");
+			JOptionPane.showMessageDialog(null, "Produto editado com sucesso !!!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao editar produto !!!");
 			e.printStackTrace();
@@ -102,12 +101,10 @@ public class ProdutoDao {
 			PreparedStatement stmt = con.prepareStatement(sql);
 
 			stmt.setInt(1, id);
-			JOptionPane.showMessageDialog(null,
-					"Produto apagado com sucesso!!!");
+			JOptionPane.showMessageDialog(null, "Produto apagado com sucesso!!!");
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,
-					"ERRO: Problemas ao apagar produto!!!");
+			JOptionPane.showMessageDialog(null, "ERRO: Problemas ao apagar produto!!!");
 			e.printStackTrace();
 		}
 
@@ -131,8 +128,7 @@ public class ProdutoDao {
 			}
 			System.out.println(rs.getBigDecimal("CUSTO"));
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,
-					"Erro ao buscar valor do produto!");
+			JOptionPane.showMessageDialog(null, "Erro ao buscar valor do produto!");
 			e.printStackTrace();
 		}
 
@@ -153,8 +149,7 @@ public class ProdutoDao {
 				return rs.getBigDecimal("margemLucro");
 			}
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,
-					"Erro ao buscar margem de lucro!!!");
+			JOptionPane.showMessageDialog(null, "Erro ao buscar margem de lucro!!!");
 			e.printStackTrace();
 		}
 		return BigDecimal.ZERO;
@@ -175,8 +170,7 @@ public class ProdutoDao {
 			}
 
 		} catch (SQLException e) {
-			JOptionPane
-					.showMessageDialog(null, "Erro ao buscar valor produto!");
+			JOptionPane.showMessageDialog(null, "Erro ao buscar valor produto!");
 			e.printStackTrace();
 		}
 
@@ -214,9 +208,9 @@ public class ProdutoDao {
 		try {
 			con = Conexao.getConnection();
 
-			String sql = "SELECT * FROM PRODUTO WHERE DESCRICAO = ?";
+			String sql = "SELECT * FROM PRODUTO WHERE DESCRICAO LIKE ?";
 			PreparedStatement stmt = con.prepareStatement(sql);
-			stmt.setString(1, descricao);
+			stmt.setString(1, "%" + descricao.toUpperCase() + "%");
 
 			ResultSet rs = stmt.executeQuery();
 
@@ -229,7 +223,6 @@ public class ProdutoDao {
 				p.setGenero(rs.getString("genero"));
 				p.setId(rs.getInt("id"));
 				p.setMargemLucro(rs.getBigDecimal("margemLucro"));
-				// p.setUnidade(rs.getString("unidade"));
 
 				lista.add(p);
 			}

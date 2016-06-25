@@ -1,5 +1,6 @@
 package br.univel.dao;
 
+import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ import br.univel.model.Produto;
 
 public class ClienteDao {
 
-	Connection con;
+	static Connection con;
 
 	// insere todos os atributos de cliente na tavela cliente do banco, caso
 	// haja erro é apresentado uma mensagem de erro
@@ -26,27 +27,35 @@ public class ClienteDao {
 
 		con = Conexao.getConnection();
 
-		String sql = "INSERT INTO CLIENTE (ID, NOME, TELEFONE, ENDERECO, CIDADE, ESTADO, GENERO, EMAIL) VALUES (?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO CLIENTE (NOME, TELEFONE, ENDERECO, CIDADE, ESTADO, GENERO, EMAIL) VALUES (?,?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt;
-			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, c.getId());
-			stmt.setString(2, c.getNome().toUpperCase());
-			stmt.setString(3, c.getTelefone());
-			stmt.setString(4, c.getEndereco().toUpperCase());
-			stmt.setString(5, c.getCidade().toUpperCase());
-			stmt.setInt(6, c.getEstado().ordinal());
-			stmt.setString(7, c.getGenero().toString());
-			stmt.setString(8, c.getEmail());
+			stmt = con.prepareStatement(sql,
+					java.sql.Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, c.getNome().toUpperCase());
+			stmt.setString(2, c.getTelefone());
+			stmt.setString(3, c.getEndereco().toUpperCase());
+			stmt.setString(4, c.getCidade().toUpperCase());
+			stmt.setInt(5, c.getEstado().ordinal());
+			stmt.setString(6, c.getGenero().toString());
+			stmt.setString(7, c.getEmail());
 
 			stmt.execute();
+			ResultSet rs = stmt.getGeneratedKeys();
+			int id = 0;
+			if (rs.next()) {
+				id = rs.getInt(1);
+			}
+			c.setId(id);
 			stmt.close();
 
-			JOptionPane.showMessageDialog(null, "Cliente cadastrado com sucesso!!!");
+			JOptionPane.showMessageDialog(null,
+					"Cliente cadastrado com sucesso!!!");
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "ERRO: Problemas ao salvar cliente!!!");
+			JOptionPane.showMessageDialog(null,
+					"ERRO: Problemas ao salvar cliente!!!");
 			e.printStackTrace();
 		}
 
@@ -92,7 +101,8 @@ public class ClienteDao {
 
 			stmt.execute();
 			stmt.close();
-			JOptionPane.showMessageDialog(null, "Cliente editado com sucesso !!!");
+			JOptionPane.showMessageDialog(null,
+					"Cliente editado com sucesso !!!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao editar cliente !!!");
 			e.printStackTrace();
@@ -109,16 +119,19 @@ public class ClienteDao {
 			stmt = con.prepareStatement("DELETE FROM CLIENTE WHERE ID = ?");
 			stmt.setInt(1, id);
 			int rs = stmt.executeUpdate();
-			JOptionPane.showMessageDialog(null, "Cliente apagado com sucesso!!!");
+			JOptionPane.showMessageDialog(null,
+					"Cliente apagado com sucesso!!!");
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "ERRO: Problemas ao apagar cliente!!!");
+			JOptionPane.showMessageDialog(null,
+					"ERRO: Problemas ao apagar cliente!!!");
 			e.printStackTrace();
 		}
 
 		return null;
 
 	}
+
 
 	public List<Cliente> listarCliente(String nome) {
 		con = Conexao.getConnection();

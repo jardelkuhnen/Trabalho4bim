@@ -22,6 +22,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 
 import br.univel.controller.ClienteController;
+import br.univel.dao.ClienteDao;
 import br.univel.enun.GeneroCli;
 import br.univel.enun.Uf;
 import br.univel.model.Cliente;
@@ -92,7 +93,7 @@ public class CadCliente extends JFrame {
 		gbc_lblCadasroDeCliente.gridy = 0;
 		cadCliente.add(lblCadasroDeCliente, gbc_lblCadasroDeCliente);
 
-		JLabel lblId = new JLabel("Id");
+		JLabel lblId = new JLabel("C\u00F3digo");
 		GridBagConstraints gbc_lblId = new GridBagConstraints();
 		gbc_lblId.anchor = GridBagConstraints.EAST;
 		gbc_lblId.insets = new Insets(0, 0, 5, 5);
@@ -101,17 +102,9 @@ public class CadCliente extends JFrame {
 		cadCliente.add(lblId, gbc_lblId);
 
 		txtId = new JTextField();
-		txtId.addKeyListener(new KeyAdapter() {
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_F2) {
-					abriTelaPesquisaCliente();
-				}
-			}
-
-		});
+		txtId.setEditable(false);
 		GridBagConstraints gbc_txtId = new GridBagConstraints();
+		gbc_txtId.gridwidth = 5;
 		gbc_txtId.anchor = GridBagConstraints.NORTH;
 		gbc_txtId.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtId.insets = new Insets(0, 0, 5, 5);
@@ -129,6 +122,18 @@ public class CadCliente extends JFrame {
 		cadCliente.add(lblNewLabel, gbc_lblNewLabel);
 
 		txtNome = new JTextField();
+		txtNome.setFocusable(true);
+		txtNome.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_F2) {
+					abriTelaPesquisaCliente();
+				}
+			}
+
+		});
+
 		txtNome.setColumns(10);
 		GridBagConstraints gbc_txtNome = new GridBagConstraints();
 		gbc_txtNome.anchor = GridBagConstraints.NORTH;
@@ -153,7 +158,7 @@ public class CadCliente extends JFrame {
 		gbc_txtTelefone.anchor = GridBagConstraints.NORTH;
 		gbc_txtTelefone.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtTelefone.insets = new Insets(0, 0, 5, 5);
-		gbc_txtTelefone.gridwidth = 2;
+		gbc_txtTelefone.gridwidth = 5;
 		gbc_txtTelefone.gridx = 1;
 		gbc_txtTelefone.gridy = 4;
 		cadCliente.add(txtTelefone, gbc_txtTelefone);
@@ -191,7 +196,7 @@ public class CadCliente extends JFrame {
 		gbc_txtCidade.anchor = GridBagConstraints.NORTH;
 		gbc_txtCidade.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtCidade.insets = new Insets(0, 0, 5, 5);
-		gbc_txtCidade.gridwidth = 2;
+		gbc_txtCidade.gridwidth = 5;
 		gbc_txtCidade.gridx = 1;
 		gbc_txtCidade.gridy = 6;
 		cadCliente.add(txtCidade, gbc_txtCidade);
@@ -206,7 +211,9 @@ public class CadCliente extends JFrame {
 
 		cbEstado = new JComboBox(Uf.values());
 		GridBagConstraints gbc_cbEstado = new GridBagConstraints();
-		gbc_cbEstado.anchor = GridBagConstraints.NORTHWEST;
+		gbc_cbEstado.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbEstado.gridwidth = 5;
+		gbc_cbEstado.anchor = GridBagConstraints.NORTH;
 		gbc_cbEstado.insets = new Insets(0, 0, 5, 5);
 		gbc_cbEstado.gridx = 1;
 		gbc_cbEstado.gridy = 7;
@@ -225,7 +232,7 @@ public class CadCliente extends JFrame {
 		gbc_cbGenero.anchor = GridBagConstraints.NORTH;
 		gbc_cbGenero.fill = GridBagConstraints.HORIZONTAL;
 		gbc_cbGenero.insets = new Insets(0, 0, 5, 5);
-		gbc_cbGenero.gridwidth = 3;
+		gbc_cbGenero.gridwidth = 5;
 		gbc_cbGenero.gridx = 1;
 		gbc_cbGenero.gridy = 8;
 		cadCliente.add(cbGenero, gbc_cbGenero);
@@ -291,15 +298,15 @@ public class CadCliente extends JFrame {
 					ClienteController cc = new ClienteController();
 
 					Uf estado = (Uf) cbEstado.getSelectedItem();
+
 					GeneroCli genCli = (GeneroCli) cbGenero.getSelectedItem();
-					cc.salvar(Integer.parseInt(txtId.getText().trim()), txtNome
-							.getText().trim(), txtTelefone.getText(),
+
+					cc.salvar(txtNome.getText().trim(), txtTelefone.getText(),
 							txtEndereco.getText().trim(), txtCidade.getText()
 									.trim(), estado, genCli, txtEmail.getText()
 									.trim());
 
 					limparCampos();
-
 				}
 
 			}
@@ -320,9 +327,10 @@ public class CadCliente extends JFrame {
 					Uf estado = (Uf) cbEstado.getSelectedItem();
 					GeneroCli genCli = (GeneroCli) cbGenero.getSelectedItem();
 					cc.editar(Integer.parseInt(txtId.getText().trim()), txtNome
-							.getText().trim(), txtTelefone.getText().trim(), txtEndereco.getText().trim(),
-							txtCidade.getText().trim(), estado, genCli,
-							txtEmail.getText().trim());
+							.getText().trim(), txtTelefone.getText().trim(),
+							txtEndereco.getText().trim(), txtCidade.getText()
+									.trim(), estado, genCli, txtEmail.getText()
+									.trim());
 
 					limparCampos();
 
@@ -381,7 +389,7 @@ public class CadCliente extends JFrame {
 
 	boolean validaCampos() {
 		boolean valida;
-		if (txtId.getText().equals("") || txtNome.getText().equals("")) {
+		if (txtNome.getText().equals("") || txtTelefone.getText().equals("")) {
 			valida = true;
 		} else {
 			valida = false;

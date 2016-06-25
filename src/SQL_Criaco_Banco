@@ -1,6 +1,6 @@
 
 CREATE TABLE Cliente
-(id int not null,
+(id int not null AUTO_INCREMENT,
 nome varchar(100) not null,
 telefone varchar(50),
 endereco varchar(50),
@@ -11,7 +11,7 @@ email varchar(50));
 
 
 CREATE TABLE Produto
-(id int not null,
+(id int not null AUTO_INCREMENT,
 codBarras int not null,
 descricao varchar(50) not null,
 genero varchar(30),

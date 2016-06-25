@@ -44,7 +44,8 @@ public class BuscaProduto extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public BuscaProduto(CadProduto cadProduto) {
+
+	public BuscaProduto() {
 		setTitle("Busca Produto");
 		this.cadProduto = cadProduto;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

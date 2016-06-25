@@ -20,22 +20,27 @@ public class ProdutoDao {
 	public void inserir(Produto produto) {
 
 		con = Conexao.getConnection();
-		String sql = "INSERT INTO PRODUTO (id, codBarras, genero, descricao,"
-				+ "quantidade, unidade, custo, margemLucro) values (?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO PRODUTO (codBarras, genero, descricao,"
+				+ "quantidade, unidade, custo, margemLucro) values (?,?,?,?,?,?,?)";
 
 		try {
 			PreparedStatement stmt;
 			stmt = con.prepareStatement(sql);
-			stmt.setInt(1, produto.getId());
-			stmt.setInt(2, produto.getCodBarras());
-			stmt.setString(3, produto.getGenero().toString());
-			stmt.setString(4, produto.getDescricao().toUpperCase());
-			stmt.setInt(5, produto.getQuantidade());
-			stmt.setString(6, produto.getUnidade().toString().toUpperCase());
-			stmt.setBigDecimal(7, produto.getCusto());
-			stmt.setBigDecimal(8, produto.getMargemLucro());
+			stmt.setInt(1, produto.getCodBarras());
+			stmt.setString(2, produto.getGenero().toString());
+			stmt.setString(3, produto.getDescricao().toUpperCase());
+			stmt.setInt(4, produto.getQuantidade());
+			stmt.setString(5, produto.getUnidade().toString().toUpperCase());
+			stmt.setBigDecimal(6, produto.getCusto());
+			stmt.setBigDecimal(7, produto.getMargemLucro());
 
 			stmt.execute();
+			ResultSet rs = stmt.getGeneratedKeys();
+			int idProd = 0;
+			if (rs.next()) {
+				idProd = rs.getInt(1);
+			}
+			produto.setId(idProd);
 			stmt.close();
 
 			JOptionPane.showMessageDialog(null, "Produto salvo com sucesso!!!");
@@ -84,7 +89,8 @@ public class ProdutoDao {
 
 			stmt.execute();
 			stmt.close();
-			JOptionPane.showMessageDialog(null, "Produto editado com sucesso !!!");
+			JOptionPane.showMessageDialog(null,
+					"Produto editado com sucesso !!!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Erro ao editar produto !!!");
 			e.printStackTrace();
@@ -101,10 +107,12 @@ public class ProdutoDao {
 			PreparedStatement stmt = con.prepareStatement(sql);
 
 			stmt.setInt(1, id);
-			JOptionPane.showMessageDialog(null, "Produto apagado com sucesso!!!");
+			JOptionPane.showMessageDialog(null,
+					"Produto apagado com sucesso!!!");
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "ERRO: Problemas ao apagar produto!!!");
+			JOptionPane.showMessageDialog(null,
+					"ERRO: Problemas ao apagar produto!!!");
 			e.printStackTrace();
 		}
 
@@ -128,7 +136,8 @@ public class ProdutoDao {
 			}
 			System.out.println(rs.getBigDecimal("CUSTO"));
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro ao buscar valor do produto!");
+			JOptionPane.showMessageDialog(null,
+					"Erro ao buscar valor do produto!");
 			e.printStackTrace();
 		}
 
@@ -149,7 +158,8 @@ public class ProdutoDao {
 				return rs.getBigDecimal("margemLucro");
 			}
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro ao buscar margem de lucro!!!");
+			JOptionPane.showMessageDialog(null,
+					"Erro ao buscar margem de lucro!!!");
 			e.printStackTrace();
 		}
 		return BigDecimal.ZERO;
@@ -170,7 +180,8 @@ public class ProdutoDao {
 			}
 
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Erro ao buscar valor produto!");
+			JOptionPane
+					.showMessageDialog(null, "Erro ao buscar valor produto!");
 			e.printStackTrace();
 		}
 

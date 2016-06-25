@@ -9,6 +9,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -58,6 +60,7 @@ public class CadVenda extends JFrame {
 	boolean valido;
 	private JPanel panel;
 	private JTable table;
+	private JTextField txtProduto;
 
 	public CadVenda() {
 		setTitle("Venda");
@@ -79,11 +82,11 @@ public class CadVenda extends JFrame {
 		panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[] { 111, 25, 33, 37, 97, 50, 80, 52,
+		gbl_panel.columnWidths = new int[] { 96, 25, 33, 37, 97, 50, 80, 52,
 				77, 0 };
 		gbl_panel.rowHeights = new int[] { 30, 20, 20, 20, 20, 23, 171, 20, 20,
 				20, 23, 0 };
-		gbl_panel.columnWeights = new double[] { 1.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		gbl_panel.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 1.0, Double.MIN_VALUE };
 		gbl_panel.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
 				0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
@@ -144,15 +147,26 @@ public class CadVenda extends JFrame {
 		gbc_lblNewLabel.gridy = 4;
 		panel.add(lblNewLabel, gbc_lblNewLabel);
 
-		cbProduto = new JComboBox(new Vector<Produto>(listaProd));
-		GridBagConstraints gbc_cbProduto = new GridBagConstraints();
-		gbc_cbProduto.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cbProduto.anchor = GridBagConstraints.NORTH;
-		gbc_cbProduto.insets = new Insets(0, 0, 5, 5);
-		gbc_cbProduto.gridwidth = 7;
-		gbc_cbProduto.gridx = 1;
-		gbc_cbProduto.gridy = 4;
-		panel.add(cbProduto, gbc_cbProduto);
+		txtProduto = new JTextField();
+		txtProduto.addKeyListener(new KeyAdapter() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_F2) {
+					abrirTelaPesquisaProduto();
+				}
+				super.keyPressed(e);
+			}
+
+		});
+		GridBagConstraints gbc_txtProduto = new GridBagConstraints();
+		gbc_txtProduto.gridwidth = 7;
+		gbc_txtProduto.insets = new Insets(0, 0, 5, 5);
+		gbc_txtProduto.fill = GridBagConstraints.HORIZONTAL;
+		gbc_txtProduto.gridx = 1;
+		gbc_txtProduto.gridy = 4;
+		panel.add(txtProduto, gbc_txtProduto);
+		txtProduto.setColumns(10);
 
 		JLabel lblQuantidade = new JLabel("Qtd");
 		GridBagConstraints gbc_lblQuantidade = new GridBagConstraints();
@@ -290,6 +304,13 @@ public class CadVenda extends JFrame {
 
 	}
 
+	protected void abrirTelaPesquisaProduto() {
+
+		BuscaProduto prod = new BuscaProduto();
+		prod.setVisible(true);
+		prod.setLocationRelativeTo(null);
+	}
+
 	protected void removerProduto() {
 
 		Produto p = getProdutoSelecionado();
@@ -312,6 +333,11 @@ public class CadVenda extends JFrame {
 		}
 
 		return p;
+	}
+
+	public void carregaProdutoPesquisadoEmTela(Produto produto) {
+		txtProduto.setText(produto.getDescricao());
+		txtQuantidade.setText(String.valueOf(produto.getQuantidade()));
 	}
 
 	public void adicionarProdutos() {
@@ -376,9 +402,8 @@ public class CadVenda extends JFrame {
 
 		if (vlrFinal.compareTo(vlrFinal) > vlrPagamento.compareTo(vlrPagamento)
 				|| vlrPagamento.equals("")) {
-			JOptionPane
-					.showMessageDialog(null,
-							"Valor de pagamento menor que o valor total da venda!!!");
+			JOptionPane.showMessageDialog(null,
+					"Valor de pagamento menor que o valor total da venda!!!");
 
 		} else {
 

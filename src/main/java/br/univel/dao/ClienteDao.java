@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.apache.lucene.queries.function.valuesource.IfFunction;
 import org.h2.command.ddl.PrepareProcedure;
 
 import br.univel.enun.GeneroCli;
@@ -131,7 +132,6 @@ public class ClienteDao {
 		return null;
 
 	}
-
 
 	public List<Cliente> listarCliente(String nome) {
 		con = Conexao.getConnection();

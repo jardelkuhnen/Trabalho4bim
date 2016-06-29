@@ -9,8 +9,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -147,26 +145,15 @@ public class CadVenda extends JFrame {
 		gbc_lblNewLabel.gridy = 4;
 		panel.add(lblNewLabel, gbc_lblNewLabel);
 
-		txtProduto = new JTextField();
-		txtProduto.addKeyListener(new KeyAdapter() {
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_F2) {
-					abrirTelaPesquisaProduto();
-				}
-				super.keyPressed(e);
-			}
-
-		});
-		GridBagConstraints gbc_txtProduto = new GridBagConstraints();
-		gbc_txtProduto.gridwidth = 7;
-		gbc_txtProduto.insets = new Insets(0, 0, 5, 5);
-		gbc_txtProduto.fill = GridBagConstraints.HORIZONTAL;
-		gbc_txtProduto.gridx = 1;
-		gbc_txtProduto.gridy = 4;
-		panel.add(txtProduto, gbc_txtProduto);
-		txtProduto.setColumns(10);
+		cbProduto = new JComboBox(new Vector<Produto>(listaProd));
+		GridBagConstraints gbc_cbProduto = new GridBagConstraints();
+		gbc_cbProduto.fill = GridBagConstraints.HORIZONTAL;
+		gbc_cbProduto.anchor = GridBagConstraints.NORTH;
+		gbc_cbProduto.insets = new Insets(0, 0, 5, 5);
+		gbc_cbProduto.gridwidth = 7;
+		gbc_cbProduto.gridx = 1;
+		gbc_cbProduto.gridy = 4;
+		panel.add(cbProduto, gbc_cbProduto);
 
 		JLabel lblQuantidade = new JLabel("Qtd");
 		GridBagConstraints gbc_lblQuantidade = new GridBagConstraints();
